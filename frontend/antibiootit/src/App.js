@@ -1,8 +1,12 @@
+import Header from './components/Header';
+import Footer from './components/Footer';
 
-function App() {
+export default function App() {
   return (
-    <h1>Hello antibiotics</h1>
+    <>
+      <Header />
+      <Footer />
+    </>
   );
 }
 
-export default App;
