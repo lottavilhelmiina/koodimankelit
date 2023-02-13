@@ -46,3 +46,30 @@
     padding: 0!important;
     color:white;
   }
+
+  footer {
+    display: flex;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 46px;
+    background-color: #5D769A;
+    color: white;
+    gap: 23px;
+}
+
+.footer--lauseke, .footer--tekijat {
+    font-weight: 500;
+    font-size: 16px;
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    color: white;
+    cursor: pointer;
+
+}
+
+.footer--lauseke {
+    margin-left: 8%;
+}
