@@ -1,13 +1,25 @@
 package fi.tuni.koodimankelit.antibiootit.calculator.data;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Parameters {
+
+
+    @NotBlank(message = "DiagnosisID is mandatory")
     private final String diagnosisID;
-    private final double weight;
-    private final boolean penicillinAllergic;
-    private final boolean ebv;
+
+    @NotNull(message = "Weight is mandatory")
+    private final Double weight;
+
+    @NotNull(message = "PenicillinAllergic is mandatory")
+    private final Boolean penicillinAllergic;
+
+    @NotNull(message = "Ebv is mandatory")
+    private final Boolean ebv;
 
 
-    public Parameters(String diagnosisID, double weight, boolean penicillinAllergic, boolean ebv) {
+    public Parameters(String diagnosisID, Double weight, Boolean penicillinAllergic, Boolean ebv) {
         this.diagnosisID = diagnosisID;
         this.weight = weight;
         this.penicillinAllergic = penicillinAllergic;
