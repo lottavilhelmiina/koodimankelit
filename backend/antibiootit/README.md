@@ -13,6 +13,7 @@
 Palvelin vaatii toimiakseen ympäristömuuttujaksi `apikey` muuttujan. Se voi olla määritettynä joko ympäristömuuttujana tai määritetty tiedostossa `secrets.properties` projektin juurikansiossa.
 Tätä tiedostoa **ei tule** lisätä versionhallintaan.
 Kysy tarvittaessa `apikey` arvoa ylläpitäjältä.
+Jos arvoa ei ole määritetty kummassakaan, sen arvo on tyhjä.
 
 ### Hostauspalvelu
 Hostauspalvelussa `apikey` muuttuja määritetään ympäristömuuttujana.
