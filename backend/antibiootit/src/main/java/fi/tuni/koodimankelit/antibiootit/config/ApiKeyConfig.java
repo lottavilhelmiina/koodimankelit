@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import fi.tuni.koodimankelit.antibiootit.authentication.ApiKeyFilter;
 
 @Configuration
-@PropertySource("file:secrets.properties")
+@PropertySource("classpath:secrets.properties")
 public class ApiKeyConfig {
 
     @Value("${apikey}")
