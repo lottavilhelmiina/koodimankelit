@@ -1,15 +1,15 @@
 package fi.tuni.koodimankelit.antibiootit.calculator.data;
 
-public class AntibioticChoise {
+public class AntibioticTreatment {
     private final String format;
     private final String info;
     private final String antibiotic;
     private final Instructions instructions;
-    private final Formula formula;
-    private final Result result;
+    private final DosageFormula formula;
+    private final DosageResult result;
 
 
-    public AntibioticChoise(String format, String info, String antibiotic, Instructions instructions, Formula formula, Result result) {
+    public AntibioticTreatment(String format, String info, String antibiotic, Instructions instructions, DosageFormula formula, DosageResult result) {
         this.format = format;
         this.info = info;
         this.antibiotic = antibiotic;
@@ -39,12 +39,12 @@ public class AntibioticChoise {
     }
 
 
-    public Formula getFormula() {
+    public DosageFormula getFormula() {
         return this.formula;
     }
 
 
-    public Result getResult() {
+    public DosageResult getResult() {
         return this.result;
     }
 
