@@ -32,7 +32,6 @@ public class ApiKeyFilter implements Filter {
 
         String headerValue = httpRequest.getHeader(HEADER_NAME);
 
-        System.out.println(headerValue);
         if(headerValue == null || !headerValue.equals(apiKeySecret)) {
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
