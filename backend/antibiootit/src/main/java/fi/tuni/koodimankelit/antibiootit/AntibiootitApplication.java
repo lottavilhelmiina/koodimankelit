@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AntibiootitApplication {
 
 	public static void main(String[] args) {
+		System.out.println(System.getenv("apikey"));
 		SpringApplication.run(AntibiootitApplication.class, args);
 	}
 
