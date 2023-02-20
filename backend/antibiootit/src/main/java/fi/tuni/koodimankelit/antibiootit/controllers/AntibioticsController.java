@@ -1,23 +1,24 @@
-package fi.tuni.koodimankelit.antibiootit.calculator;
+package fi.tuni.koodimankelit.antibiootit.controllers;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Treatments;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Parameters;
+import fi.tuni.koodimankelit.antibiootit.models.Parameters;
+import fi.tuni.koodimankelit.antibiootit.models.Treatments;
+import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/antibiotics")
 public class AntibioticsController {
 
-    private final Calculator calculator;
+    private final AntibioticsService calculator;
 
 
     public AntibioticsController() {
-        this.calculator = new Calculator();
+        this.calculator = new AntibioticsService();
     }
 
     

@@ -1,15 +1,15 @@
-package fi.tuni.koodimankelit.antibiootit.calculator;
+package fi.tuni.koodimankelit.antibiootit.services;
 
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Treatments;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Parameters;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.AntibioticTreatment;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.DosageFormula;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Instructions;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Measurement;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.DosageResult;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Treatment;
+import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
+import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
+import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
+import fi.tuni.koodimankelit.antibiootit.models.Instructions;
+import fi.tuni.koodimankelit.antibiootit.models.Measurement;
+import fi.tuni.koodimankelit.antibiootit.models.Parameters;
+import fi.tuni.koodimankelit.antibiootit.models.Treatment;
+import fi.tuni.koodimankelit.antibiootit.models.Treatments;
 
-public class Calculator {
+public class AntibioticsService {
 
     public Treatments calculateTreatments(Parameters parameters) {
         return this.mockCalculator();

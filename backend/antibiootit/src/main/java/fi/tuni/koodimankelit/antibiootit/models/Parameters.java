@@ -1,4 +1,4 @@
-package fi.tuni.koodimankelit.antibiootit.calculator.data;
+package fi.tuni.koodimankelit.antibiootit.models;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
