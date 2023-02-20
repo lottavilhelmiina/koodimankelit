@@ -1,2 +1,2 @@
 .DS_Store
-backend/antibiootit/secrets.properties
+backend/antibiootit/src/main/resources/secrets.properties
