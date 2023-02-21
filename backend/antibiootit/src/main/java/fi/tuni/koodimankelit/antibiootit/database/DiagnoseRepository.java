@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 public interface DiagnoseRepository extends MongoRepository<Diagnose, String> {
 
+    @Query("{}")
     ArrayList<Diagnose> getAll();
 
     @Query("{_id: '?0'}")
