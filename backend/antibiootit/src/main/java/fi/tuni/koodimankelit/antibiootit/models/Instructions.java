@@ -1,4 +1,4 @@
-package fi.tuni.koodimankelit.antibiootit.calculator.data;
+package fi.tuni.koodimankelit.antibiootit.models;
 
 public class Instructions {
     private final int days;

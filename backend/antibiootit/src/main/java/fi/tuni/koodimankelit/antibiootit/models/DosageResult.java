@@ -1,10 +1,10 @@
-package fi.tuni.koodimankelit.antibiootit.calculator.data;
+package fi.tuni.koodimankelit.antibiootit.models;
 
-public class Result {
+public class DosageResult {
     private final Measurement dose;
 
 
-    public Result(Measurement dose) {
+    public DosageResult(Measurement dose) {
         this.dose = dose;
     }
 

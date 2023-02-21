@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-import fi.tuni.koodimankelit.antibiootit.calculator.Calculator;
-import fi.tuni.koodimankelit.antibiootit.calculator.data.Parameters;
+import fi.tuni.koodimankelit.antibiootit.models.Parameters;
+import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
 
-public class CalculatorTests {
+public class AntibioticsServiceTest {
 
-    private static Calculator calculator = new Calculator();
+    private static AntibioticsService calculator = new AntibioticsService();
     
     @Test
     public void testCalculateTreatments() {
