@@ -73,3 +73,65 @@
 .footer--lauseke {
     margin-left: 8%;
 }
+
+main {
+    padding: 100px;
+    display: flex;
+    font-family: Inter, sans-serif;
+}
+
+
+.form--weight {
+    height: 45px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 10px;
+    background-color: #D7E2F2;
+    font-size: 16px;
+}
+
+.form--button {
+    height: 50px;
+    width: 160px;
+    border-radius: 20px;
+    margin: 10px;
+    background-color: #D7E2F2;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.diagnose-form {
+    display: flex;
+}
+
+.diagnose-menu {
+    width: 200px; /* Set a width if you like */
+}
+
+
+.menu--bottom {
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+  
+.diagnose-menu a {
+    background-color: #D7E2F2;
+    color: black; 
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+  }
+  
+.diagnose-menu a:hover {
+    background-color: hsl(216,34,40);
+  }
+  
+.diagnose-menu a:active {
+    background-color: #D7E2F2;
+    color: hsl(216,34,34);
+  }
+
+.menu--top {
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+}
