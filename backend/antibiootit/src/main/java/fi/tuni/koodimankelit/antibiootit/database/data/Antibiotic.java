@@ -3,15 +3,15 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 import java.util.ArrayList;
 
 public class Antibiotic {
-    public String name;
-    public String format;
-    public String info;
-    public String unit;
-    public int dosagePerDay;
-    public int maxDosePerDay;
-    public ArrayList<Strength> strengths = new ArrayList<>();
-    public int days;
-    public int dosesPerDay;
+    private String name;
+    private String format;
+    private String info;
+    private String unit;
+    private int dosagePerDay;
+    private int maxDosePerDay;
+    private ArrayList<Strength> strengths = new ArrayList<>();
+    private int days;
+    private int dosesPerDay;
 
     public Antibiotic() {}
 

@@ -1,8 +1,8 @@
 package fi.tuni.koodimankelit.antibiootit.database.data;
 
 public class Strength {
-    public int value;
-    public int weight;
+    private int value;
+    private int weight;
 
     public Strength() {}
 

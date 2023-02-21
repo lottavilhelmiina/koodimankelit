@@ -3,8 +3,8 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 import java.util.ArrayList;
 
 public class Treatment {
-    public String choice;
-    public ArrayList<Antibiotic> choicesOfAntibiotics = new ArrayList<>();
+    private String choice;
+    private ArrayList<Antibiotic> choicesOfAntibiotics = new ArrayList<>();
 
     public Treatment() {}
 

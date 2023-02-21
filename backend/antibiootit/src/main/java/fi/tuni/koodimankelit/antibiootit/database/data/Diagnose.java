@@ -9,13 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Diagnose {
 
     @Id
-    public String id;
+    private String id;
 
-    public String name;
-    public String etiology;
-    public String infectionType;
+    private String name;
+    private String etiology;
+    private String infectionType;
 
-    public ArrayList<Treatment> choicesOfTreatment = new ArrayList<>();
+    private ArrayList<Treatment> choicesOfTreatment = new ArrayList<>();
 
     public Diagnose() {super();}
 
