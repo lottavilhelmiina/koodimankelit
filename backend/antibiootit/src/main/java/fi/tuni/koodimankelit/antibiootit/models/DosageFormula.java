@@ -1,12 +1,12 @@
-package fi.tuni.koodimankelit.antibiootit.calculator.data;
+package fi.tuni.koodimankelit.antibiootit.models;
 
-public class Formula {
+public class DosageFormula {
 
     private final Measurement strength;
     private final Measurement dosage;
 
 
-    public Formula(Measurement strength, Measurement dosage) {
+    public DosageFormula(Measurement strength, Measurement dosage) {
         this.strength = strength;
         this.dosage = dosage;
     }
