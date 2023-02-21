@@ -1,11 +1,11 @@
 import React from "react";
-import Antibiotics from "./components/Antibiotics";
+import Antibiotics from "./Antibiotics";
 
 export default function Main() {
     return (
-        <>
-        <Antibiotics />
-        <aside></aside>
-        </>
+        <main>
+            <Antibiotics />
+            <aside></aside>
+        </main>
     )
 }
