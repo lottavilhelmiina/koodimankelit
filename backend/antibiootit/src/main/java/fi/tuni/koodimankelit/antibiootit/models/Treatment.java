@@ -1,22 +1,22 @@
-package fi.tuni.koodimankelit.antibiootit.calculator.data;
+package fi.tuni.koodimankelit.antibiootit.models;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Treatment {
-    private final ArrayList<AntibioticChoise> antibioticChoises;
+    private final ArrayList<AntibioticTreatment> antibioticChoises;
 
 
     public Treatment() {
         this.antibioticChoises = new ArrayList<>();
     }
 
-    public void addAntibiotic(AntibioticChoise choise) {
+    public void addAntibiotic(AntibioticTreatment choise) {
         this.antibioticChoises.add(choise);
     }
 
 
-    public List<AntibioticChoise> getAntibioticChoises() {
+    public List<AntibioticTreatment> getAntibioticChoises() {
         return this.antibioticChoises;
     }
 
