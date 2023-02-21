@@ -12,7 +12,7 @@ import fi.tuni.koodimankelit.antibiootit.authentication.ApiKeyFilter;
 @PropertySource(value = "classpath:secrets.properties", ignoreResourceNotFound = true)
 public class ApiKeyConfig {
 
-    @Value("${apikey}")
+    @Value("${apikey:NULL}")
     private String apiKeySecret;
 
     @Bean
