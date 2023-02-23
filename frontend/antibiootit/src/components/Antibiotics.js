@@ -6,8 +6,7 @@ import Recipe from "./Recipe";
 export default function Antibiotics() {
 
     const receiveWeight = (diagnose, weight) => {
-        console.log("Diagnoosi: " + diagnose);
-        console.log("Lapsen paino: " + weight + " kg");
+        console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnose);
     }
 
     return (

@@ -45,9 +45,9 @@
     border: none;
     padding: 0!important;
     color:white;
-  }
+}
 
-  footer {
+footer {
     display: flex;
     position: fixed;
     left: 0;
@@ -80,34 +80,85 @@ main {
     font-family: Inter, sans-serif;
 }
 
-
-.form--weight {
+.form--input {
+    grid-column-start: 4;
     height: 45px;
+    width: 250px;
     border-radius: 20px;
     text-align: center;
     margin: 10px;
     background-color: #D7E2F2;
     font-size: 16px;
+    font-weight: bold;
+    border-style: solid;
+    border-width: 0.5px;
+}
+
+::placeholder {
+    color: black;
+    font-weight: 200;
+}
+
+.form--allergy {
+    vertical-align: bottom;
+    grid-column-start: 1;
+    margin-left: 30px;
+}
+
+.form--allergy input {
+    height: 20px;
+    width: 20px;
 }
 
 .form--button {
+    grid-row-start: 4;
+    grid-column-start: 4;
     height: 50px;
-    width: 160px;
+    width: 250px;
     border-radius: 20px;
     margin: 10px;
     background-color: #D7E2F2;
     font-weight: bold;
     font-size: 16px;
+    border-style: solid;
+    border-width: 0.5px;
 }
 
 .diagnose-form {
-    display: flex;
+    display: grid;
 }
 
 .diagnose-menu {
-    width: 200px; /* Set a width if you like */
+    grid-column-start: 1;
+    width: 250px;
+    padding: 0;
+    padding-top: 15px;
+    margin: 0;
+    text-indent: 25px;
+    border-style: solid;
+    border-width: 0.5px;
 }
 
+.menu--selected {
+    background-color: #D7E2F2;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.menu--items :nth-child(odd) {
+    background-color: #F3F6FA;
+}
+
+.menu--items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    line-height: 40px;;
+}
+
+.menu--items li {
+    height: 40px;
+}
 
 .menu--bottom {
     border-bottom-right-radius: 25px;
@@ -118,7 +169,6 @@ main {
     background-color: #D7E2F2;
     color: black; 
     display: block;
-    padding: 12px;
     text-decoration: none;
   }
   
