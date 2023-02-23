@@ -9,18 +9,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Diagnose {
 
     @Id
-    private String id;
+    private final String id;
 
-    private String name;
-    private String etiology;
-    private String infectionType;
-
-    private ArrayList<Treatment> choicesOfTreatment = new ArrayList<>();
-
-    public Diagnose() {super();}
+    private final String name;
+    private final String etiology;
+    private final String infectionType;
+    private final boolean ebv;
+    private final ArrayList<Treatment> choicesOfTreatment;
 
     public Diagnose(String id, String name, String etiology, 
-        String infectionType, ArrayList<Treatment> treatments) {
+        String infectionType, ArrayList<Treatment> treatments, Boolean ebv) {
 
         super();
         this.id = id;
@@ -28,45 +26,34 @@ public class Diagnose {
         this.etiology = etiology;
         this.infectionType = infectionType;
         this.choicesOfTreatment = treatments;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.ebv = ebv;
     }
 
     public String getId() {
         return this.id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return this.name;
-    }
-
-    public void setEtiology(String etiology) {
-        this.etiology = etiology;
     }
 
     public String getEtiology() {
         return this.etiology;
     }
 
-    public void setInfectionType(String infectionType) {
-        this.infectionType = infectionType;
-    }
-
     public String getInfectionType() {
         return this.infectionType;
     }
 
-    public void setChoicesOfTreatment(ArrayList<Treatment> treatments) {
-        this.choicesOfTreatment = treatments;
+    public ArrayList<Treatment> getChoicesOftreatment() {
+        return this.choicesOfTreatment;
     }
 
-    public ArrayList<Treatment> getChoicesOftreatment() {
+    public boolean getEbv() {
+        return this.ebv;
+    }
+
+    public ArrayList<Treatment> getChoicesOfTreatment() {
         return this.choicesOfTreatment;
     }
 }

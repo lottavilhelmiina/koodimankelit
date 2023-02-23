@@ -6,7 +6,7 @@ import nonapi.io.github.classgraph.json.Id;
 
 @Document(collection = "diagnoses")
 public class DiagnoseInfo {
-    
+
     @Id
     private final String id;
     private final String name;
