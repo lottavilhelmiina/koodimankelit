@@ -14,9 +14,6 @@ import fi.tuni.koodimankelit.antibiootit.models.Treatments;
 
 public class AntibioticsService {
 
-    @Autowired
-    DiagnoseRepository repository;
-
     public Treatments calculateTreatments(Parameters parameters) {
         return this.mockCalculator();
     }
