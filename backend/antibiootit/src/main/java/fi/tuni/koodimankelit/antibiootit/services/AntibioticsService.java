@@ -1,5 +1,8 @@
 package fi.tuni.koodimankelit.antibiootit.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import fi.tuni.koodimankelit.antibiootit.database.DiagnoseRepository;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
