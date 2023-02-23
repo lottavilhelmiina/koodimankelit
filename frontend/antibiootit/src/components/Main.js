@@ -5,7 +5,11 @@ export default function Main() {
     return (
         <main>
             <Antibiotics />
-            <aside></aside>
+            <aside>Aside</aside>
         </main>
     )
 }
+
+/**
+ * <Antibiotics />
+ */
