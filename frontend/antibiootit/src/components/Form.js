@@ -84,7 +84,20 @@ export default function Form({ handleSubmit }) {
                 <input 
                     type="checkbox"
                 /> Penisilliiniallergia
-            
+            </label>}
+
+            {diagnose==="Avohoitopneumonia" &&
+            <label className="form--allergy">
+                <input 
+                    type="checkbox"
+                /> Samanaikainen mykoplasma
+            </label>}
+
+            {diagnose==="Streptokokki-tonsilliitti" &&
+            <label className="form--allergy">
+                <input 
+                    type="checkbox"
+                /> Samanaikainen EBV-infektio
             </label>}
 
         </form>
