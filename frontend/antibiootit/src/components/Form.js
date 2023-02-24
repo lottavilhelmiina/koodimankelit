@@ -24,8 +24,19 @@ export default function Form({ handleSubmit }) {
 
     const handleInput = (e) => {
         e.preventDefault();
-		setWeight(e.target.value);
-	}
+        const input = e.target.value;
+        // Allow empty string, numbers with decimal separator, or numbers without decimal separator
+        if (/^$|^(\d+([,.]\d{0,1})?)$/.test(input)) {
+            // Replace comma with decimal point for consistency
+            const formattedWeight = input.replace(',', '.');
+            // Check that the entered value is within the desired range
+            if (formattedWeight === "" 
+             || formattedWeight >= 0.1 
+             && formattedWeight <= 99.9) {
+            setWeight(input);
+            }
+        }
+      } 
 
     const handleSelection = (e) => {
         e.preventDefault();

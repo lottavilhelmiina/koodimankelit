@@ -9,7 +9,10 @@ export default function Antibiotics() {
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const receiveWeight = (diagnose, weight) => {
-        setFormSubmitted(true);
+        if (diagnose !== "") {
+            setFormSubmitted(true);
+        }
+        
         console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnose);
     }
 
