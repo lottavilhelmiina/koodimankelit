@@ -99,13 +99,13 @@ main {
     font-weight: 200;
 }
 
-.form--allergy {
+.form--checkbox {
     vertical-align: bottom;
     grid-column-start: 1;
     margin-left: 30px;
 }
 
-.form--allergy input {
+.form--checkbox input {
     height: 20px;
     width: 20px;
 }
@@ -184,4 +184,50 @@ main {
 .menu--top {
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
+}
+
+.recipe-container {
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 0.5px;
+    text-indent: 25px;
+}
+
+.recipe-container h3 {
+    margin: 0;
+    font-weight: 1000;
+    font-family: Inter, sans-serif;
+    font-size: 17px;
+}
+
+.recipe-text-container {
+    background-color: #D7E2F2;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 0.5px;
+    padding: 5px;
+    margin: 5px;
+    height: 80px;
+}
+
+.recipe-textfield {
+    background-color: #D7E2F2;
+    border: none;
+    border-radius: 25px;
+    padding: 5px;
+    margin: 5px;
+    width: 90%;
+}
+
+.copy-button {
+    border: none;
+    font-family: Inter, sans-serif;
+    float: right;
+}
+
+.copy-notification {
+    background-color: hsl(105, 91%, 77%);
+    padding: 10px;
+    border-radius: 25px;
 }

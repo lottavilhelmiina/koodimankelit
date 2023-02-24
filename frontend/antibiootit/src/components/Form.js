@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ABCheckbox from "./ABCheckbox";
 
 export default function Form({ handleSubmit }) {
     
@@ -71,7 +72,7 @@ export default function Form({ handleSubmit }) {
                 maxLength="4"
             />
 
-                
+            
             {diagnose && weight && 
             <button 
                 className="form--button" 
@@ -80,21 +81,21 @@ export default function Form({ handleSubmit }) {
             </button>}
 
             {diagnose &&
-            <label className="form--allergy">
+            <label className="form--checkbox">
                 <input 
                     type="checkbox"
                 /> Penisilliiniallergia
             </label>}
 
             {diagnose==="Avohoitopneumonia" &&
-            <label className="form--allergy">
+            <label className="form--checkbox">
                 <input 
                     type="checkbox"
                 /> Samanaikainen mykoplasma
             </label>}
 
             {diagnose==="Streptokokki-tonsilliitti" &&
-            <label className="form--allergy">
+            <label className="form--checkbox">
                 <input 
                     type="checkbox"
                 /> Samanaikainen EBV-infektio
