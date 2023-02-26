@@ -1,6 +1,6 @@
 package fi.tuni.koodimankelit.antibiootit.database.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Antibiotic {
     private final String name;
@@ -9,12 +9,12 @@ public class Antibiotic {
     private final String unit;
     private final int dosagePerDay;
     private final int maxDosePerDay;
-    private final ArrayList<Strength> strengths;
+    private final List<Strength> strengths;
     private final int days;
     private final int dosesPerDay;
 
     public Antibiotic(String name, String format, String info, String unit, int dosagePerDay, 
-        int maxDosePerDay, ArrayList<Strength> strengths, int days, int dosesPerDay) {
+        int maxDosePerDay, List<Strength> strengths, int days, int dosesPerDay) {
             this.name = name;
             this.format = format;
             this.info = info;
@@ -50,7 +50,7 @@ public class Antibiotic {
         return this.maxDosePerDay;
     }
 
-    public ArrayList<Strength> getStrengths() {
+    public List<Strength> getStrengths() {
         return this.strengths;
     }
 

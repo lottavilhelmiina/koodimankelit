@@ -1,6 +1,6 @@
 package fi.tuni.koodimankelit.antibiootit.database.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,19 +14,19 @@ public class Diagnose {
     private final String name;
     private final String etiology;
     private final String infectionType;
-    private final boolean ebv;
-    private final ArrayList<Treatment> choicesOfTreatment;
+    private final List<Treatment> treatments;
+    private final List<CheckBoxInfo> checkBoxes;
 
     public Diagnose(String id, String name, String etiology, 
-        String infectionType, ArrayList<Treatment> treatments, Boolean ebv) {
+        String infectionType, List<Treatment> treatments, List<CheckBoxInfo> checkBoxes) {
 
         super();
         this.id = id;
         this.name = name;
         this.etiology = etiology;
         this.infectionType = infectionType;
-        this.choicesOfTreatment = treatments;
-        this.ebv = ebv;
+        this.treatments = treatments;
+        this.checkBoxes = checkBoxes;
     }
 
     public String getId() {
@@ -45,15 +45,11 @@ public class Diagnose {
         return this.infectionType;
     }
 
-    public ArrayList<Treatment> getChoicesOftreatment() {
-        return this.choicesOfTreatment;
+    public List<Treatment> getTreatments() {
+        return this.treatments;
     }
 
-    public boolean getEbv() {
-        return this.ebv;
-    }
-
-    public ArrayList<Treatment> getChoicesOfTreatment() {
-        return this.choicesOfTreatment;
+    public List<CheckBoxInfo> getCheckBoxes() {
+        return this.checkBoxes;
     }
 }
