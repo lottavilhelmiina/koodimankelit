@@ -30,7 +30,7 @@ public class MongoDBConfig extends AbstractMongoClientConfiguration {
     }
 
     @Bean
-    public MongoTemplate mongoTemplate() {
+    public MongoTemplate mongoOperations() {
         return new MongoTemplate(mongoClient(), getDatabaseName());
     }
 }
