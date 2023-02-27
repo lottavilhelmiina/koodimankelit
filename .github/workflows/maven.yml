@@ -16,7 +16,10 @@ on:
 
 jobs:
   build:
-
+    env:
+        apikey: ${{ secrets.apikey }}
+        MONGO_URL: ${{ secrets.MONGO_URL }}
+        
     runs-on: ubuntu-latest
     
     defaults:
