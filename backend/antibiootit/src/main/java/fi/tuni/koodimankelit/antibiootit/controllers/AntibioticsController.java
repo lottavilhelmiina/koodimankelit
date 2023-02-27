@@ -64,4 +64,5 @@ public class AntibioticsController {
     public List<DiagnoseInfo> getDiagnoseInfos() {
         return dataHandler.getAllDiagnoseInfos();
     }
+    
 }
