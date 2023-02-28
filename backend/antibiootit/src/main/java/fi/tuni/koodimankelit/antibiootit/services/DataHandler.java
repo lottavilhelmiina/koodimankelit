@@ -10,6 +10,7 @@ import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 @Service
 public interface DataHandler {
 
+    // Returns null if diagnose is not found
     public Diagnose getDiagnoseById(String id);
 
     public List<DiagnoseInfo> getAllDiagnoseInfos();

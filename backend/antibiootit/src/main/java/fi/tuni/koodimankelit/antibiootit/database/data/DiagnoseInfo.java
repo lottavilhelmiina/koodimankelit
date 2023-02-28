@@ -1,23 +1,24 @@
 package fi.tuni.koodimankelit.antibiootit.database.data;
 
+import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import nonapi.io.github.classgraph.json.Id;
 
 @Document(collection = "diagnoses")
 public class DiagnoseInfo {
-    
+
     @Id
     private final String id;
     private final String name;
     private final String etiology;
-    private final boolean ebv;
+    private final List<CheckBoxInfo> checkBoxes;
 
-    public DiagnoseInfo(String id, String name, String etiology, boolean ebv) {
+    public DiagnoseInfo(String id, String name, String etiology, List<CheckBoxInfo> checkBoxes) {
+        super();
         this.id = id;
         this.name = name;
         this.etiology = etiology;
-        this.ebv = ebv;
+        this.checkBoxes = checkBoxes;
     }
 
     public String getId() {
@@ -32,8 +33,7 @@ public class DiagnoseInfo {
         return this.etiology;
     }
 
-    public boolean getEbv() {
-        return this.ebv;
+    public List<CheckBoxInfo> getCheckBoxes() {
+        return this.checkBoxes;
     }
-
 }

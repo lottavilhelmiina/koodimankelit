@@ -1,6 +1,6 @@
 package fi.tuni.koodimankelit.antibiootit.database.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,64 +9,47 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Diagnose {
 
     @Id
-    private String id;
+    private final String id;
 
-    private String name;
-    private String etiology;
-    private String infectionType;
-
-    private ArrayList<Treatment> choicesOfTreatment = new ArrayList<>();
-
-    public Diagnose() {super();}
+    private final String name;
+    private final String etiology;
+    private final String infectionType;
+    private final List<Treatment> treatments;
+    private final List<CheckBoxInfo> checkBoxes;
 
     public Diagnose(String id, String name, String etiology, 
-        String infectionType, ArrayList<Treatment> treatments) {
+        String infectionType, List<Treatment> treatments, List<CheckBoxInfo> checkBoxes) {
 
         super();
         this.id = id;
         this.name = name;
         this.etiology = etiology;
         this.infectionType = infectionType;
-        this.choicesOfTreatment = treatments;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.treatments = treatments;
+        this.checkBoxes = checkBoxes;
     }
 
     public String getId() {
         return this.id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return this.name;
-    }
-
-    public void setEtiology(String etiology) {
-        this.etiology = etiology;
     }
 
     public String getEtiology() {
         return this.etiology;
     }
 
-    public void setInfectionType(String infectionType) {
-        this.infectionType = infectionType;
-    }
-
     public String getInfectionType() {
         return this.infectionType;
     }
 
-    public void setChoicesOfTreatment(ArrayList<Treatment> treatments) {
-        this.choicesOfTreatment = treatments;
+    public List<Treatment> getTreatments() {
+        return this.treatments;
     }
 
-    public ArrayList<Treatment> getChoicesOftreatment() {
-        return this.choicesOfTreatment;
+    public List<CheckBoxInfo> getCheckBoxes() {
+        return this.checkBoxes;
     }
 }
