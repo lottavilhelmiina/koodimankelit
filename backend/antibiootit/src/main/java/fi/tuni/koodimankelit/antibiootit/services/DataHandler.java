@@ -14,7 +14,5 @@ public interface DataHandler {
     public Diagnose getDiagnoseById(String id);
 
     public List<DiagnoseInfo> getAllDiagnoseInfos();
-
-    public void addDiagnose(Diagnose diagnose);
     
 }
