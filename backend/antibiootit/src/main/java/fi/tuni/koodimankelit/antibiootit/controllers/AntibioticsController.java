@@ -1,15 +1,11 @@
 package fi.tuni.koodimankelit.antibiootit.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Parameters;
 import fi.tuni.koodimankelit.antibiootit.models.Treatments;
 import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
@@ -38,30 +34,5 @@ public class AntibioticsController {
         // TEST ONLY
         System.out.println(parameters);
         return this.calculator.calculateTreatments(parameters);
-    }
-
-
-    // TEST ONLY
-    @PostMapping("/database-search")
-    public Diagnose getDiagnoseByID() {
-
-        return dataHandler.getDiagnoseById("J21.9");
-    }
-
-    // TEST ONLY
-    @PostMapping("/database-save")
-    public boolean savDiagnose(@RequestBody @Valid Diagnose parameters) {
-        dataHandler.addDiagnose(parameters);
-        boolean toreturn = true;
-        if (dataHandler.getDiagnoseById(parameters.getId()) == null) {
-            toreturn = false;
-        }        
-        return toreturn;
-    }
-
-    // TEST ONLY
-    @PostMapping("/get-diagnoseinfos")
-    public List<DiagnoseInfo> getDiagnoseInfos() {
-        return dataHandler.getAllDiagnoseInfos();
     }
 }
