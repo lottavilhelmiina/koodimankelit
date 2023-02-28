@@ -16,7 +16,7 @@ import com.mongodb.client.MongoClients;
 @PropertySource(value="classpath:secrets.properties", ignoreResourceNotFound = true)
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
-    @Value("${MONGO_URL:NULL}")
+    @Value("${MONGO_URL}")
     private String MONGO_URL;
 
     @Override
