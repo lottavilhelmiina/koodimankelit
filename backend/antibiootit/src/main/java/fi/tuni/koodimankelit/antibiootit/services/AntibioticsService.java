@@ -1,5 +1,10 @@
 package fi.tuni.koodimankelit.antibiootit.services;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
@@ -11,8 +16,19 @@ import fi.tuni.koodimankelit.antibiootit.models.Treatments;
 
 public class AntibioticsService {
 
+    @Autowired
+    private final DataHandler dataHandler;
+
+    public AntibioticsService() {
+        this.dataHandler = new DataHandlerImpl();
+    }
+
     public Treatments calculateTreatments(Parameters parameters) {
         return this.mockCalculator();
+    }
+
+    public List<DiagnoseInfo> getAllDiagnoseInfos() {
+        return this.dataHandler.getAllDiagnoseInfos();
     }
     
     // Mock calculation of treatments. Might be useful for unit testing also
@@ -39,4 +55,5 @@ public class AntibioticsService {
 
         return d;
     }
+
 }
