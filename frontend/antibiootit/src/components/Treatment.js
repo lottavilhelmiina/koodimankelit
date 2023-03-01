@@ -1,5 +1,5 @@
 import React from "react"
-import Instruction from "./Instruction"
+import Choise from "./Choise"
 
 export default function Treatment() {
     /** State muuttuu ku valitaan tauti ja vastaavan taudin tiedot
