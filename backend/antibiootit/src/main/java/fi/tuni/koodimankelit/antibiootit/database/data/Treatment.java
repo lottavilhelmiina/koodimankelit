@@ -1,31 +1,21 @@
 package fi.tuni.koodimankelit.antibiootit.database.data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Treatment {
-    private String choice;
-    private ArrayList<Antibiotic> choicesOfAntibiotics = new ArrayList<>();
+    private final String choice;
+    private final List<Antibiotic> antibiotics;
 
-    public Treatment() {}
-
-    public Treatment(String choice, ArrayList<Antibiotic> antibiotics) {
+    public Treatment(String choice, List<Antibiotic> antibiotics) {
         this.choice = choice;
-        this.choicesOfAntibiotics = antibiotics;
-    }
-
-    public void setChoice(String choice) {
-        this.choice = choice;
+        this.antibiotics = antibiotics;
     }
 
     public String getChoice() {
         return this.choice;
     }
 
-    public void setChoicesOfAntibiotics(ArrayList<Antibiotic> antibiotics) {
-        this.choicesOfAntibiotics = antibiotics;
-    }
-
-    public ArrayList<Antibiotic> getChoicesOfAntibiotics() {
-        return this.choicesOfAntibiotics;
+    public List<Antibiotic> getAntibiotics() {
+        return this.antibiotics;
     }
 }
