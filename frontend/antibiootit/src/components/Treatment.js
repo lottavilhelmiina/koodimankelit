@@ -1,66 +1,89 @@
 import React from "react"
+import Instruction from "./Instruction"
 
 export default function Treatment() {
     /** State muuttuu ku valitaan tauti ja vastaavan taudin tiedot
      * tulee bäkistä? Nyt vaan kovakoodattu. Alle 40kg = mikstuura ja yli tabletti?
      * Bäkistä tulee json/ array mitä tulikaan, niin otetaan indexin mukaan
-     * arvo objectiin onko toissijainen vai ensisijainen? Myös ensisijaiselle
-     * ja toissijaiselle täytyy antaa eri värit taustaksi. Klikkaamalla vaihtaa
-     * aktiivista. State joo, onClick joo, mutta miten alkutilanne määrätään?
+     * arvo objectiin onko toissijainen vai ensisijainen?
+     * {index === 0 ? true : false} esimerkiksi, mutta vaikee tehdä esim vasta
+     * propsina, ksoka aktiivisen vaihdossa käytän sitä tuolta? tota
+     * "firstChoise"a pitää käyttää myös siihen mihin näytetään reseptinä.
+     * Mieti Miian kanssa mikä olisi hyvä.
     */
 
     const [antibiotic, setAntibiotic] = React.useState([
         {
-            format: "tablettina",
+            id: "J03.0",
+            format: "Tabletti",
             name: "Amoksisilliini",
             dosage: "100mg/ml",
             dose: "2ml",
             doseInDay: "4ml",
             instruction: "2 krt/vrk, yht 5rk ajan",
-            choise: "Ensisijainen"
+            firstChoise: true
         },
         {
-            format: "tablettina2",
+            id: "J03.1",
+            format: "Tabletti",
             name: "Amoksisilliini2",
             dosage: "100mg/ml2",
             dose: "2ml2",
             doseInDay: "4ml2",
             instruction: "2 krt/vrk, yht 5rk ajan2",
-            choise: "Toissijainen"
+            firstChoise: false
         }
     ]);
 
-    const AntibioticElements = () => (
-        <>
-            {antibiotic.map((antibiote, index) => (
-                <div key={index}>
-                    <h4>{antibiote.choise} valinta</h4>
-                    <p>Antibiootti: {antibiote.name} {antibiote.dosage}</p>
-                    <p>Kerta-annos: {antibiote.dose}</p>
-                    <p>Vuorokausiannos: {antibiote.doseInDay}</p>
-                    <p>Lääkkeenotto: {antibiote.instruction}</p>
-                </div>
-            ))}
-        </>
-    );
+
+    function toggleChoise(name) {
+        setAntibiotic(prevAntibiotic => {
+            return prevAntibiotic.map((antibiote) => {
+                return antibiote.name === name ? 
+                {...antibiote, firstChoise: true} : {...antibiote, firstChoise: false}
+            })
+        })
+    }
+
+    let AntibioticElements
+
+    if(antibiotic.length > 1) {
+        AntibioticElements = antibiotic.map((antibiote, index) => 
+            <Choise
+                key={antibiote.id}
+                index={index}
+                name={antibiote.name}
+                dosage={antibiote.dosage}
+                dose={antibiote.dose}
+                doseInDay={antibiote.doseInDay}
+                instruction={antibiote.instruction}
+                choise = {antibiote.firstChoise}
+                toggleChoise={toggleChoise}
+            />
+        )
+    } else {
+        AntibioticElements = antibiotic.map((antibiote, index) => 
+            <Choise
+                key={antibiote.id}
+                index={index}
+                name={antibiote.name}
+                dosage={antibiote.dosage}
+                dose={antibiote.dose}
+                doseInDay={antibiote.doseInDay}
+                instruction={antibiote.instruction}
+                choise={antibiote.firstChoise}
+            />
+        )
+    }
 
     return (
-        /**if lause enssijaisesta ja toissijaisesta? Miten?
-         * Ja miten eri väreiksi?
-         */
         <div className="treatment-container">
-            <h2>Hoitosuositus {antibiotic.format}</h2>
-            <div className="choise-container">
-                <AntibioticElements />
+            <h2>{`Hoitosuositus ${antibiotic[0].format.toLowerCase()}na`}</h2>
+            <div>
+                <div className="choise-container">
+                    {AntibioticElements}
+                </div>
             </div>
         </div>
     )
 }
-
-/**
- * <h4>Ensisijainen valinta:</h4>
- * <p>Antibiootti: {antibiotic.name} {antibiotic.dosage}</p>
-    <p>Kerta-annos: {antibiotic.dose}</p>
-    <p>Vuorokausiannos: {antibiotic.doseInDay}</p>
-    <p>Lääkkeenotto: {antibiotic.instruction}</p>
- */
