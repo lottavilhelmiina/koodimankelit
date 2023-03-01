@@ -9,14 +9,18 @@ import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
 
 public class AntibioticsServiceTest {
 
-    private static AntibioticsService calculator = new AntibioticsService();
+    private AntibioticsService antibioticsService;
+
+    public AntibioticsServiceTest(AntibioticsService antibioticsService) {
+        this.antibioticsService = antibioticsService;
+    }
     
     @Test
     public void testCalculateTreatments() {
 
         // Test not implemented, used to verify that GitHub CI/CD pipeline works
         Parameters params = new Parameters("test-id", 20.0, false, false);
-        var result = calculator.calculateTreatments(params);
+        var result = antibioticsService.calculateTreatments(params);
         assertNotNull(result);
     }
 }
