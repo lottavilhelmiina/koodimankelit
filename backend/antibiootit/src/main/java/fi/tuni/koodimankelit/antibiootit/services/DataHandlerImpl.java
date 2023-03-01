@@ -1,6 +1,5 @@
 package fi.tuni.koodimankelit.antibiootit.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +14,13 @@ import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 @Service
 public class DataHandlerImpl implements DataHandler {
     
-    @Autowired
-    private DiagnoseRepository diagnoseRepository;
+    private final DiagnoseRepository diagnoseRepository;
+    private final InfoTextRepository infoTextRepository;
 
-    @Autowired
-    private InfoTextRepository infoTextRepository;
+    public DataHandlerImpl(DiagnoseRepository diagnoseRepository, InfoTextRepository infoTextRepository) {
+        this.diagnoseRepository = diagnoseRepository;
+        this.infoTextRepository = infoTextRepository;
+    }
 
     @Override
     public Diagnose getDiagnoseById(String id) {
