@@ -2,7 +2,7 @@ package fi.tuni.koodimankelit.antibiootit.services;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
@@ -14,13 +14,13 @@ import fi.tuni.koodimankelit.antibiootit.models.Parameters;
 import fi.tuni.koodimankelit.antibiootit.models.Treatment;
 import fi.tuni.koodimankelit.antibiootit.models.Treatments;
 
+@Service
 public class AntibioticsService {
 
-    @Autowired
     private final DataHandler dataHandler;
 
-    public AntibioticsService() {
-        this.dataHandler = new DataHandlerImpl();
+    public AntibioticsService(DataHandler dataHandler) {
+        this.dataHandler = dataHandler;
     }
 
     public Treatments calculateTreatments(Parameters parameters) {
