@@ -30,5 +30,10 @@ public class DataHandlerImpl implements DataHandler {
     public List<DiagnoseInfo> getAllDiagnoseInfos() {
         return repository.getAllDiagnoseInfos();
     }
+
+    @Override
+    public DiagnoseInfo getDiagnosisInfoById(String id) {
+        return repository.getDiagnosisInfoById(id);
+    }
     
 }
