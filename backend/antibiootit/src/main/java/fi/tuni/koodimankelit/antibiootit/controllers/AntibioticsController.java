@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
-
-import fi.tuni.koodimankelit.antibiootit.models.Parameters;
 import fi.tuni.koodimankelit.antibiootit.models.Treatments;
+import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 

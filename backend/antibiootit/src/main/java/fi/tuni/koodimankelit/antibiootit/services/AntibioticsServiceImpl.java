@@ -10,9 +10,9 @@ import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
-import fi.tuni.koodimankelit.antibiootit.models.Parameters;
 import fi.tuni.koodimankelit.antibiootit.models.Treatment;
 import fi.tuni.koodimankelit.antibiootit.models.Treatments;
+import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
 @Service
 public class AntibioticsServiceImpl implements AntibioticsService {
