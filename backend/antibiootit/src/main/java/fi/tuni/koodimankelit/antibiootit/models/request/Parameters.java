@@ -17,7 +17,7 @@ public class Parameters {
     @NotNull(message = "PenicillinAllergic is mandatory")
     private final Boolean penicillinAllergic;
 
-    @NotNull(message = "Ebv is mandatory")
+    @NotNull(message = "CheckBoxes is mandatory")
     private final List<InfectionSelection> checkBoxes;
 
 
