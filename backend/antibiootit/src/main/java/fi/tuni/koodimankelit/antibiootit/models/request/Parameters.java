@@ -1,5 +1,7 @@
 package fi.tuni.koodimankelit.antibiootit.models.request;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,14 +18,14 @@ public class Parameters {
     private final Boolean penicillinAllergic;
 
     @NotNull(message = "Ebv is mandatory")
-    private final Boolean ebv;
+    private final List<InfectionSelection> checkBoxes;
 
 
-    public Parameters(String diagnosisID, Double weight, Boolean penicillinAllergic, Boolean ebv) {
+    public Parameters(String diagnosisID, Double weight, Boolean penicillinAllergic, List<InfectionSelection> checkBoxes) {
         this.diagnosisID = diagnosisID;
         this.weight = weight;
         this.penicillinAllergic = penicillinAllergic;
-        this.ebv = ebv;
+        this.checkBoxes = checkBoxes;
     }
 
 
@@ -40,19 +42,9 @@ public class Parameters {
     public boolean getPenicillinAllergic() {
         return this.penicillinAllergic;
     }
-
-
-    public boolean getEbv() {
-        return this.ebv;
-    }
-
-
-
-    @Override
-    // For testing purposes
-    public String toString() {
-        return String.format("Parameters{%s %.1f PenicillinAllergic: %s Ebv: %s}", diagnosisID, weight, penicillinAllergic, ebv);
-    }
     
-
+    
+    public List<InfectionSelection> getCheckBoxes() {
+        return this.checkBoxes;
+    }
 }
