@@ -15,4 +15,6 @@ public interface DiagnoseRepository extends MongoRepository<Diagnose, String> {
     @Query(value = "{}", fields = "{'_id': 1, 'name': 1, 'etiology': 1, 'checkBoxes': 1}")
     List<DiagnoseInfo> getAllDiagnoseInfos();
 
+    @Query("{_id: '?0'}")
+    DiagnoseInfo getDiagnosisInfoById(String id);
 }

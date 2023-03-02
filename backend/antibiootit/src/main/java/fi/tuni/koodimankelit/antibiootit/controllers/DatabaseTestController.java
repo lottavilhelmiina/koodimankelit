@@ -22,12 +22,18 @@ public class DatabaseTestController {
     // TEST ONLY
     @PostMapping("/database-search")
     public Diagnose getDiagnoseByID() {
-        return dataHandler.getDiagnoseById("J21.9");
+        return dataHandler.getDiagnoseById("J03.0");
     }
     
     // TEST ONLY
     @PostMapping("/get-diagnoseinfos")
         public List<DiagnoseInfo> getDiagnoseInfos() {
         return dataHandler.getAllDiagnoseInfos();
+    }
+
+    // TEST ONLY
+    @PostMapping("/get-diagnoseinfo")
+    public DiagnoseInfo getDiagnosisInfo() {
+        return dataHandler.getDiagnosisInfoById("J03.0");
     }
 }
