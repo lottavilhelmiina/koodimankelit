@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
@@ -11,7 +12,7 @@ import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
 import fi.tuni.koodimankelit.antibiootit.models.Treatment;
-import fi.tuni.koodimankelit.antibiootit.models.Treatments;
+import fi.tuni.koodimankelit.antibiootit.models.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
 @Service
@@ -23,43 +24,25 @@ public class AntibioticsServiceImpl implements AntibioticsService {
         this.dataHandler = dataHandler;
     }
 
-    public Treatments calculateTreatments(Parameters parameters) {
-        return this.mockCalculator();
+    public Diagnosis calculateTreatments(Parameters parameters) {
+        Diagnose diagnose = dataHandler.getDiagnoseById(parameters.getDiagnosisID());
+        Treatment treatment = getTreatment(parameters, diagnose);
+        return null;
+        
     }
 
     public List<DiagnoseInfo> getAllDiagnoseInfos() {
         return this.dataHandler.getAllDiagnoseInfos();
-    }
-    
-    // Mock calculation of treatments. Might be useful for unit testing also
-    private Treatments mockCalculator() {
-
-        Treatments d =  new Treatments("J03.0", "Streptokokki A");
-        Treatment t = new Treatment();
-        d.addTreatment(t);
-
-        t.addAntibiotic(
-            new AntibioticTreatment(
-                "Mikstuura",
-                "infoteksti...",
-                "Amoksisilliini",
-                new Instructions(10, 3),
-                new DosageFormula(
-                    new Measurement("mg/ml", 100),
-                    new Measurement("mg/kg/vrk", 50)),
-                new DosageResult(
-                    new Measurement("ml", 4)
-                )
-            )
-        );
-
-        return d;
     }
 
     @Override
     public DiagnoseInfo getDiagnoseInfoByID(String id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getDiagnoseInfoByID'");
+    }
+
+    private Treatment getTreatment(Parameters parameters, Diagnose diagnose) {
+        return null;
     }
 
 }
