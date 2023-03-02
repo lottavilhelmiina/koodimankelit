@@ -11,8 +11,8 @@ import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
-import fi.tuni.koodimankelit.antibiootit.models.Treatment;
-import fi.tuni.koodimankelit.antibiootit.models.Diagnosis;
+import fi.tuni.koodimankelit.antibiootit.models.TreatmentResponse;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
 @Service
@@ -24,9 +24,9 @@ public class AntibioticsServiceImpl implements AntibioticsService {
         this.dataHandler = dataHandler;
     }
 
-    public Diagnosis calculateTreatments(Parameters parameters) {
+    public DiagnoseResponse calculateTreatments(Parameters parameters) {
         Diagnose diagnose = dataHandler.getDiagnoseById(parameters.getDiagnosisID());
-        Treatment treatment = getTreatment(parameters, diagnose);
+        TreatmentResponse treatment = getTreatment(parameters, diagnose);
         return null;
         
     }
@@ -40,7 +40,7 @@ public class AntibioticsServiceImpl implements AntibioticsService {
         return dataHandler.getDiagnosisInfoById(id);
     }
 
-    private Treatment getTreatment(Parameters parameters, Diagnose diagnose) {
+    private TreatmentResponse getTreatment(Parameters parameters, Diagnose diagnose) {
         return null;
     }
 

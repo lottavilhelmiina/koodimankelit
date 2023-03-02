@@ -5,21 +5,21 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Diagnosis {
+public class DiagnoseResponse {
 
     @JsonProperty("_id")
     private final String id;
     private final String etiology;
-    private final ArrayList<Treatment> treatments;
+    private final ArrayList<TreatmentResponse> treatments;
 
 
-    public Diagnosis(String id, String etiology) {
+    public DiagnoseResponse(String id, String etiology) {
         this.id = id;
         this.etiology = etiology;
         this.treatments = new ArrayList<>();
     }
 
-    public void addTreatment(Treatment treatment) {
+    public void addTreatment(TreatmentResponse treatment) {
         this.treatments.add(treatment);
     }
 
@@ -34,7 +34,7 @@ public class Diagnosis {
     }
 
 
-    public List<Treatment> getTreatments() {
+    public List<TreatmentResponse> getTreatments() {
         return this.treatments;
     }
 

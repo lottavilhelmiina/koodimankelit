@@ -3,11 +3,11 @@ package fi.tuni.koodimankelit.antibiootit.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Treatment {
+public class TreatmentResponse {
     private final ArrayList<AntibioticTreatment> antibiotics;
 
 
-    public Treatment() {
+    public TreatmentResponse() {
         this.antibiotics = new ArrayList<>();
     }
 
