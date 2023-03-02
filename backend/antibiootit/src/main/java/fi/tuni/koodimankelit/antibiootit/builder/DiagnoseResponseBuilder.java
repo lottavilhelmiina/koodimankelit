@@ -9,19 +9,32 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 
+/**
+ * Builder for diagnose response. Includes only suitable treatments 
+ */
 public class DiagnoseResponseBuilder {
     private final Diagnose diagnose;
     private final double weight;
     private final boolean usePenicillinAllergic;
 
 
-
+    /**
+     * Default constructor
+     * @param diagnose Database entity instance
+     * @param weight weight in kilograms
+     * @param usePenicillinAllergic True, if penicillin allergic option should be used
+     */
     public DiagnoseResponseBuilder(Diagnose diagnose, double weight, boolean usePenicillinAllergic) {
         this.diagnose = diagnose;
         this.weight = weight;
         this.usePenicillinAllergic = usePenicillinAllergic;
     }
 
+    
+    /** 
+     * Build diagnose response object
+     * @return DiagnoseResponse generated instance
+     */
     public DiagnoseResponse build() {
 
         DiagnoseResponse diagnoseResponse = new DiagnoseResponse(diagnose.getId(), diagnose.getEtiology());
@@ -40,6 +53,11 @@ public class DiagnoseResponseBuilder {
         
     }
 
+    
+    /** 
+     * Returns all suitable treatments based on penicillin allergy
+     * @return List<Treatment> suitable treatments
+     */
     private List<Treatment> getTreatments() {
 
         List<Treatment> treatments = new ArrayList<>();
@@ -52,6 +70,12 @@ public class DiagnoseResponseBuilder {
         
     }
 
+    
+    /** 
+     * Return True if treatment is suitable based on penicillin allergy
+     * @param treatment specific treatment
+     * @return boolean True, if treatment is suitable
+     */
     private boolean isSuitableTreatment(Treatment treatment) {
         // CHANGE IMPLEMENTATION WHEN DATABASE USES CHOICE AS NUMBER
         if(this.usePenicillinAllergic) {
@@ -60,6 +84,12 @@ public class DiagnoseResponseBuilder {
         return !"penisillinAllergic".equals(treatment.getChoice());
     }
 
+    
+    /** 
+     * Returns suitable antibiotic choise from given treatment based on weight
+     * @param treatment specific treatment
+     * @return Antibiotic preferred antibiotic
+     */
     private Antibiotic getSuitableAntibiotic(Treatment treatment) {
         return null;
         
