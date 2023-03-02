@@ -2,20 +2,20 @@ package fi.tuni.koodimankelit.antibiootit.models;
 
 public class AntibioticTreatment {
     private final String format;
-    private final String info;
+    private final String description;
     private final String antibiotic;
     private final Instructions instructions;
-    private final DosageFormula formula;
-    private final DosageResult result;
+    private final DosageFormula dosageFormula;
+    private final DosageResult dosageResult;
 
 
-    public AntibioticTreatment(String format, String info, String antibiotic, Instructions instructions, DosageFormula formula, DosageResult result) {
+    public AntibioticTreatment(String format, String description, String antibiotic, Instructions instructions, DosageFormula formula, DosageResult result) {
         this.format = format;
-        this.info = info;
+        this.description = description;
         this.antibiotic = antibiotic;
         this.instructions = instructions;
-        this.formula = formula;
-        this.result = result;
+        this.dosageFormula = formula;
+        this.dosageResult = result;
     }
 
 
@@ -24,8 +24,8 @@ public class AntibioticTreatment {
     }
 
 
-    public String getInfo() {
-        return this.info;
+    public String getDescription() {
+        return this.description;
     }
 
 
@@ -39,13 +39,13 @@ public class AntibioticTreatment {
     }
 
 
-    public DosageFormula getFormula() {
-        return this.formula;
+    public DosageFormula getDosageFormula() {
+        return this.dosageFormula;
     }
 
 
-    public DosageResult getResult() {
-        return this.result;
+    public DosageResult getDosageResult() {
+        return this.dosageResult;
     }
 
 

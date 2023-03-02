@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Treatment {
-    private final ArrayList<AntibioticTreatment> antibioticChoises;
+    private final ArrayList<AntibioticTreatment> antibiotics;
 
 
     public Treatment() {
-        this.antibioticChoises = new ArrayList<>();
+        this.antibiotics = new ArrayList<>();
     }
 
     public void addAntibiotic(AntibioticTreatment choise) {
-        this.antibioticChoises.add(choise);
+        this.antibiotics.add(choise);
     }
 
 
-    public List<AntibioticTreatment> getAntibioticChoises() {
-        return this.antibioticChoises;
+    public List<AntibioticTreatment> getAntibiotics() {
+        return this.antibiotics;
     }
 
 

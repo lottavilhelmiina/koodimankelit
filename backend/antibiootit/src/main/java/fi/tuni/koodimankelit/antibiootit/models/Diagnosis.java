@@ -3,20 +3,24 @@ package fi.tuni.koodimankelit.antibiootit.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Treatments {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Diagnosis {
+
+    @JsonProperty("_id")
     private final String id;
     private final String etiology;
-    private final ArrayList<Treatment> choisesOfTreatments;
+    private final ArrayList<Treatment> treatments;
 
 
-    public Treatments(String id, String etiology) {
+    public Diagnosis(String id, String etiology) {
         this.id = id;
         this.etiology = etiology;
-        this.choisesOfTreatments = new ArrayList<>();
+        this.treatments = new ArrayList<>();
     }
 
     public void addTreatment(Treatment treatment) {
-        this.choisesOfTreatments.add(treatment);
+        this.treatments.add(treatment);
     }
 
 
@@ -30,8 +34,8 @@ public class Treatments {
     }
 
 
-    public List<Treatment> getChoisesOfTreatments() {
-        return this.choisesOfTreatments;
+    public List<Treatment> getTreatments() {
+        return this.treatments;
     }
 
 
