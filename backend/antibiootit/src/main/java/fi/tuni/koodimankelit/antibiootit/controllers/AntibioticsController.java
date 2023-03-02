@@ -24,7 +24,9 @@ import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 
-
+/**
+ * REST API controller for antibiotics
+ */
 @RestController
 @RequestMapping("/api/antibiotics")
 public class AntibioticsController {
@@ -35,11 +37,21 @@ public class AntibioticsController {
     private CheckBoxValidator checkBoxValidator;
 
 
+    /**
+     * Default constructor
+     * @param antibioticsService antibiotic treatment related service
+     */
     public AntibioticsController(AntibioticsService antibioticsService) {
         this.antibioticsService = antibioticsService;
     }
 
     
+    
+    /** 
+     * Handle requests for dose calculation
+     * @param parameters Request body
+     * @return DiagnoseResponse Response body
+     */
     @PostMapping("/dose-calculation")
     public DiagnoseResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
@@ -55,11 +67,18 @@ public class AntibioticsController {
         return this.antibioticsService.calculateTreatments(parameters);
     }
 
+    
     @GetMapping("/diagnoses")
     public List<DiagnoseInfo> getDiagnoses() {
         return this.antibioticsService.getAllDiagnoseInfos();
     }
 
+    
+    /** 
+     * Handle InvalidParameterException and return HTTP 400
+     * @param ex InvalidParameterException
+     * @return Map<String, String> Error message and description
+     */
     @ExceptionHandler(InvalidParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleInvalidParameterException(InvalidParameterException ex) {
