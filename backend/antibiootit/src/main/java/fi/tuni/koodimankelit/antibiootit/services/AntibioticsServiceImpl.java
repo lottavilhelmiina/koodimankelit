@@ -56,4 +56,10 @@ public class AntibioticsServiceImpl implements AntibioticsService {
         return d;
     }
 
+    @Override
+    public DiagnoseInfo getDiagnoseInfoByID(String id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getDiagnoseInfoByID'");
+    }
+
 }

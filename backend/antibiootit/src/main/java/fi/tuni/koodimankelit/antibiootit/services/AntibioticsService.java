@@ -13,4 +13,6 @@ public interface AntibioticsService {
     public Treatments calculateTreatments(Parameters parameters);
 
     public List<DiagnoseInfo> getAllDiagnoseInfos();
+
+    public DiagnoseInfo getDiagnoseInfoByID(String id);
 }
