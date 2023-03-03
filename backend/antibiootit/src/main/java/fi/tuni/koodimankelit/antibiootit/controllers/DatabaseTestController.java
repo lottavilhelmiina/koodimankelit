@@ -23,7 +23,7 @@ public class DatabaseTestController {
     // TEST ONLY
     @PostMapping("/database-search")
     public Diagnose getDiagnoseByID() {
-        return dataHandler.getDiagnoseById("J21.9");
+        return dataHandler.getDiagnoseById("J03.0");
     }
     
     // TEST ONLY
@@ -33,6 +33,11 @@ public class DatabaseTestController {
     }
 
     // TEST ONLY
+    @PostMapping("/get-diagnoseinfo")
+    public DiagnoseInfo getDiagnosisInfo() {
+        return dataHandler.getDiagnosisInfoById("J03.0");
+    }
+
     @PostMapping("/get-infoTexts")
     public List<InfoText> getInfoTexts() {
         return dataHandler.getAllInfoTexts();

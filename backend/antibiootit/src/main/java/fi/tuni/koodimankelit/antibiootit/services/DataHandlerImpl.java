@@ -41,5 +41,10 @@ public class DataHandlerImpl implements DataHandler {
     public List<InfoText> getAllInfoTexts() {
         return infoTextRepository.findAll();
     }
+
+    @Override
+    public DiagnoseInfo getDiagnosisInfoById(String id) {
+        return diagnoseRepository.getDiagnosisInfoById(id);
+    }
     
 }

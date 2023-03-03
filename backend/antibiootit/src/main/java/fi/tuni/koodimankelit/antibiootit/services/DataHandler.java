@@ -13,6 +13,8 @@ public interface DataHandler {
 
     public List<DiagnoseInfo> getAllDiagnoseInfos();
 
+    public DiagnoseInfo getDiagnosisInfoById(String id);
+    
     public List<InfoText> getAllInfoTexts();
     
 }
