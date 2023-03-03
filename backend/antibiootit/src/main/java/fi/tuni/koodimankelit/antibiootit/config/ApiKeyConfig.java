@@ -19,7 +19,7 @@ public class ApiKeyConfig {
     public FilterRegistrationBean<ApiKeyFilter> requestFilter() {
         FilterRegistrationBean<ApiKeyFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new ApiKeyFilter(apiKeySecret));
-        registrationBean.addUrlPatterns("/*");
+        registrationBean.addUrlPatterns("/api/antibiotics/*");
         return registrationBean;
     }
 }

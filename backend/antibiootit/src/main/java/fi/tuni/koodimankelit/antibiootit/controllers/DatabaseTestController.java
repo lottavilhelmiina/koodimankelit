@@ -7,6 +7,7 @@ import java.util.List;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 import fi.tuni.koodimankelit.antibiootit.services.DataHandler;
 
 @RestController
@@ -27,7 +28,7 @@ public class DatabaseTestController {
     
     // TEST ONLY
     @PostMapping("/get-diagnoseinfos")
-        public List<DiagnoseInfo> getDiagnoseInfos() {
+    public List<DiagnoseInfo> getDiagnoseInfos() {
         return dataHandler.getAllDiagnoseInfos();
     }
 
@@ -35,5 +36,10 @@ public class DatabaseTestController {
     @PostMapping("/get-diagnoseinfo")
     public DiagnoseInfo getDiagnosisInfo() {
         return dataHandler.getDiagnosisInfoById("J03.0");
+    }
+
+    @PostMapping("/get-infoTexts")
+    public List<InfoText> getInfoTexts() {
+        return dataHandler.getAllInfoTexts();
     }
 }

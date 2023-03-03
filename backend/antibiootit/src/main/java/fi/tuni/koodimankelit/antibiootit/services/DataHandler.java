@@ -2,12 +2,10 @@ package fi.tuni.koodimankelit.antibiootit.services;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 
-@Service
 public interface DataHandler {
 
     // Returns null if diagnose is not found
@@ -16,5 +14,7 @@ public interface DataHandler {
     public List<DiagnoseInfo> getAllDiagnoseInfos();
 
     public DiagnoseInfo getDiagnosisInfoById(String id);
+    
+    public List<InfoText> getAllInfoTexts();
     
 }
