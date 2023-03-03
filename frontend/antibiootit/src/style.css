@@ -147,7 +147,7 @@ aside {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    background-color: #E9E9E9;
+    background-color: #5D769A;
     border-radius: 20px;
     min-height: 180px;
 }
@@ -172,7 +172,7 @@ aside {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background-color: #E9E9E9;
+    background-color: #5D769A;
 }
 
 .choise {
@@ -180,11 +180,48 @@ aside {
     height: 100%;
     border-radius: 20px 20px 20px 20px;
     cursor: pointer;
-    border: 0.5px solid #395174;
+    border: none;
+    padding: 15px;
+}
+
+.choise-header {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 16px;
+    align-items: center;
 }
 
 .choise-inner {
-    padding: 15px;
+    margin-top: 5px;
+}
+
+.treatment-extra {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 40%;
+    width: 100%;
+    background-color: yellow;
+}
+
+.btn-calculate {
+    width: 147px;
+    height: 36px;
+    border: 1.5px solid #F2F5FA;
+    border-radius: 20px;
+    color: #F2F5FA;
+    background-color: #5D769A;
+    font-size: 15px;
+    text-align: center;
+}
+
+.strepto-info {
+    background-color: pink;
+    display: flex;
+    font-weight: 400;
+    font-size: 14px;
+    max-width: 260px;
 }
 
 .form {

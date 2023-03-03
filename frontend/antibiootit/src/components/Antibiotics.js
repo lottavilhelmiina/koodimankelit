@@ -10,6 +10,7 @@ export default function Antibiotics() {
      *  Muuten ekaks on vaihe yks ja sit Vaihe kaks ku on valinnu
      *  sairauden. Eli ternaryllä? Vai conditional?
      */
+    const disease = "Streptokokki-tonsilliitti"
     const [instruction, setInstruction] = React.useState({
         state: "Vaihe 1",
         text: "Valitse ensin potilaan diagnoosi"
@@ -34,7 +35,6 @@ export default function Antibiotics() {
             dose: "2ml",
             doseInDay: "4ml",
             instruction: "2 krt/vrk, yht 5rk ajan",
-            firstChoise: true,
             recipe: "Ensimmäisen vaihtoehdon resepti"
         },
         {
@@ -45,28 +45,12 @@ export default function Antibiotics() {
             dose: "2ml2",
             doseInDay: "4ml2",
             instruction: "2 krt/vrk, yht 5rk ajan2",
-            firstChoise: false,
             recipe: "Toisen vaihtoehdon resepti"
         }
     ]);
 
     const [activeRecipe, setActiveRecipe] = React.useState(antibiotic[0].recipe);
     console.log(activeRecipe); /** Miks tulostaa kaks kertaa :( */
-
-    function toggleChoise(name) {
-        for(let i = 0; i < antibiotic.length; i++) {
-            if(antibiotic[i].name === name) {
-                setActiveRecipe(antibiotic[i].recipe)
-            }
-        }
-
-        setAntibiotic(prevAntibiotic => {
-            return prevAntibiotic.map((antibiote) => {
-                return antibiote.name === name ? 
-                {...antibiote, firstChoise: true} : {...antibiote, firstChoise: false}
-            })
-        })
-    }
 
     
     return (
@@ -79,8 +63,11 @@ export default function Antibiotics() {
             </section>
             <Form />
             <Treatment 
+                disease={disease}
                 antibiotic={antibiotic}
-                toggleChoise={toggleChoise}
+                setAntibiotic={setAntibiotic}
+                activeRecipe={activeRecipe}
+                setActiveRecipe={setActiveRecipe}
             />
             <Recipe />
         </div>

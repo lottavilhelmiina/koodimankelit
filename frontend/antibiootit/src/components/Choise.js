@@ -2,21 +2,30 @@ import React from "react";
 
 export default function Choise(props) {
     const styles = {
-        backgroundColor: props.choise ? "#D7E2F2" : "#FFFFFF",
-        color: props.choise ? "black" : "#8F8F8F",
+        backgroundColor: props.choise ? "#F2F5FA" : "#CBDAEF",
     };
 
-    const choiseNbr = props.index === 0 ? "Ensimmäinen" : "Toinen"
+    const directionUp = "chevron-up-outline";
+    const directionDown = "chevron-down-outline"
+
+    const choiseNbr = props.index === 0 ? "Ensisijainen" : "Toissijainen"
 
     return (
         <div className="choise" style={styles} onClick={() => props.toggleChoise(props.name)}>
-            <div className="choise-inner">
+            <div className="choise-header">
                 <h4>{`${choiseNbr} valinta`}</h4>
+                <ion-icon name={props.choise ? directionUp : directionDown} size="large"></ion-icon>
+            </div>
+            {props.choise && <div className="choise-inner">
                 <p>Antibiootti: {props.name} {props.dosage}</p>
                 <p>Kerta-annos: {props.dose}</p>
                 <p>Vuorokausiannos: {props.doseInDay}</p>
                 <p>Lääkkeenotto: {props.instruction}</p>
-            </div>
+            </div>}
         </div>
     );
 }
+
+/** <ion-icon name="chevron-up-outline"></ion-icon>
+ * <ion-icon name="chevron-down-outline"></ion-icon>
+ */
