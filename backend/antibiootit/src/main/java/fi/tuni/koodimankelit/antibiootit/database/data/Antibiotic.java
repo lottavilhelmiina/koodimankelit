@@ -3,31 +3,38 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 import java.util.List;
 
 public class Antibiotic {
-    private final String name;
+    private final String antibiotic;
     private final String format;
     private final String info;
-    private final String unit;
+    private final String dosagePerDayUnit;
     private final int dosagePerDay;
     private final int maxDosePerDay;
-    private final List<Strength> strengths;
+    private final List<Strength> strength;
+    private final String weightUnit;
+    private final String resultUnit;
     private final int days;
     private final int dosesPerDay;
+    private final int tabletsPerDose;
 
-    public Antibiotic(String name, String format, String info, String unit, int dosagePerDay, 
-        int maxDosePerDay, List<Strength> strengths, int days, int dosesPerDay) {
-            this.name = name;
+    public Antibiotic(String antibiotic, String format, String info, String dosagePerDayUnit, int dosagePerDay, 
+        int maxDosePerDay, List<Strength> strength, String weightUnit, String resultUnit, int days,
+        int dosesPerDay, int tabletsPerDose) {
+            this.antibiotic = antibiotic;
             this.format = format;
             this.info = info;
-            this.unit = unit;
+            this.dosagePerDayUnit = dosagePerDayUnit;
             this.dosagePerDay = dosagePerDay;
             this.maxDosePerDay = maxDosePerDay;
-            this.strengths = strengths;
+            this.strength = strength;
             this.days = days;
             this.dosesPerDay = dosesPerDay;
+            this.weightUnit = weightUnit;
+            this.resultUnit = resultUnit;
+            this.tabletsPerDose = tabletsPerDose;
     }
 
-    public String getName() {
-        return this.name;
+    public String getAntibiotic() {
+        return this.antibiotic;
     }
 
     public String getFormat() {
@@ -38,8 +45,8 @@ public class Antibiotic {
         return this.info;
     }
 
-    public String getUnit() {
-        return this.unit;
+    public String getDosagePerDayUnit() {
+        return this.dosagePerDayUnit;
     }
 
     public int getDosagePerDay() {
@@ -50,8 +57,16 @@ public class Antibiotic {
         return this.maxDosePerDay;
     }
 
-    public List<Strength> getStrengths() {
-        return this.strengths;
+    public List<Strength> getStrength() {
+        return this.strength;
+    }
+
+    public String getWeightUnit() {
+        return this.weightUnit;
+    }
+
+    public String getResultUnit() {
+        return this.resultUnit;
     }
 
     public int getDays() {
@@ -60,5 +75,9 @@ public class Antibiotic {
 
     public int getDosesPerDay() {
         return this.dosesPerDay;
+    }
+
+    public int getTabletsPerDose() {
+        return this.tabletsPerDose;
     }
 }

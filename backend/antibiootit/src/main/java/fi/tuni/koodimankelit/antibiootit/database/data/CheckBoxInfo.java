@@ -1,6 +1,10 @@
 package fi.tuni.koodimankelit.antibiootit.database.data;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public class CheckBoxInfo {
+
+    @Field("id")
     private final String id;
     private final String name;
 
