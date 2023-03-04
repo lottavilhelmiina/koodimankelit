@@ -44,7 +44,11 @@ public class DataHandlerImpl implements DataHandler {
 
     @Override
     public DiagnoseInfo getDiagnosisInfoById(String id) {
-        return diagnoseRepository.getDiagnosisInfoById(id);
+        Optional<DiagnoseInfo> findById = diagnoseRepository.getDiagnosisInfoById(id);
+        if (findById.isPresent()) {
+            DiagnoseInfo diagnoseInfo = findById.get();
+            return diagnoseInfo;
+        }
+        return null;
     }
-    
 }
