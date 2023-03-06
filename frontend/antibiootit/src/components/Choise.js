@@ -25,7 +25,3 @@ export default function Choise(props) {
         </div>
     );
 }
-
-/** <ion-icon name="chevron-up-outline"></ion-icon>
- * <ion-icon name="chevron-down-outline"></ion-icon>
- */

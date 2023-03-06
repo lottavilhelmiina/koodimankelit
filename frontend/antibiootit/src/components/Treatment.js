@@ -45,7 +45,7 @@ export default function Treatment(props) {
                 dose={antibiote.dose}
                 doseInDay={antibiote.doseInDay}
                 instruction={antibiote.instruction}
-                choise={antibiote.firstChoise}
+                choise={antibiote.choise}
             />
         )
     }
@@ -59,7 +59,7 @@ export default function Treatment(props) {
     return (
         <div className="treatment-container">
             <h2>{`Hoitosuositus ${props.antibiotic[0].format.toLowerCase()}na`}</h2>
-            <div>
+            <div className="treatment-choises">
                 <div className="choise-container">
                     {AntibioticElements}
                 </div>
@@ -70,10 +70,12 @@ export default function Treatment(props) {
                     <p><ion-icon name="eye-off-outline"></ion-icon> Piilota kaava</p> :
                     <p><ion-icon name="calculator-outline"></ion-icon> Laskukaava</p>}
                 </button>
-                {props.disease ==="Streptokokki-tonsilliitti" &&
-                <div className="strepto-info">
-                    <p>?</p>
-                    <p>60% streptokokki-tonsilliittitapauksista paranee ilman antibioottia</p>
+                {!openCalculations && <div className="test2-container">
+                    {props.disease==="Streptokokki-tonsilliitti" &&
+                    <div className="strepto-info">
+                        <p><ion-icon name="help-circle-outline"></ion-icon></p>
+                        <p>60% streptokokki-tonsilliittitapauksista paranee ilman antibioottia</p>
+                    </div>}
                 </div>}
             </div>
             {openCalculations && <div className="treatment-calculations">

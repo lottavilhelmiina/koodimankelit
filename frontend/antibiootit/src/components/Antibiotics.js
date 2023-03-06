@@ -10,7 +10,8 @@ export default function Antibiotics() {
      *  Muuten ekaks on vaihe yks ja sit Vaihe kaks ku on valinnu
      *  sairauden. Eli ternaryllä? Vai conditional?
      */
-    const disease = "Streptokokki-tonsilliitti"
+    const disease = "Streptokokki-tonsilliitti" /** käyttäjän valinta oikeestis */
+
     const [instruction, setInstruction] = React.useState({
         state: "Vaihe 1",
         text: "Valitse ensin potilaan diagnoosi"
@@ -34,8 +35,9 @@ export default function Antibiotics() {
             dosage: "100mg/ml",
             dose: "2ml",
             doseInDay: "4ml",
-            instruction: "2 krt/vrk, yht 5rk ajan",
-            recipe: "Ensimmäisen vaihtoehdon resepti"
+            instruction: "2 krt/vrk, yht 5vrk ajan",
+            recipe: "Ensimmäisen vaihtoehdon resepti",
+            choise: true
         },
         {
             id: "J03.1",
@@ -44,8 +46,9 @@ export default function Antibiotics() {
             dosage: "100mg/ml2",
             dose: "2ml2",
             doseInDay: "4ml2",
-            instruction: "2 krt/vrk, yht 5rk ajan2",
-            recipe: "Toisen vaihtoehdon resepti"
+            instruction: "2 krt/vrk, yht 5vrk ajan2",
+            recipe: "Toisen vaihtoehdon resepti",
+            choise: false
         }
     ]);
 
