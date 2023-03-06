@@ -20,13 +20,4 @@ public class AntibioticsServiceTest {
     public AntibioticsServiceTest(AntibioticsService antibioticsService) {
         this.antibioticsService = antibioticsService;
     }
-    
-    @Test
-    public void testCalculateTreatments() {
-
-        // Test not implemented, used to verify that GitHub CI/CD pipeline works
-        Parameters params = new Parameters("test-id", 20.0, false, new ArrayList<>());
-        var result = antibioticsService.calculateTreatments(params);
-        assertNotNull(result);
-    }
 }
