@@ -16,5 +16,4 @@ public interface DataHandler {
     public DiagnoseInfo getDiagnosisInfoById(String id);
     
     public List<InfoText> getAllInfoTexts();
-    
 }

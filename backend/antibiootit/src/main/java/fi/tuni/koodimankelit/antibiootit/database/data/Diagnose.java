@@ -18,7 +18,7 @@ public class Diagnose {
     private final List<CheckBoxInfo> checkBoxes;
 
     public Diagnose(String id, String name, String etiology, 
-        String infectionType, List<Treatment> treatments, List<CheckBoxInfo> checkBoxes) {
+        String infectionType, List<CheckBoxInfo> checkBoxes, List<Treatment> treatments) {
 
         super();
         this.id = id;
