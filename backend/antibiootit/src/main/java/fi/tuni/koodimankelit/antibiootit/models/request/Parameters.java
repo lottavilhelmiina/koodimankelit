@@ -2,6 +2,9 @@ package fi.tuni.koodimankelit.antibiootit.models.request;
 
 import java.util.List;
 
+import javax.persistence.ElementCollection;
+
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,6 +21,8 @@ public class Parameters {
     private final Boolean penicillinAllergic;
 
     @NotNull(message = "CheckBoxes is mandatory")
+    @Valid
+    @ElementCollection
     private final List<InfectionSelection> checkBoxes;
 
 
