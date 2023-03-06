@@ -65,7 +65,7 @@ public class AntibioticTreatmentBuilder {
 
     
     /** 
-     * Return antibiotic's strength. Unit is defined in {@link Strength#getValue()} (Change to getUnit when it exists)
+     * Return antibiotic's strength
      * @param antibiotic Antibiotic instance
      * @param weight weight in kilograms
      * @return Strength antibiotic's strength
