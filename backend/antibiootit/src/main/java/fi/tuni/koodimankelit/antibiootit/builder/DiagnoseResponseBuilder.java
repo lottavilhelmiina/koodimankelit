@@ -20,10 +20,10 @@ public class DiagnoseResponseBuilder {
     private final double weight;
     private final boolean usePenicillinAllergic;
 
-    private static Integer primaryChoice = 1;
-    private static Integer secondaryChoice = 2;
-    private static Integer penicillinAllergyChoice = 3;
-    private static Integer noAntibioticChoice = 0;
+    private static Integer PRIMARY_CHOICE = 1;
+    private static Integer SECONDARY_CHOICE = 2;
+    private static Integer PENICILLIN_ALLERGIC_CHOICE = 3;
+    private static Integer NO_ANTIBIOTIC_CHOICE = 0;
 
 
 
@@ -88,13 +88,13 @@ public class DiagnoseResponseBuilder {
      */
     private boolean isSuitableTreatment(Treatment treatment) {
         if(this.usePenicillinAllergic) {
-            return penicillinAllergyChoice.equals(treatment.getChoice());
+            return PENICILLIN_ALLERGIC_CHOICE.equals(treatment.getChoice());
         }
-        else if (noAntibioticChoice.equals(treatment.getChoice())) {
+        else if (NO_ANTIBIOTIC_CHOICE.equals(treatment.getChoice())) {
             throw new NoAntibioticTreatmentException(this.diagnose);
         }
         else {
-            return primaryChoice.equals(treatment.getChoice()) || secondaryChoice.equals(treatment.getChoice());
+            return PRIMARY_CHOICE.equals(treatment.getChoice()) || SECONDARY_CHOICE.equals(treatment.getChoice());
         }
     }
 
