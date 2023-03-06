@@ -3,9 +3,12 @@ package fi.tuni.koodimankelit.antibiootit.builder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.NotImplementedException;
+
 import fi.tuni.koodimankelit.antibiootit.database.data.Antibiotic;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
+import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 
@@ -16,6 +19,12 @@ public class DiagnoseResponseBuilder {
     private final Diagnose diagnose;
     private final double weight;
     private final boolean usePenicillinAllergic;
+
+    private static Integer primaryChoice = 1;
+    private static Integer secondaryChoice = 2;
+    private static Integer penicillinAllergyChoice = 3;
+    private static Integer noAntibioticChoice = 0;
+
 
 
     /**
@@ -75,13 +84,18 @@ public class DiagnoseResponseBuilder {
      * Return True if treatment is suitable based on penicillin allergy
      * @param treatment specific treatment
      * @return boolean True, if treatment is suitable
+     * @throws NoAntibioticTreatmentException if diagnose has no antibiotic treatment
      */
     private boolean isSuitableTreatment(Treatment treatment) {
-        // CHANGE IMPLEMENTATION WHEN DATABASE USES CHOICE AS NUMBER
         if(this.usePenicillinAllergic) {
-            return "penisillinAllergic".equals(treatment.getChoice());
+            return penicillinAllergyChoice.equals(treatment.getChoice());
         }
-        return !"penisillinAllergic".equals(treatment.getChoice());
+        else if (noAntibioticChoice.equals(treatment.getChoice())) {
+            throw new NoAntibioticTreatmentException(this.diagnose);
+        }
+        else {
+            return primaryChoice.equals(treatment.getChoice()) || secondaryChoice.equals(treatment.getChoice());
+        }
     }
 
     
@@ -91,7 +105,7 @@ public class DiagnoseResponseBuilder {
      * @return Antibiotic preferred antibiotic
      */
     private Antibiotic getSuitableAntibiotic(Treatment treatment) {
-        return null;
+        throw new NotImplementedException("Suitable antibiotic method not implemented");
         
     }
 
