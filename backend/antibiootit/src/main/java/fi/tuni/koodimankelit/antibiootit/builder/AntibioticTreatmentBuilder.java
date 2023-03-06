@@ -15,7 +15,7 @@ public class AntibioticTreatmentBuilder {
 
     private final Antibiotic antibiotic;
     private final double weight;
-    private final Integer strength;
+    private final Strength strength;
 
     /**
      * Default constructor
@@ -45,17 +45,17 @@ public class AntibioticTreatmentBuilder {
 
         Instructions instructions = new Instructions(antibiotic.getDays(), antibiotic.getDosesPerDay());
         DosageFormula dosageFormula = new DosageFormula(
-            new Measurement(antibiotic.getUnit(), this.strength),
-            new Measurement(antibiotic.getUnit(), antibiotic.getDosagePerDay())
+            new Measurement(strength.getUnit(), strength.getValue()),
+            new Measurement(antibiotic.getDosagePerDayUnit(), antibiotic.getDosagePerDay())
         );
         DosageResult dosageResult = new DosageResult(
-            new Measurement("Tähän pitäisi saada yksiköt tietokannasta", calculateDosageResult(antibiotic, weight))
+            new Measurement(antibiotic.getResultUnit(), calculateDosageResult(antibiotic, weight))
         );
 
         return new AntibioticTreatment(
             antibiotic.getFormat(),
             antibiotic.getInfo(),
-            antibiotic.getName(),
+            antibiotic.getAntibiotic(),
             instructions,
             dosageFormula,
             dosageResult
@@ -68,15 +68,15 @@ public class AntibioticTreatmentBuilder {
      * Return antibiotic's strength. Unit is defined in {@link Strength#getValue()} (Change to getUnit when it exists)
      * @param antibiotic Antibiotic instance
      * @param weight weight in kilograms
-     * @return Integer antibiotic's strength
+     * @return Strength antibiotic's strength
      */
-    private static Integer getStrength(Antibiotic antibiotic, double weight) {
+    private static Strength getStrength(Antibiotic antibiotic, double weight) {
 
         // Sort by minimum weight, highest first
-        antibiotic.getStrengths().sort((a, b) -> Integer.valueOf(b.getWeight()).compareTo(Integer.valueOf(a.getWeight())));
-        for(Strength strength : antibiotic.getStrengths()) {
-            if(weight <= strength.getWeight()) {
-                return strength.getValue();
+        antibiotic.getStrength().sort((a, b) -> Integer.valueOf(b.getMinWeight()).compareTo(Integer.valueOf(a.getMinWeight())));
+        for(Strength strength : antibiotic.getStrength()) {
+            if(weight <= strength.getMinWeight()) {
+                return strength;
             }
         }
         return null;
@@ -91,11 +91,11 @@ public class AntibioticTreatmentBuilder {
      */
     private static Double calculateDosageResult(Antibiotic antibiotic, double weight) {
         double dosagePerDay = antibiotic.getDosagePerDay() * weight;
-        Integer strength = getStrength(antibiotic, weight);
+        Strength strength = getStrength(antibiotic, weight);
         if(strength == null) {
             throw new RuntimeException("Can not calculate dosage because strength is null");
         }
-        double totalDosageInDay = dosagePerDay / strength;
+        double totalDosageInDay = dosagePerDay / strength.getValue();
         return totalDosageInDay / antibiotic.getDosesPerDay();
     }
 
