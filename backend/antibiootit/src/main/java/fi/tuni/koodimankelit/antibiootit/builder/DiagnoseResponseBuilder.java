@@ -1,12 +1,12 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Antibiotic;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
+import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
@@ -24,6 +24,38 @@ public class DiagnoseResponseBuilder {
     private static Integer SECONDARY_CHOICE = 2;
     private static Integer PENICILLIN_ALLERGIC_CHOICE = 3;
     private static Integer NO_ANTIBIOTIC_CHOICE = 0;
+
+    private Comparator<Strength> highestStrengthComparator = new Comparator<Strength>() {
+
+        @Override
+        public int compare(Strength o1, Strength o2) {
+            Integer minWeight1 = Integer.valueOf(o1.getMinWeight());
+            Integer minWeight2 = Integer.valueOf(o2.getMinWeight());
+
+            // Higher first
+            return minWeight2.compareTo(minWeight1);
+        }
+    };
+
+    private Comparator<Antibiotic> antibioticComparator = new Comparator<Antibiotic>() {
+
+        @Override
+        public int compare(Antibiotic o1, Antibiotic o2) {
+            List<Strength> strengths1 = o1.getStrength();
+            List<Strength> strengths2 = o2.getStrength();
+
+            strengths1.sort(highestStrengthComparator);
+            strengths2.sort(highestStrengthComparator);
+
+            // Highest minimum weights
+            Integer minWeight1 = strengths1.get(0).getMinWeight();
+            Integer minWeight2 = strengths2.get(0).getMinWeight();
+
+            // Higher minimum weight first
+            return minWeight2.compareTo(minWeight1);
+
+        }
+    };
 
 
 
@@ -75,7 +107,7 @@ public class DiagnoseResponseBuilder {
                 treatments.add(treatment);
             }
         }
-        
+
         // Sort by treatment choice: primary, secondary, penicillinAllergic
         treatments.sort((a, b) -> Integer.valueOf(a.getChoice()).compareTo(Integer.valueOf(b.getChoice())));
         return treatments;
@@ -108,7 +140,21 @@ public class DiagnoseResponseBuilder {
      * @return Antibiotic preferred antibiotic
      */
     private Antibiotic getSuitableAntibiotic(Treatment treatment) {
-        throw new NotImplementedException("Suitable antibiotic method not implemented");
+
+        // Sort all antibiotics, the option with highest strength first
+        List<Antibiotic> antibiotics = treatment.getAntibiotics();
+        antibiotics.sort(antibioticComparator);
+        
+        // Iterate all antibiotics and their strengths
+        // Choose antibiotic based on the minimum weight requirement
+        for(Antibiotic antibiotic : antibiotics) {
+            for(Strength strength : antibiotic.getStrength()) {
+                if(strength.getMinWeight() <= this.weight) {
+                    return antibiotic;
+                }
+            }
+        }
+        return null;
         
     }
 
