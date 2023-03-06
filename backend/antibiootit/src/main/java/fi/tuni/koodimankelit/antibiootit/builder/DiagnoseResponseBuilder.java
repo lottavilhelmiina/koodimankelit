@@ -75,6 +75,9 @@ public class DiagnoseResponseBuilder {
                 treatments.add(treatment);
             }
         }
+        
+        // Sort by treatment choice: primary, secondary, penicillinAllergic
+        treatments.sort((a, b) -> Integer.valueOf(a.getChoice()).compareTo(Integer.valueOf(b.getChoice())));
         return treatments;
         
     }
