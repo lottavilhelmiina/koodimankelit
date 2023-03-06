@@ -40,7 +40,7 @@ public class AntibioticTreatmentBuilder {
 
         // Does not exceed minimum weight on any strength
         if(this.strength == null) {
-            return null;
+            throw new RuntimeException("Selected antibiotic has no suitable strength")
         }
 
         Instructions instructions = new Instructions(antibiotic.getDays(), antibiotic.getDosesPerDay());
@@ -75,7 +75,7 @@ public class AntibioticTreatmentBuilder {
         // Sort by minimum weight, highest first
         antibiotic.getStrength().sort((a, b) -> Integer.valueOf(b.getMinWeight()).compareTo(Integer.valueOf(a.getMinWeight())));
         for(Strength strength : antibiotic.getStrength()) {
-            if(weight <= strength.getMinWeight()) {
+            if(weight >= strength.getMinWeight()) {
                 return strength;
             }
         }
