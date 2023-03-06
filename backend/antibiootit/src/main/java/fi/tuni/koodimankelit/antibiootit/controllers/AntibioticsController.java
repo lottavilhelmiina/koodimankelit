@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
+import fi.tuni.koodimankelit.antibiootit.models.NoAntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
@@ -23,6 +26,7 @@ import fi.tuni.koodimankelit.antibiootit.validator.CheckBoxValidator;
 import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
+import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 
 /**
  * REST API controller for antibiotics
@@ -32,6 +36,7 @@ import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 public class AntibioticsController {
 
     private final AntibioticsService antibioticsService;
+    private final static String NO_ANTIBIOTIC_HEADER = "No-Antibiotic-Treatment";
 
     @Autowired
     private CheckBoxValidator checkBoxValidator;
@@ -85,6 +90,24 @@ public class AntibioticsController {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Error", ex.getMessage());
         return errorMap;
+    }
+
+    /**
+     * Handle NoAntibioticTreatmentException and return HTTP 200
+     * @param ex NoAntibioticTreatmentException
+     * @return NoAntibioticTreatment
+     */
+    @ExceptionHandler(NoAntibioticTreatmentException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<NoAntibioticTreatment> handleNoAntiobiticTreatmentException(NoAntibioticTreatmentException ex) {
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(NO_ANTIBIOTIC_HEADER, "true");
+
+        return ResponseEntity
+            .ok()
+            .headers(headers)
+            .body(new NoAntibioticTreatment(ex.getDiagnose()));
     }
 
 
