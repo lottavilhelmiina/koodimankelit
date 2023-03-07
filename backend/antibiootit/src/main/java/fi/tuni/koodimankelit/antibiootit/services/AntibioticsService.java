@@ -3,14 +3,21 @@ package fi.tuni.koodimankelit.antibiootit.services;
 import java.util.List;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
-import fi.tuni.koodimankelit.antibiootit.models.Treatments;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
-
+/**
+ * Antibiotic related services
+ */
 public interface AntibioticsService {
 
 
-    public Treatments calculateTreatments(Parameters parameters);
+    /**
+     * Calculates and generates treatments for given diagnose
+     * @param parameters Diagnose generation parameters
+     * @return Diagnose with treatments
+     */
+    public DiagnoseResponse calculateTreatments(Parameters parameters);
 
     public List<DiagnoseInfo> getAllDiagnoseInfos();
 

@@ -10,8 +10,17 @@ import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 
+/**
+ * Validator for dose-calculation parameters
+ */
 @Component
 public class CheckBoxValidator {
+
+    /**
+     * Validates that all required checkboxes are included in the request
+     * @param checkBoxInfos Required checkboxes
+     * @param infectionSelections Checkboxes in the request
+     */
     public void validate(List<CheckBoxInfo> checkBoxInfos, List<InfectionSelection> infectionSelections) {
         Set<String> requestIDs = new TreeSet<>();
         Set<String> requiredIDs = new TreeSet<>();
