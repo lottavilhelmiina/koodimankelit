@@ -55,6 +55,10 @@ public class AntibioticsController {
         return this.antibioticsService.calculateTreatments(parameters);
     }
 
+    /** 
+     * Returns all diagnoses and their basic information: id, name, etiology, checkboxes
+     * @return Diagnoses List of diagnose infos
+     */
     @GetMapping("/diagnoses")
     public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnoseInfos();

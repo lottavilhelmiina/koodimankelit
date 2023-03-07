@@ -11,6 +11,10 @@ public interface AntibioticsService {
 
     public Treatments calculateTreatments(Parameters parameters);
 
+    /** 
+     * Returns all diagnoses and their basic information: id, name, etiology, checkboxes
+     * @return Diagnoses List of diagnose infos
+     */
     public Diagnoses getAllDiagnoseInfos();
 
     public DiagnoseInfo getDiagnoseInfoByID(String id);
