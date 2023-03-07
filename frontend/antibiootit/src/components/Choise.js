@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Choise(props) {
     const styles = {
-        backgroundColor: props.choise ? "#F2F5FA" : "#CBDAEF",
+        backgroundColor: props.choise ? "#FFFFFF" : "#D7E2F2"
     };
 
     const directionUp = "chevron-up-outline";
