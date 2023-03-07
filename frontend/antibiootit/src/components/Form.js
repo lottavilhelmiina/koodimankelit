@@ -8,7 +8,7 @@ export default function Form({ handleSubmit }) {
      * All items are shown by default.
      * After clicking an item, only the selected item is visible.
      */
-    const [diagnose, setDiagnose] = useState("");
+    const [diagnosis, setDiagnosis] = useState("");
     const [showAll, setShowAll] = useState(true);
     const diagnosisOptions = ["Streptokokki-tonsilliitti"
                             , "Välikorvatulehdus"
@@ -21,17 +21,19 @@ export default function Form({ handleSubmit }) {
      * The component for diagnose menu.
      * @returns The diagnose menu.
      */
-    const DiagnoseMenu = () => {
+    const DiagnosisMenu = () => {
         return (
             <div 
-                className="diagnose-menu" 
+                className="diagnosis-menu" 
                 onClick={() =>setShowAll(!showAll)}>
                     
-                <span>{diagnose || 'Valitse diagnoosi'}</span>
+                <span>{diagnosis || 'Valitse diagnoosi'}</span>
 
                 {showAll && (
                     <ul className="menu--items">
-                        {diagnosisOptions.map((item) => (
+                        {diagnosisOptions
+                            .filter((item) => item !== diagnosis)
+                            .map((item) => (
                             <li 
                                 key={item} 
                                 onClick={handleSelection}>
@@ -50,7 +52,7 @@ export default function Form({ handleSubmit }) {
      */
     const handleSelection = (e) => {
         e.preventDefault();
-        setDiagnose(e.target.textContent);
+        setDiagnosis(e.target.textContent);
         setShowAll(false);
     }
 
@@ -98,6 +100,7 @@ export default function Form({ handleSubmit }) {
             if (formattedWeight === "" 
              || formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
                 setWeight(input);
+                
             }
         }
       }
@@ -105,19 +108,19 @@ export default function Form({ handleSubmit }) {
     const RelatedCheckboxes = () => {
         return (
             <>
-            {diagnose==="Streptokokki-tonsilliitti" &&
+            {diagnosis==="Streptokokki-tonsilliitti" &&
                 <label className="form--checkbox">
                     <input 
                         type="checkbox"
                     /> Samanaikainen EBV-infektio
                 </label>}
-            {diagnose==="Avohoitopneumonia" &&
+            {diagnosis==="Avohoitopneumonia" &&
                 <label className="form--checkbox">
                     <input 
                         type="checkbox"
                     /> Samanaikainen mykoplasma
                 </label>}
-            {diagnose &&
+            {diagnosis &&
                 <label className="form--checkbox">
                     <input 
                         type="checkbox"
@@ -142,46 +145,46 @@ export default function Form({ handleSubmit }) {
     }
 
     /**
-     * Handle form submission and send diagnose and weight as parameters.
+     * Handle form submission and send diagnosis and weight as parameters.
      * @param {*} e 
      */
     const handleClick = (e) => {
         e.preventDefault();
-        handleSubmit(diagnose, weight);
+        handleSubmit(diagnosis, weight);
     }
 
     return (
-        <form className="diagnose-form" onSubmit={handleClick}>
-            <DiagnoseMenu />
+        <form className="diagnosis-form" onSubmit={handleClick}>
+            <DiagnosisMenu />
             <input
                 id="weight-input"
                 className="form--input"
-                placeholder="Syötä paino"
+                placeholder="Syötä paino (kg)"
                 name="weight"
                 value={weight}
                 onChange={handleInput}
                 type="text"
                 required={true}
             />    
-            {diagnose==="Streptokokki-tonsilliitti" &&
+            {diagnosis==="Streptokokki-tonsilliitti" &&
                 <label className="form--checkbox">
                     <input 
                         type="checkbox"
                     /> Samanaikainen EBV-infektio
                 </label>}
-            {diagnose==="Avohoitopneumonia" &&
+            {diagnosis==="Avohoitopneumonia" &&
                 <label className="form--checkbox">
                     <input 
                         type="checkbox"
                     /> Samanaikainen mykoplasma
                 </label>}
-            {diagnose &&
+            {diagnosis &&
                 <label className="form--checkbox">
                     <input 
                         type="checkbox"
                     /> Penisilliiniallergia
                 </label>}    
-            {diagnose && weight && <SubmitButton />}
+            {diagnosis && weight && <SubmitButton />}
         </form>
     );
 }

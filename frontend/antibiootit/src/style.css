@@ -127,11 +127,11 @@ main {
     border-width: 0.5px;
 }
 
-.diagnose-form {
+.diagnosis-form {
     display: grid;
 }
 
-.diagnose-menu {
+.diagnosis-menu {
     grid-column-start: 1;
     width: 250px;
     padding: 0;
@@ -143,6 +143,7 @@ main {
     border-radius: 20px;
     background-color: #D7E2F2;
 }
+
 
 .menu--items :nth-child(odd) {
     background-color: #F3F6FA;
