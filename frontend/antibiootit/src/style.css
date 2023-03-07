@@ -76,7 +76,7 @@ footer {
 
 main {
     padding: 100px;
-    display: flex;
+    display: grid;
     font-family: Inter, sans-serif;
 }
 
@@ -189,7 +189,7 @@ main {
 .recipe-container {
     background-color: #E9E9E9;
     border-radius: 20px;
-    border-style: solid;
+    border-style: none;
     border-width: 0.5px;
     text-indent: 25px;
 }
@@ -198,36 +198,49 @@ main {
     margin: 0;
     font-weight: 1000;
     font-family: Inter, sans-serif;
-    font-size: 17px;
+    font-size: 14px;
+    padding: 10px 10px 5px 10px;
+}
+
+.recipe-container h4 {
+    margin: 0;
+    font-weight: 1000;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    padding-left: 10px;
 }
 
 .recipe-text-container {
-    background-color: #D7E2F2;
+    background-color: white;
     border-radius: 20px;
     border-style: solid;
     border-width: 0.5px;
-    padding: 5px;
-    margin: 5px;
+    padding: 0px;
+    margin: 5px 10px 0px 10px;
     height: 80px;
 }
 
 .recipe-textfield {
-    background-color: #D7E2F2;
     border: none;
     border-radius: 25px;
+    font-family: Inter, sans-serif;
     padding: 5px;
-    margin: 5px;
-    width: 90%;
+    margin: 0px;
+    width: 70%;
 }
 
 .copy-button {
-    border: none;
+    border: solid;
+    border-width: 0.5px;
+    border-radius: 25px;
     font-family: Inter, sans-serif;
+    font-size: 12px;
     float: right;
 }
 
 .copy-notification {
-    background-color: hsl(105, 91%, 77%);
-    padding: 10px;
+    background-color: #D7E2F2;
+    padding: 5px;
     border-radius: 25px;
+    float: right;
 }

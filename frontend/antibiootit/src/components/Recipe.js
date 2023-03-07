@@ -16,7 +16,6 @@ export default function Recipe() {
         };
     }, [showNotification])
 
-
     const copy = async () => {
         await navigator.clipboard.writeText(textForRecipe);
         setShowNotification(true);
@@ -33,26 +32,27 @@ export default function Recipe() {
                 className="recipe-textfield"
                 rows={4}
                 value={textForRecipe}
-                onChange={handleInputChange}
+                onInput={handleInputChange}
+                
                 />
         )
     }
 
     return (
         <div className="recipe-container">
-            <h3>Vapaa tekstikenttä reseptin kirjoittamiseen</h3>
+            <h3>Reseptin kirjoittaminen:</h3>
+            <h4>Kefaleksiini jauhe 100 mg/ml</h4>
             <div className="recipe-text-container">
                 <EditableRecipeText />
+                <p className="notification-container">
+                    {showNotification && <CopyNotification />}
+                </p>
                 <button
                     className="copy-button"
                     onClick={copy} 
                     disabled={!textForRecipe}>
-                     Copy To Clipboard
+                    Kopioi teksti
                 </button>
-                <p className="notification-container">
-                    {showNotification && <CopyNotification />}
-                </p>
-                
             </div>
         </div>
     );
