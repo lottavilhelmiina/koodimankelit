@@ -20,6 +20,10 @@ import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
 import fi.tuni.koodimankelit.antibiootit.validator.CheckBoxValidator;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
@@ -27,6 +31,7 @@ import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 
 @RestController
 @RequestMapping("/api/antibiotics")
+@Tag(name = "Antibiotics API", description = "description")
 public class AntibioticsController {
 
     private final AntibioticsService antibioticsService;
@@ -60,6 +65,12 @@ public class AntibioticsController {
      * @return Diagnoses List of diagnose infos
      */
     @GetMapping("/diagnoses")
+    @Operation(summary = "Get all diagnoses", 
+    description = "Returns a list of all diagnoses and their basic information")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful operation"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnoseInfos();
     }
