@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
-
+import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 import fi.tuni.koodimankelit.antibiootit.models.Treatments;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
@@ -56,7 +56,7 @@ public class AntibioticsController {
     }
 
     @GetMapping("/diagnoses")
-    public List<DiagnoseInfo> getDiagnoses() {
+    public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnoseInfos();
     }
 
