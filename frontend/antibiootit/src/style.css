@@ -78,6 +78,7 @@ main {
     padding: 100px;
     display: grid;
     font-family: Inter, sans-serif;
+    width: 800px;
 }
 
 .form--input {
@@ -92,6 +93,7 @@ main {
     font-weight: bold;
     border-style: solid;
     border-width: 0.5px;
+    border-color: black;
 }
 
 ::placeholder {
@@ -117,10 +119,11 @@ main {
     width: 250px;
     border-radius: 20px;
     margin: 10px;
-    background-color: #D7E2F2;
+    background-color: #CBDAEF;
     font-weight: bold;
     font-size: 16px;
     border-style: solid;
+    border-color: black;
     border-width: 0.5px;
 }
 
@@ -133,16 +136,12 @@ main {
     width: 250px;
     padding: 0;
     padding-top: 15px;
-    margin: 0;
+    margin: 10px;
     text-indent: 25px;
     border-style: solid;
     border-width: 0.5px;
-}
-
-.menu--selected {
-    background-color: #D7E2F2;
-    margin: 10px;
     border-radius: 20px;
+    background-color: #D7E2F2;
 }
 
 .menu--items :nth-child(odd) {
@@ -152,38 +151,16 @@ main {
 .menu--items {
     list-style-type: none;
     padding: 0;
-    margin: 0;
-    line-height: 40px;;
+    margin-top: 10px;
+    line-height: 40px;
+}
+
+.menu--items :first-child {
+    border-top: 0.5px solid;
 }
 
 .menu--items li {
     height: 40px;
-}
-
-.menu--bottom {
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-}
-  
-.diagnose-menu a {
-    background-color: #D7E2F2;
-    color: black; 
-    display: block;
-    text-decoration: none;
-  }
-  
-.diagnose-menu a:hover {
-    background-color: hsl(216,34,40);
-  }
-  
-.diagnose-menu a:active {
-    background-color: #D7E2F2;
-    color: hsl(216,34,34);
-  }
-
-.menu--top {
-    border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
 }
 
 .recipe-container {
@@ -196,7 +173,7 @@ main {
 
 .recipe-container h3 {
     margin: 0;
-    font-weight: 1000;
+    font-weight: medium;
     font-family: Inter, sans-serif;
     font-size: 14px;
     padding: 10px 10px 5px 10px;
@@ -204,7 +181,7 @@ main {
 
 .recipe-container h4 {
     margin: 0;
-    font-weight: 1000;
+    font-weight: medium;
     font-family: Inter, sans-serif;
     font-size: 12px;
     padding-left: 10px;
@@ -217,7 +194,7 @@ main {
     border-width: 0.5px;
     padding: 0px;
     margin: 5px 10px 0px 10px;
-    height: 80px;
+    height: 120px;
 }
 
 .recipe-textfield {
@@ -226,21 +203,45 @@ main {
     font-family: Inter, sans-serif;
     padding: 5px;
     margin: 0px;
-    width: 70%;
+    width: 90%;
+    resize: none;
+}
+
+.recipe-container-bottom {
+    background-color: white;
+}
+
+.recipe-container-bottom p {
+    padding: 5px;
 }
 
 .copy-button {
+    background-color: white;
     border: solid;
     border-width: 0.5px;
     border-radius: 25px;
     font-family: Inter, sans-serif;
     font-size: 12px;
+    margin-right: 10px;
+    padding: 5px;
     float: right;
+}
+
+.copy-button:hover {
+    background-color: #E9E9E9;
+}
+
+.notification-container {
+    background-color: lavender;
+    display:flex;
 }
 
 .copy-notification {
     background-color: #D7E2F2;
     padding: 5px;
-    border-radius: 25px;
-    float: right;
+    border-radius: 25px;    
+}
+
+.bold {
+    font-weight: bold;
 }

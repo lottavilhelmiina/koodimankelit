@@ -3,37 +3,58 @@ import CopyNotification from "./CopyNotification";
 
 export default function Recipe() {
 
-    const [textForRecipe, setTextForRecipe] = useState("2,5 ml noin 12 tunnin välein 10 vrk:n ajan. Streptokokkinielutulehduksen hoitoon.");
+    const TIMEOUT_DURATION = 1200;
+
+    const [antibiotic, setAntibiotic] = useState("Kefaleksiini jauhe 100 mg/ml")
+    const [dosageInstructions, setDosageInstructions] = useState("2,5 ml noin 12 tunnin välein 10 vrk:n ajan. Streptokokkinielutulehduksen hoitoon.");
+    const [diagnosisCode, setDiagnosisCode] = useState("J03.0")
 
     const [showNotification, setShowNotification] = useState(false);
 
+    /**
+     * Sets a timeout for notification when user copies the dosage instructions.
+     */
     useEffect(() => {
         const timeout = setTimeout(() => {
             setShowNotification(false);
-        }, 1000);
+        }, TIMEOUT_DURATION);
         return () => {
             clearTimeout(timeout);
         };
     }, [showNotification])
 
+    /**
+     * Copies the dosage instructions to clipboard when user clicks the copy button.
+     * Activates notification.
+     */
     const copy = async () => {
-        await navigator.clipboard.writeText(textForRecipe);
+        await navigator.clipboard.writeText(dosageInstructions);
         setShowNotification(true);
     }
 
+    /**
+     * Handles input change if user changes the dosage instructions.
+     * 
+     * NB! Function malfunction.
+     * 
+     * @param {*} e 
+     */
     const handleInputChange = (e) => {
-        e.preventDefault();
-        setTextForRecipe(e.target.value);
+        const newValue = e.target.value;
+        setDosageInstructions(newValue);
       };
 
-    const EditableRecipeText = () => {
+    /**
+     * An editable text area with dosage instructions from the backend as default.
+     * @returns A text area with dosage instructions.
+     */
+    const EditableDosageInstructions = () => {
         return (
-            <textarea 
+            <textarea
                 className="recipe-textfield"
-                rows={4}
-                value={textForRecipe}
-                onInput={handleInputChange}
-                
+                rows={2}
+                value={dosageInstructions}
+                onChange={handleInputChange}
                 />
         )
     }
@@ -41,18 +62,21 @@ export default function Recipe() {
     return (
         <div className="recipe-container">
             <h3>Reseptin kirjoittaminen:</h3>
-            <h4>Kefaleksiini jauhe 100 mg/ml</h4>
+            <h4>{antibiotic}</h4>
             <div className="recipe-text-container">
-                <EditableRecipeText />
-                <p className="notification-container">
+                <EditableDosageInstructions />
+                <div className="recipe-container-bottom">
+                    <span>ICD-10 koodi: <span className="bold">{diagnosisCode}</span></span>
+                    <span className="notification-container">
                     {showNotification && <CopyNotification />}
-                </p>
-                <button
-                    className="copy-button"
-                    onClick={copy} 
-                    disabled={!textForRecipe}>
-                    Kopioi teksti
-                </button>
+                    </span>
+                    <button
+                        className="copy-button"
+                        onClick={copy} 
+                        disabled={dosageInstructions === ""}>
+                        Kopioi resepti
+                    </button>
+                </div>
             </div>
         </div>
     );
