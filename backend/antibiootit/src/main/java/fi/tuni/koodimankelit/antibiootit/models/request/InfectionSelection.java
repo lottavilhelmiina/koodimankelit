@@ -5,14 +5,14 @@ import jakarta.validation.constraints.NotNull;
 
 public class InfectionSelection {
 
-    @NotBlank(message = "Infection ID is mandatory")
+    @NotBlank(message = "id is mandatory")
     private final String id;
 
-    @NotNull(message = "Selection is mandatory")
-    private final boolean value;
+    @NotNull(message = "value is mandatory")
+    private final Boolean value;
 
 
-    public InfectionSelection(String id, boolean value) {
+    public InfectionSelection(String id, Boolean value) {
         this.id = id;
         this.value = value;
     }
@@ -23,7 +23,7 @@ public class InfectionSelection {
     }
 
 
-    public boolean getValue() {
+    public Boolean getValue() {
         return this.value;
     }
 

@@ -2,14 +2,21 @@ package fi.tuni.koodimankelit.antibiootit.services;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
-import fi.tuni.koodimankelit.antibiootit.models.Treatments;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
-
+/**
+ * Antibiotic related services
+ */
 public interface AntibioticsService {
 
 
-    public Treatments calculateTreatments(Parameters parameters);
+    /**
+     * Calculates and generates treatments for given diagnose
+     * @param parameters Diagnose generation parameters
+     * @return Diagnose with treatments
+     */
+    public DiagnoseResponse calculateTreatments(Parameters parameters);
 
     /** 
      * Returns all diagnoses and their basic information: id, name, etiology, checkboxes
