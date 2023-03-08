@@ -54,6 +54,16 @@ export default function Antibiotics() {
 
     const [activeRecipe, setActiveRecipe] = React.useState(antibiotic[0].recipe);
 
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
+    const receiveWeight = (diagnose, weight) => {
+        if (diagnose !== "") {
+            setFormSubmitted(true);
+        }
+        
+        console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnose);
+    }
+
     
     return (
         <div className="antibiotics">
@@ -63,15 +73,14 @@ export default function Antibiotics() {
                 <hr className="line"></hr>
                 <p>{instruction.text}</p>
             </section>
-            <Form />
-            <Treatment 
+            <Form handleSubmit={receiveWeight} />
+            {formSubmitted && <Treatment 
                 disease={disease}
                 antibiotic={antibiotic}
                 setAntibiotic={setAntibiotic}
                 activeRecipe={activeRecipe}
                 setActiveRecipe={setActiveRecipe}
-            />
-            <Recipe />
-        </div>
+            />}
+            {formSubmitted && <Recipe />}
     );
 }
