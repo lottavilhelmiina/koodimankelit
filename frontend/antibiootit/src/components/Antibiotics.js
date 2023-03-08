@@ -53,7 +53,6 @@ export default function Antibiotics() {
     ]);
 
     const [activeRecipe, setActiveRecipe] = React.useState(antibiotic[0].recipe);
-    console.log(activeRecipe); /** Miks tulostaa kaks kertaa :( */
 
     
     return (

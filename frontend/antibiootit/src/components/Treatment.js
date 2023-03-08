@@ -45,6 +45,7 @@ export default function Treatment(props) {
                 dose={antibiote.dose}
                 doseInDay={antibiote.doseInDay}
                 instruction={antibiote.instruction}
+                toggleChoise={toggleChoise}
                 choise={antibiote.choise}
             />
         )
