@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ABCheckbox from "./ABCheckbox";
 
 export default function Form({ handleSubmit }) {
     
@@ -76,25 +75,6 @@ export default function Form({ handleSubmit }) {
     const MAX_WEIGHT = 120;
 
     /**
-     * The component for weight input.
-     * @returns The input field for weight.
-     */
-    const WeightInput = () => {
-        return (
-            <input
-                id="weight-input"
-                className="form--input"
-                placeholder="Syötä paino"
-                name="weight"
-                value={weight}
-                onChange={handleInput}
-                type="text"
-                required={true}
-            />
-        )
-    }
-
-    /**
      * Handle and validate weight input.
      * @param {*} e 
      */
@@ -105,38 +85,13 @@ export default function Form({ handleSubmit }) {
             // Replace comma with decimal point for consistency
             const formattedWeight = input.replace(',', '.');
             // Check that the entered value is within the desired range
-            if (formattedWeight === "" 
-             || formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
+            if ((formattedWeight === "")
+             || (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT)) {
                 setWeight(input);
                 
             }
         }
       }
-
-    const RelatedCheckboxes = () => {
-        return (
-            <>
-            {diagnosis==="Streptokokki-tonsilliitti" &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Samanaikainen EBV-infektio
-                </label>}
-            {diagnosis==="Avohoitopneumonia" &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Samanaikainen mykoplasma
-                </label>}
-            {diagnosis &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Penisilliiniallergia
-                </label>}
-            </>
-        )
-    }
 
     /**
      * The component for the form submit button.
