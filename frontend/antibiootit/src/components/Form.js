@@ -17,6 +17,13 @@ export default function Form({ handleSubmit }) {
                             , "Avohoitopneumonia"];
     const [isBronchitis, setIsBronchitis] = useState(false);
     
+    const Choose = () => {
+        return (
+            <><img className="choose" src="./heart.png" />
+            <span className="bold">Valitse diagnoosi</span>
+            </>
+        )
+    }
 
     /**
      * The component for diagnose menu.
@@ -28,7 +35,7 @@ export default function Form({ handleSubmit }) {
                 className="diagnosis-menu" 
                 onClick={() =>setShowAll(!showAll)}>
                     
-                <span>{diagnosis || 'Valitse diagnoosi'}</span>
+                <span>{diagnosis || <Choose />}</span>
 
                 {showAll && (
                     <ul className="menu--items">
@@ -56,6 +63,7 @@ export default function Form({ handleSubmit }) {
         setDiagnosis(e.target.textContent);
         if (e.target.textContent === "Bronkiitti") {
             setIsBronchitis(true);
+            handleSubmit(diagnosis, null);
         }
         else {
             setIsBronchitis(false);
@@ -116,38 +124,47 @@ export default function Form({ handleSubmit }) {
         handleSubmit(diagnosis, weight);
     }
 
+    let placeholder = "Syötä paino (kg)"
+
+    const emptyPlaceholder = () => {
+        placeholder = "";
+    }
+
     return (
         <form className="diagnosis-form" onSubmit={handleClick}>
             <DiagnosisMenu />
             <input
                 id="weight-input"
                 className="form--input"
-                placeholder="Syötä paino (kg)"
+                placeholder={placeholder}
+                onFocus={emptyPlaceholder}
                 name="weight"
                 value={weight}
                 onChange={handleInput}
                 type="text"
                 disabled={isBronchitis}
-                required
+                required={true}
             />
-            {diagnosis==="Streptokokki-tonsilliitti" &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Samanaikainen EBV-infektio
-                </label>}
-            {diagnosis==="Avohoitopneumonia" &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Samanaikainen mykoplasma
-                </label>}
-            {diagnosis && !isBronchitis &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Penisilliiniallergia
-                </label>}    
-            {diagnosis && weight && !isBronchitis && <SubmitButton />}
+            {!showAll && <div className="checkbox-container">
+                {diagnosis==="Streptokokki-tonsilliitti" &&
+                    <label className="form--checkbox">
+                        <input 
+                            type="checkbox"
+                        /> Samanaikainen EBV-infektio
+                    </label>}
+                {diagnosis==="Avohoitopneumonia" &&
+                    <label className="form--checkbox">
+                        <input 
+                            type="checkbox"
+                        /> Samanaikainen mykoplasma
+                    </label>}
+                {diagnosis && !isBronchitis &&
+                    <label className="form--checkbox">
+                        <input 
+                            type="checkbox"
+                        /> Penisilliiniallergia
+                    </label>} 
+            </div>}
+            {diagnosis && weight && !isBronchitis && !showAll && <SubmitButton />}
         </form>
     );}

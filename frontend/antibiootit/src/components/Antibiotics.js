@@ -61,7 +61,7 @@ export default function Antibiotics() {
         if (diagnose !== "") {
             setFormSubmitted(true);
         }
-        
+              
         console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnose);
     }
 
@@ -69,7 +69,7 @@ export default function Antibiotics() {
     return (
         <div className="antibiotics">
             <section>
-                <h1>Antibioottilaskuri</h1>
+                <h1>Lapsen antibioottilaskuri</h1>
                 <h2>{instruction.state}</h2>
                 <hr className="line"></hr>
                 <p>{instruction.text}</p>

@@ -13,7 +13,7 @@
 .header {
     font-family: Inter, sans-serif;
     display: flex;
-    height: 35px;
+    height: 53px;
     padding: 10px;
     top: 0;
     left: 0;
@@ -33,18 +33,8 @@
 
 .header--title {
     color: white;
-    margin-left: 10px;
-    font-size: 18px;
-}
-
-
-.header--info {
-    color: white;
-}
-
-.header--feedback {
-    color: white;
-    margin-right: 20px;
+    margin-left: 50px;
+    font-size: 24px;
 }
 
 .button-link {
@@ -52,6 +42,7 @@
     border: none;
     padding: 0!important;
     color:white;
+    font-size: 16px;
 }
 
 footer {
@@ -169,7 +160,7 @@ aside {
 }
 
 .form--input {
-    grid-column-start: 4;
+    grid-column-start: 2;
     height: 45px;
     width: 250px;
     border-radius: 20px;
@@ -183,23 +174,39 @@ aside {
 
 ::placeholder {
     color: black;
-    font-weight: 200;
+    font-weight: bold;
 }
 
-.form--checkbox {
-    vertical-align: bottom;
-    grid-column-start: 1;
+.form--input:focus::placeholder {
+    color: transparent;
+}
+
+.form--input:disabled::placeholder {
+    color: #606874;
+}
+
+.choose {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
     margin-left: 30px;
 }
 
 .form--checkbox input {
     height: 20px;
     width: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    vertical-align: top;
 }
 
 .form--button {
-    grid-row-start: 4;
-    grid-column-start: 4;
+    grid-row-start: 2;
+    grid-column-start: 2;
     height: 50px;
     width: 250px;
     border-radius: 20px;
@@ -218,14 +225,14 @@ aside {
     grid-column-start: 1;
     width: 250px;
     padding: 0;
+    padding-bottom: 15px;
     padding-top: 15px;
     margin: 10px;
-    text-indent: 25px;
+    text-indent: 30px;
     border: 1.5px solid #395174;
     border-radius: 20px;
     background-color: #D7E2F2;
 }
-
 
 .menu--items :nth-child(odd) {
     background-color: #F3F6FA;
@@ -384,13 +391,14 @@ aside {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background-color: white;
     border-radius: 20px;
     border: 1.5px solid #395174;
-    height: 120px;
-    width: 95%;
-    margin-bottom: 10px;
+    height: 100%;
+    width: 98%;
+    margin: 10px 10px 10px 10px;
+    padding-left: 20px;
 }
 
 .recipe-textfield {
@@ -400,7 +408,7 @@ aside {
     border-radius: 25px;
     font-family: Inter, sans-serif;
     padding: 5px;
-    margin: 0px;
+    margin: 0;
     width: 90%;
     resize: none;
 }
@@ -410,11 +418,8 @@ aside {
     width: 95%;
     justify-content: space-between;
     background-color: white;
-    margin-left: 10px;
-}
-
-.recipe-container-bottom p {
-    padding: 5px;
+    padding-bottom: 5px;
+    padding-left: 4px;
 }
 
 .copy-button {
@@ -422,12 +427,13 @@ aside {
     bottom: 15px;
     right: 15px;
     background-color: white;
-    border: solid;
-    border-width: 0.5px;
     border: 1.5px solid #395174;
     border-radius: 25px;
     font-family: Inter, sans-serif;
     font-size: 12px;
+    padding: 10px;
+    font-size: 12px;
+    color: #395174;
 }
 
 .copy-button:hover {
