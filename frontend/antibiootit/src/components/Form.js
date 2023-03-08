@@ -16,6 +16,8 @@ export default function Form({ handleSubmit }) {
                             , "Bronkiitti"
                             , "Obstruktiivinen bronkiitti"
                             , "Avohoitopneumonia"];
+    const [isBronchitis, setIsBronchitis] = useState(false);
+    
 
     /**
      * The component for diagnose menu.
@@ -53,6 +55,12 @@ export default function Form({ handleSubmit }) {
     const handleSelection = (e) => {
         e.preventDefault();
         setDiagnosis(e.target.textContent);
+        if (e.target.textContent === "Bronkiitti") {
+            setIsBronchitis(true);
+        }
+        else {
+            setIsBronchitis(false);
+        }
         setShowAll(false);
     }
 
@@ -164,8 +172,9 @@ export default function Form({ handleSubmit }) {
                 value={weight}
                 onChange={handleInput}
                 type="text"
-                required={true}
-            />    
+                disabled={isBronchitis}
+                required
+            />
             {diagnosis==="Streptokokki-tonsilliitti" &&
                 <label className="form--checkbox">
                     <input 
@@ -178,13 +187,13 @@ export default function Form({ handleSubmit }) {
                         type="checkbox"
                     /> Samanaikainen mykoplasma
                 </label>}
-            {diagnosis &&
+            {diagnosis && !isBronchitis &&
                 <label className="form--checkbox">
                     <input 
                         type="checkbox"
                     /> Penisilliiniallergia
                 </label>}    
-            {diagnosis && weight && <SubmitButton />}
+            {diagnosis && weight && !isBronchitis && <SubmitButton />}
         </form>
     );
 }

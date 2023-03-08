@@ -32,6 +32,17 @@ export default function Recipe() {
         setShowNotification(true);
     }
 
+    const CopyButton = () => {
+        return (
+            <button
+                className="copy-button"
+                onClick={copy} 
+                disabled={dosageInstructions === ""}>
+                Kopioi resepti
+            </button>
+        )
+    }
+
     /**
      * Handles input change if user changes the dosage instructions.
      * 
@@ -70,12 +81,7 @@ export default function Recipe() {
                     <span className="notification-container">
                     {showNotification && <CopyNotification />}
                     </span>
-                    <button
-                        className="copy-button"
-                        onClick={copy} 
-                        disabled={dosageInstructions === ""}>
-                        Kopioi resepti
-                    </button>
+                    <CopyButton />
                 </div>
             </div>
         </div>
