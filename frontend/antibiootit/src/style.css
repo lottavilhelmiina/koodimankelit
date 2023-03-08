@@ -1,6 +1,7 @@
 
 .body {
     background-color: white;
+    font-family: Inter, sans-serif;
 }
 
 .header {
@@ -91,9 +92,7 @@ main {
     background-color: #D7E2F2;
     font-size: 16px;
     font-weight: bold;
-    border-style: solid;
-    border-width: 0.5px;
-    border-color: black;
+    border: 1.5px solid #395174;
 }
 
 ::placeholder {
@@ -122,9 +121,7 @@ main {
     background-color: #CBDAEF;
     font-weight: bold;
     font-size: 16px;
-    border-style: solid;
-    border-color: black;
-    border-width: 0.5px;
+    border: 1.5px solid #395174;
 }
 
 .diagnosis-form {
@@ -138,8 +135,7 @@ main {
     padding-top: 15px;
     margin: 10px;
     text-indent: 25px;
-    border-style: solid;
-    border-width: 0.5px;
+    border: 1.5px solid #395174;
     border-radius: 20px;
     background-color: #D7E2F2;
 }
@@ -165,41 +161,49 @@ main {
 }
 
 .recipe-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #E9E9E9;
     border-radius: 20px;
-    border-style: none;
-    border-width: 0.5px;
-    text-indent: 25px;
 }
 
 .recipe-container h3 {
-    margin: 0;
-    font-weight: medium;
-    font-family: Inter, sans-serif;
-    font-size: 14px;
+    margin-top: 6px;
+    margin-left: 23px;
+    margin-bottom: 0;
+    align-self: flex-start;
+    font-size: 17px;
     padding: 10px 10px 5px 10px;
 }
 
 .recipe-container h4 {
-    margin: 0;
-    font-weight: medium;
-    font-family: Inter, sans-serif;
-    font-size: 12px;
+    margin-top: 0;
+    margin-left: 23px;
+    align-self: flex-start;
+    font-size: 14px;
     padding-left: 10px;
 }
 
 .recipe-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: white;
     border-radius: 20px;
-    border-style: solid;
-    border-width: 0.5px;
-    padding: 0px;
-    margin: 5px 10px 0px 10px;
+    border: 1.5px solid #395174;
     height: 120px;
+    width: 95%;
+    margin-bottom: 10px;
 }
 
 .recipe-textfield {
-    border: none;
+    display: flex;
+    flex-direction: column;
+    border-style: none;
     border-radius: 25px;
     font-family: Inter, sans-serif;
     padding: 5px;
@@ -209,7 +213,11 @@ main {
 }
 
 .recipe-container-bottom {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
     background-color: white;
+    margin-left: 10px;
 }
 
 .recipe-container-bottom p {
@@ -217,9 +225,11 @@ main {
 }
 
 .copy-button {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
     background-color: white;
-    border: solid;
-    border-width: 0.5px;
+    border: 1.5px solid #395174;
     border-radius: 25px;
     font-family: Inter, sans-serif;
     font-size: 12px;
