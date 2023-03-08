@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import Form from "./Form";
 import Treatment from "./Treatment";
 import Recipe from "./Recipe";
+
 
 export default function Antibiotics() {
     /** Conditional rendering!!
@@ -82,5 +83,6 @@ export default function Antibiotics() {
                 setActiveRecipe={setActiveRecipe}
             />}
             {formSubmitted && <Recipe />}
+        </div>
     );
 }

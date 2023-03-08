@@ -150,4 +150,4 @@ export default function Form({ handleSubmit }) {
                 </label>}    
             {diagnosis && weight && !isBronchitis && <SubmitButton />}
         </form>
-    );
+    );}

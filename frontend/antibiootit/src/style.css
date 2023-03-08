@@ -158,10 +158,14 @@ aside {
 }
 
 .treatment-container {
-    padding: 100px;
-    display: grid;
-    font-family: Inter, sans-serif;
-    width: 800px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #E9E9E9;
+    border-radius: 20px;
+    height: 100%;
 }
 
 .form--input {
@@ -251,6 +255,7 @@ aside {
     background-color: #E9E9E9;
     border-radius: 20px;
     height: 100%;
+    margin-top: 20px;
 }
 
 .treatment-container > h2 {
@@ -358,18 +363,6 @@ aside {
     text-align: center;
 }
 
-.form {
-    background-color: aquamarine;
-
-}
-
-.recipe {
-    background-color: deeppink;
-    align-items: center;
-    background-color: #E9E9E9;
-    border-radius: 20px;
-}
-
 .recipe-container h3 {
     margin-top: 6px;
     margin-left: 23px;
@@ -429,13 +422,12 @@ aside {
     bottom: 15px;
     right: 15px;
     background-color: white;
+    border: solid;
+    border-width: 0.5px;
     border: 1.5px solid #395174;
     border-radius: 25px;
     font-family: Inter, sans-serif;
     font-size: 12px;
-    margin-right: 10px;
-    padding: 5px;
-    float: right;
 }
 
 .copy-button:hover {
