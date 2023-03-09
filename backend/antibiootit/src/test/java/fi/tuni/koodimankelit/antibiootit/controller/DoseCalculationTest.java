@@ -32,6 +32,7 @@ import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 public class DoseCalculationTest extends AntibioticsControllerTest {
 
     private static final Parameters mockParameters = new Parameters("J03.0", 35.5, false, new ArrayList<InfectionSelection>());
+    private static final String ADDRESS = "/api/antibiotics/dose-calculation";
 
     @Test
     public void shouldReturnDiagnoseResponse() throws Exception {
@@ -48,7 +49,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         // Actual test
         mockMvc.perform(
             // Request
-            post("/api/antibiotics/dose-calculation")
+            post(ADDRESS)
             .headers(getHeaders())
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonMapper.writeValueAsString(mockParameters))
@@ -73,7 +74,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
 
         mockMvc.perform(
             // Request
-            post("/api/antibiotics/dose-calculation")
+            post(ADDRESS)
             .headers(getHeaders())
             .contentType(MediaType.APPLICATION_JSON)
             .content(jsonMapper.writeValueAsString(mockParameters))
@@ -81,6 +82,22 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         // Response
         ).andDo(print())
         .andExpect(status().isBadRequest())
+        .andReturn();
+    }
+
+    @Test
+    public void runtimeExceptionShouldReturn500() throws Exception {
+
+        when(service.getDiagnoseInfoByID(any())).thenThrow(RuntimeException.class);
+
+        mockMvc.perform(
+            post(ADDRESS)
+            .headers(getHeaders())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(jsonMapper.writeValueAsString(mockParameters))
+
+        ).andDo(print())
+        .andExpect(status().isInternalServerError())
         .andReturn();
     }
 }
