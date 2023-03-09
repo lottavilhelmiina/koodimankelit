@@ -37,7 +37,7 @@
     font-size: 24px;
 }
 
-.button-link {
+.header-link {
     background: none!important;
     border: none;
     padding: 0!important;
@@ -159,8 +159,11 @@ aside {
     height: 100%;
 }
 
-.form--input {
+.weight-input {
     grid-column-start: 2;
+}
+
+.form--input {
     height: 45px;
     width: 250px;
     border-radius: 20px;
@@ -183,6 +186,10 @@ aside {
 
 .form--input:disabled::placeholder {
     color: #606874;
+}
+
+.form--input:hover {
+    background-color: #b5cdf1;
 }
 
 .choose {
@@ -215,6 +222,16 @@ aside {
     font-weight: bold;
     font-size: 16px;
     border: 1.5px solid #395174;
+    box-shadow: 0 1.5px #7b7979;
+}
+
+.form--button:active {
+    box-shadow: 0 0px #7b7979;
+    transform: translateY(1.5px);
+}
+
+.form--button:hover {
+    background-color: #b5cdf1;
 }
 
 .diagnosis-form {
@@ -222,6 +239,8 @@ aside {
 }
 
 .diagnosis-menu {
+    position: relative;
+    display: inline-block;
     grid-column-start: 1;
     width: 250px;
     padding: 0;
@@ -234,10 +253,32 @@ aside {
     background-color: #D7E2F2;
 }
 
-.dropdown {
-    transform: translateZ(0);
+.dropdown-content {
+    position: absolute;
+    display:none;
     z-index: 1;
+    width: 250px;
+    padding: 0;
+    margin-left: -1px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    background-color: #D7E2F2;
+    border-bottom: 1.5px solid #395174;
+    border-left: 1.5px solid #395174;
+    border-right: 1.5px solid #395174;
+    border-radius: 0px 0px 20px 20px;
 }
+
+.dropdown-btn {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 16px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 
 .menu--items :nth-child(odd) {
     background-color: #F3F6FA;
@@ -256,6 +297,11 @@ aside {
 
 .menu--items li {
     height: 40px;
+}
+
+.menu--items li:hover {
+    background-color: #5D769A;
+    color: white;
 }
 
 .recipe-container {
@@ -412,6 +458,7 @@ aside {
     border-style: none;
     border-radius: 25px;
     font-family: Inter, sans-serif;
+    font-size: 16px;
     padding: 5px;
     margin: 0;
     width: 90%;

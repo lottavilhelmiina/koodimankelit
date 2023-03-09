@@ -8,7 +8,7 @@ export default function Form({ handleSubmit }) {
      * After clicking an item, only the selected item is visible.
      */
     const [diagnosis, setDiagnosis] = useState("");
-    const [showAll, setShowAll] = useState(true);
+    //const [showAll, setShowAll] = useState(true);
     const diagnosisOptions = ["Streptokokki-tonsilliitti"
                             , "Välikorvatulehdus"
                             , "Sivuontelotulehdus"
@@ -34,12 +34,9 @@ export default function Form({ handleSubmit }) {
     const DiagnosisMenu = () => {
         return (
             <div 
-                className="diagnosis-menu" 
-                onClick={() =>setShowAll(!showAll)}>
-                    
-                <span>{diagnosis || <Choose />}</span>
-
-                {showAll && (
+                className="diagnosis-menu dropdown" >
+                <button className="dropdown-btn">{diagnosis || <Choose />}</button>
+                <div className="dropdown-content">
                     <ul className="menu--items">
                         {diagnosisOptions
                             .filter((item) => item !== diagnosis)
@@ -51,7 +48,8 @@ export default function Form({ handleSubmit }) {
                             </li>
                         ))}
                     </ul>
-                )}
+                </div>
+                
             </div>
         )
     }                        
@@ -71,7 +69,7 @@ export default function Form({ handleSubmit }) {
         else {
             setIsBronchitis(false);
         }
-        setShowAll(false);
+        
     }
 
     /**
@@ -127,28 +125,32 @@ export default function Form({ handleSubmit }) {
         handleSubmit(diagnosis, weight);
     }
 
-    let placeholder = "Syötä paino (kg)"
+    let placeholder = "Syötä paino"
 
     const emptyPlaceholder = () => {
         placeholder = "";
     }
 
     return (
-        <form className="diagnosis-form dropdown" onSubmit={handleClick}>
+        <form className="diagnosis-form" onSubmit={handleClick}>
             <DiagnosisMenu />
-            <input
-                id="weight-input"
-                className="form--input"
-                placeholder={placeholder}
-                onFocus={emptyPlaceholder}
-                name="weight"
-                value={weight}
-                onChange={handleInput}
-                type="text"
-                disabled={isBronchitis}
-                required={true}
-            />
-            {!showAll && <div className="checkbox-container">
+            <div className="weight-input">
+                
+                <input
+                    id="weight-input"
+                    className="form--input"
+                    placeholder={placeholder}
+                    onFocus={emptyPlaceholder}
+                    name="weight"
+                    value={weight}
+                    onChange={handleInput}
+                    type="text"
+                    disabled={isBronchitis}
+                    required={true}
+                />
+                <span>kg</span>
+            </div>
+            <div className="checkbox-container">
                 {diagnosis==="Streptokokki-tonsilliitti" &&
                     <label className="form--checkbox">
                         <input 
@@ -167,7 +169,7 @@ export default function Form({ handleSubmit }) {
                             type="checkbox"
                         /> Penisilliiniallergia
                     </label>} 
-            </div>}
-            {diagnosis && weight && !isBronchitis && !showAll && <SubmitButton />}
+            </div>
+            {diagnosis && weight && !isBronchitis && <SubmitButton />}
         </form>
     );}
