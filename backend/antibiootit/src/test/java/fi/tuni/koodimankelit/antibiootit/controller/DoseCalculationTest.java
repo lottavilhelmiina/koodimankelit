@@ -5,8 +5,6 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -33,7 +31,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
     private static final String ADDRESS = "/api/antibiotics/dose-calculation";
 
     @Test
-    public void shouldReturnDiagnoseResponse() throws Exception {
+    public void validParametersShouldReturn200() throws Exception {
 
         // Mock needed methods
         when(service.calculateTreatments(any()))
@@ -50,6 +48,24 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .andExpect(jsonPath("$._id").value("diagnosisResponseID"))
         .andExpect(jsonPath("$.etiology").value("etiology"))
         .andReturn();
+    }
+
+    @Test
+    public void emptyIDShouldReturn400() throws Exception {
+
+        Parameters parameters = new Parameters("", 0.0, false, new ArrayList<>());
+        
+        request(parameters)
+        .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void nullCheckBoxesShouldReturn400() throws Exception {
+
+        Parameters parameters = new Parameters("test", 0.0, false, null);
+        
+        request(parameters)
+        .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -80,18 +96,19 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .andReturn();
     }
 
-    @Test
-    public void failedValidationShouldReturn400() throws Exception {
 
-    }
 
     private ResultActions request(Parameters parameters) throws Exception {
 
+        return request(jsonMapper.writeValueAsString(parameters));
+    }
+
+    private ResultActions request(String payload) throws Exception {
         return mockMvc.perform(
             post(ADDRESS)
             .headers(getHeaders())
             .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonMapper.writeValueAsString(parameters))
+            .content(payload)
         );
     }
 
