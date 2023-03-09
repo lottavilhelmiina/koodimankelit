@@ -1,12 +1,11 @@
 package fi.tuni.koodimankelit.antibiootit.services;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import fi.tuni.koodimankelit.antibiootit.builder.DiagnoseResponseBuilder;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
@@ -33,8 +32,9 @@ public class AntibioticsServiceImpl implements AntibioticsService {
         
     }
 
-    public List<DiagnoseInfo> getAllDiagnoseInfos() {
-        return this.dataHandler.getAllDiagnoseInfos();
+    public Diagnoses getAllDiagnoseInfos() {
+        Diagnoses allDiagnoses = new Diagnoses(this.dataHandler.getAllDiagnoseInfos());
+        return allDiagnoses;
     }
 
     @Override
