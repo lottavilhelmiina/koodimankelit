@@ -3,16 +3,14 @@ package fi.tuni.koodimankelit.antibiootit.controller;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -47,22 +45,15 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .thenReturn(new DiagnoseInfo("diagnosisID", "name", "etiology", new ArrayList<>()));
 
         // Actual test
-        mockMvc.perform(
-            // Request
-            post(ADDRESS)
-            .headers(getHeaders())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonMapper.writeValueAsString(mockParameters))
-
-        // Response
-        ).andDo(print()).andExpect(status().isOk())
+        request(mockParameters)
+        .andDo(print()).andExpect(status().isOk())
         .andExpect(jsonPath("$._id").value("diagnosisResponseID"))
         .andExpect(jsonPath("$.etiology").value("etiology"))
         .andReturn();
     }
 
     @Test
-    public void failedValidationShouldReturn400() throws Exception {
+    public void validatorExceptionShouldReturn400() throws Exception {
 
         when(service.calculateTreatments(any()))
         .thenReturn(null);
@@ -72,15 +63,8 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
 
         Mockito.doThrow(new InvalidParameterException(null)).when(validator).validate(any(), any());
 
-        mockMvc.perform(
-            // Request
-            post(ADDRESS)
-            .headers(getHeaders())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonMapper.writeValueAsString(mockParameters))
-
-        // Response
-        ).andDo(print())
+        request(mockParameters)
+        .andDo(print())
         .andExpect(status().isBadRequest())
         .andReturn();
     }
@@ -90,14 +74,26 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
 
         when(service.getDiagnoseInfoByID(any())).thenThrow(RuntimeException.class);
 
-        mockMvc.perform(
-            post(ADDRESS)
-            .headers(getHeaders())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonMapper.writeValueAsString(mockParameters))
-
-        ).andDo(print())
+        request(mockParameters)
+        .andDo(print())
         .andExpect(status().isInternalServerError())
         .andReturn();
     }
+
+    @Test
+    public void failedValidationShouldReturn400() throws Exception {
+
+    }
+
+    private ResultActions request(Parameters parameters) throws Exception {
+
+        return mockMvc.perform(
+            post(ADDRESS)
+            .headers(getHeaders())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(jsonMapper.writeValueAsString(parameters))
+        );
+    }
+
+
 }
