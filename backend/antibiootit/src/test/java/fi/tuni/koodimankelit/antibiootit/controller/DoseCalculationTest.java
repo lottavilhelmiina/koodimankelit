@@ -69,6 +69,24 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
     }
 
     @Test
+    public void missingWeightShouldReturn400() throws Exception {
+
+        String payload = "{\"diagnosisID\":\"J03.0\",\"penicillinAllergic\":false,\"checkBoxes\":[]}";
+
+        request(payload)
+        .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void missingAllergicShouldReturn400() throws Exception {
+
+        String payload = "{\"diagnosisID\":\"J03.0\",\"weight\":0.0,\"checkBoxes\":[]}";
+
+        request(payload)
+        .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void validatorExceptionShouldReturn400() throws Exception {
 
         when(service.calculateTreatments(any()))
