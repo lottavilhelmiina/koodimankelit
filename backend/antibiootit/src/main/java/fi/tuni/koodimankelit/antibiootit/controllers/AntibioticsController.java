@@ -126,5 +126,17 @@ public class AntibioticsController {
     }
 
 
+    /**
+     * Handle RuntimeException and return HTTP 500
+     * @param ex RuntimeException
+     * @return Empty HTTP 500 error
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException ex) {
+        return ResponseEntity.internalServerError().build();
+
+    }
+
+
 
 }
