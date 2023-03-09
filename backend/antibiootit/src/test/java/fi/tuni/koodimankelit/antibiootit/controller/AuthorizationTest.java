@@ -49,4 +49,13 @@ public class AuthorizationTest extends AntibioticsControllerTest {
         ).andDo(print())
         .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    public void missingHeaderShouldReturn401() throws Exception {
+
+        mockMvc.perform(
+            get(ADDRESS)
+        ).andDo(print())
+        .andExpect(status().isUnauthorized());
+    }
 }
