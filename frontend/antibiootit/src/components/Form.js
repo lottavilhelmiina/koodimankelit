@@ -16,8 +16,6 @@ export default function Form({ handleSubmit }) {
                             , "Obstruktiivinen bronkiitti"
                             , "Avohoitopneumonia"];
     const [isBronchitis, setIsBronchitis] = useState(false);
-
-
     
     const Choose = () => {
         return (
@@ -60,16 +58,23 @@ export default function Form({ handleSubmit }) {
      */
     const handleSelection = (e) => {
         e.preventDefault();
+        console.log("Uusi diagnoosivalinta tehty")
         const selected = e.target.textContent;
         setDiagnosis(selected);
+        
         if (selected === "Bronkiitti") {
             setIsBronchitis(true);
             handleSubmit(selected, null);
         }
-        else {
+        else if (selected !== "Bronkiitti") {
             setIsBronchitis(false);
         }
-        
+        if (selected !== "Streptokokki-tonsilliitti") {
+            resetCheckboxes();
+        }
+        if (selected !== "Avohoitopneumonia") {
+            resetCheckboxes();
+        }        
     }
 
     /**
@@ -100,7 +105,11 @@ export default function Form({ handleSubmit }) {
                 
             }
         }
-      }
+    }
+
+    const [penisillinAllergy, setPenisillinAllergy] = useState(false);
+    const [concurrentEBV, setConcurrentEBV] = useState(false);
+    const [concurrentMycoplasma, setConcurrentMycoplasma] = useState(false);
 
     /**
      * The component for the form submit button.
@@ -117,12 +126,22 @@ export default function Form({ handleSubmit }) {
     }
 
     /**
-     * Handle form submission and send diagnosis and weight as parameters.
+     * Handle form submission and send form data as object parameter.
      * @param {*} e 
      */
     const handleClick = (e) => {
         e.preventDefault();
-        handleSubmit(diagnosis, weight);
+        const data = { diagnosis: diagnosis,
+                       weight: weight,
+                       allergy: penisillinAllergy,
+                       concurrentEBV: concurrentEBV,
+                       concurrentMycoplasma: concurrentMycoplasma }
+        handleSubmit(data);
+    }
+
+    const resetCheckboxes = () => {
+        setConcurrentEBV(false);
+        setConcurrentMycoplasma(false);
     }
 
     let placeholder = "Syötä paino"
@@ -135,7 +154,6 @@ export default function Form({ handleSubmit }) {
         <form className="diagnosis-form" onSubmit={handleClick}>
             <DiagnosisMenu />
             <div className="weight-input">
-                
                 <input
                     id="weight-input"
                     className="form--input"
@@ -155,18 +173,21 @@ export default function Form({ handleSubmit }) {
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
+                            onClick={() => setConcurrentEBV(!concurrentEBV)}
                         /> Samanaikainen EBV-infektio
                     </label>}
                 {diagnosis==="Avohoitopneumonia" &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
+                            onClick={() => setConcurrentMycoplasma(!concurrentMycoplasma)}
                         /> Samanaikainen mykoplasma
                     </label>}
                 {diagnosis && !isBronchitis &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
+                            onClick={() => setPenisillinAllergy(!penisillinAllergy)}
                         /> Penisilliiniallergia
                     </label>} 
             </div>

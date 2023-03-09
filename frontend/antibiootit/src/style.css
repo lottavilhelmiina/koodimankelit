@@ -10,6 +10,10 @@
 }
 
 
+button, a, li, input {
+    cursor: pointer;
+}
+
 .header {
     font-family: Inter, sans-serif;
     display: flex;
@@ -31,10 +35,17 @@
     margin-right: 40px;
 }
 
-.header--title {
+.header--title-link {
+    background: none!important;
+    border: none;
+    padding: 0!important;
     color: white;
     margin-left: 50px;
     font-size: 24px;
+}
+
+.header--title-link {
+    cursor: pointer;
 }
 
 .header-link {
@@ -55,6 +66,7 @@ footer {
     background-color: #5D769A;
     color: white;
     gap: 23px;
+    margin-top: 50px;
 }
 
 .footer--lauseke, .footer--tekijat {
@@ -201,6 +213,7 @@ aside {
     display: flex;
     flex-direction: column;
     margin-left: 30px;
+    margin-top: 10px;
 }
 
 .form--checkbox input {
@@ -236,6 +249,7 @@ aside {
 
 .diagnosis-form {
     display: grid;
+    margin-bottom: 15px;
 }
 
 .diagnosis-menu {
@@ -244,8 +258,8 @@ aside {
     grid-column-start: 1;
     width: 250px;
     padding: 0;
-    padding-bottom: 15px;
-    padding-top: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin: 10px;
     text-indent: 30px;
     border: 1.5px solid #395174;

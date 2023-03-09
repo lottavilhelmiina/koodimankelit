@@ -1,15 +1,44 @@
 import React, { useState, useEffect } from "react";
 import CopyNotification from "./CopyNotification";
 
-export default function Recipe() {
+export default function Recipe(props) {
+
+    const ab = props.ab;
+    const choice = props.choice;
+
+    const chosenAb = () => {
+        if (choice == "Ensimmäisen vaihtoehdon resepti") {
+            return  ab[0].name + " " + ab[0].dosage;
+        }
+        else {
+            return ab[1].name + " " + ab[1].dosage;;
+        }
+    }
+
+    const instr = () => {
+        if (choice == "Ensimmäisen vaihtoehdon resepti") {
+            return  ab[0].instruction;
+        }
+        else {
+            return ab[1].instruction;
+        }
+    }
 
     const TIMEOUT_DURATION = 1200;
 
-    const [antibiotic, setAntibiotic] = useState("Kefaleksiini jauhe 100 mg/ml")
-    const [dosageInstructions, setDosageInstructions] = useState("2,5 ml noin 12 tunnin välein 10 vrk:n ajan. Streptokokkinielutulehduksen hoitoon.");
+    const [antibiotic, setAntibiotic] = useState(chosenAb)
+    const [dosageInstructions, setDosageInstructions] = useState(instr);
     const [diagnosisCode, setDiagnosisCode] = useState("J03.0")
 
     const [showNotification, setShowNotification] = useState(false);
+
+    useEffect(() => {
+        setAntibiotic(chosenAb);
+    }, [chosenAb]);
+
+/*     useEffect(() => {
+        setDosageInstructions(instr);
+    }, [chosenAb]); */
 
     /**
      * Sets a timeout for notification when user copies the dosage instructions.
