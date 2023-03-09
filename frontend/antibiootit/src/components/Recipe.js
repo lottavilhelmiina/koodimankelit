@@ -14,14 +14,14 @@ export default function Recipe() {
     /**
      * Sets a timeout for notification when user copies the dosage instructions.
      */
-    useEffect(() => {
+/*     useEffect(() => {
         const timeout = setTimeout(() => {
             setShowNotification(false);
         }, TIMEOUT_DURATION);
         return () => {
             clearTimeout(timeout);
         };
-    }, [showNotification])
+    }, [showNotification]) */
 
     /**
      * Copies the dosage instructions to clipboard when user clicks the copy button.
@@ -29,7 +29,7 @@ export default function Recipe() {
      */
     const copy = async () => {
         await navigator.clipboard.writeText(dosageInstructions);
-        setShowNotification(true);
+        //setShowNotification(true);
     }
 
     const CopyButton = () => {
@@ -38,7 +38,7 @@ export default function Recipe() {
                 className="copy-button"
                 onClick={copy} 
                 disabled={dosageInstructions === ""}>
-                Kopioi resepti
+                <img src="./copy.png" /> Kopioi resepti
             </button>
         )
     }
@@ -63,10 +63,10 @@ export default function Recipe() {
         return (
             <textarea
                 className="recipe-textfield"
-                rows={2}
+                rows={3}
                 value={dosageInstructions}
                 onChange={handleInputChange}
-                />
+            />
         )
     }
 
@@ -75,7 +75,12 @@ export default function Recipe() {
             <h3>Reseptin kirjoittaminen:</h3>
             <h4>{antibiotic}</h4>
             <div className="recipe-text-container">
-                <EditableDosageInstructions />
+                <textarea
+                    className="recipe-textfield"
+                    rows={3}
+                    value={dosageInstructions}
+                    onChange={handleInputChange}
+                />
                 <div className="recipe-container-bottom">
                     <span>ICD-10 koodi: <span className="bold">{diagnosisCode}</span></span>
                     <span className="notification-container">

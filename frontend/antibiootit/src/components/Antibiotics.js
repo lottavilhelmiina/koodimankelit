@@ -57,12 +57,12 @@ export default function Antibiotics() {
 
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    const receiveWeight = (diagnose, weight) => {
-        if (diagnose !== "") {
+    const receiveWeight = (diagnosis, weight) => {
+        if (diagnosis !== "") {
             setFormSubmitted(true);
         }
               
-        console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnose);
+        console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnosis);
     }
 
     

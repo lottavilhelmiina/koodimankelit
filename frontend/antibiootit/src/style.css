@@ -234,6 +234,11 @@ aside {
     background-color: #D7E2F2;
 }
 
+.dropdown {
+    transform: translateZ(0);
+    z-index: 1;
+}
+
 .menu--items :nth-child(odd) {
     background-color: #F3F6FA;
 }
@@ -396,8 +401,8 @@ aside {
     border-radius: 20px;
     border: 1.5px solid #395174;
     height: 100%;
-    width: 98%;
-    margin: 10px 10px 10px 10px;
+    width: 95%;
+    margin: 10px 25px 20px 25px;
     padding-left: 20px;
 }
 
@@ -413,6 +418,10 @@ aside {
     resize: none;
 }
 
+.recipe-textfield:focus { 
+    outline: none;
+}
+
 .recipe-container-bottom {
     display: flex;
     width: 95%;
@@ -424,20 +433,32 @@ aside {
 
 .copy-button {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
+    bottom: 25px;
+    right: 30px;
     background-color: white;
     border: 1.5px solid #395174;
-    border-radius: 25px;
+    border-radius: 20px;
     font-family: Inter, sans-serif;
-    font-size: 12px;
-    padding: 10px;
-    font-size: 12px;
+    font-size: 16px;
+    font-size: 16px;
     color: #395174;
+    box-shadow: 0 1.5px #7b7979;
+    padding: 10px;
+    text-indent: 5px;
+}
+
+.copy-button img {
+    width: 20px;
 }
 
 .copy-button:hover {
     background-color: #E9E9E9;
+}
+
+.copy-button:active {
+    background-color: #E9E9E9;
+    box-shadow: 0 0px #7b7979;
+    transform: translateY(1.5px);
 }
 
 .notification-container {

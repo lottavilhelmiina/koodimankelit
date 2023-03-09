@@ -16,6 +16,8 @@ export default function Form({ handleSubmit }) {
                             , "Obstruktiivinen bronkiitti"
                             , "Avohoitopneumonia"];
     const [isBronchitis, setIsBronchitis] = useState(false);
+
+
     
     const Choose = () => {
         return (
@@ -60,10 +62,11 @@ export default function Form({ handleSubmit }) {
      */
     const handleSelection = (e) => {
         e.preventDefault();
-        setDiagnosis(e.target.textContent);
-        if (e.target.textContent === "Bronkiitti") {
+        const selected = e.target.textContent;
+        setDiagnosis(selected);
+        if (selected === "Bronkiitti") {
             setIsBronchitis(true);
-            handleSubmit(diagnosis, null);
+            handleSubmit(selected, null);
         }
         else {
             setIsBronchitis(false);
@@ -131,7 +134,7 @@ export default function Form({ handleSubmit }) {
     }
 
     return (
-        <form className="diagnosis-form" onSubmit={handleClick}>
+        <form className="diagnosis-form dropdown" onSubmit={handleClick}>
             <DiagnosisMenu />
             <input
                 id="weight-input"
