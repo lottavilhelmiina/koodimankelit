@@ -6,7 +6,9 @@ import java.util.List;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Antibiotic;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
+import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
+import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
@@ -84,9 +86,15 @@ public class DiagnoseResponseBuilder {
         for(Treatment treatment : treatments) {
             Antibiotic antibiotic = getSuitableAntibiotic(treatment);
 
-            AntibioticTreatmentBuilder builder = new AntibioticTreatmentBuilder(antibiotic, this.weight);
-            AntibioticTreatment antibioticTreatment = builder.build();
+            AntibioticTreatmentBuilder builder;
+            if(antibiotic instanceof Mixture) {
+                builder = new MixtureBuilder((Mixture) antibiotic, weight);
 
+            } else {
+                builder = new TabletBuilder((Tablet) antibiotic, weight);
+            }
+
+            AntibioticTreatment antibioticTreatment = builder.build();
             diagnoseResponse.addTreatment(antibioticTreatment);
         }
 
