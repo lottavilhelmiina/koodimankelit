@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CopyNotification from "./CopyNotification";
 
 export default function Recipe(props) {
@@ -36,9 +36,11 @@ export default function Recipe(props) {
         setAntibiotic(chosenAb);
     }, [chosenAb]);
 
-/*     useEffect(() => {
-        setDosageInstructions(instr);
-    }, [chosenAb]); */
+    useEffect(() => {
+        if (!editedRef.current) {
+            setDosageInstructions(instr);
+        }
+    }, [chosenAb, instr]);
 
     /**
      * Sets a timeout for notification when user copies the dosage instructions.
@@ -72,6 +74,8 @@ export default function Recipe(props) {
         )
     }
 
+    const editedRef = useRef(false);
+
     /**
      * Handles input change if user changes the dosage instructions.
      * 
@@ -82,6 +86,7 @@ export default function Recipe(props) {
     const handleInputChange = (e) => {
         const newValue = e.target.value;
         setDosageInstructions(newValue);
+        editedRef.current = true;
       };
 
     /**
