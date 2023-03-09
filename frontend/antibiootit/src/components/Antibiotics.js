@@ -5,18 +5,27 @@ import Recipe from "./Recipe";
 
 
 export default function Antibiotics() {
-    /** Conditional rendering!!
-     *  Sit ku painaa Laske suositus niin kokonaan pois
-     * eli joku arvo muuttuu falseksi?
-     *  Muuten ekaks on vaihe yks ja sit Vaihe kaks ku on valinnu
-     *  sairauden. Eli ternaryllä? Vai conditional?
-     */
-    const disease = "Streptokokki-tonsilliitti" /** käyttäjän valinta oikeestis */
 
-    const [instruction, setInstruction] = React.useState({
-        state: "Vaihe 1",
-        text: "Valitse ensin potilaan diagnoosi"
-    });
+    const [chosenDiagnose, setChosenDiagnose] = useState("");
+    
+    const instructions = [
+        {
+            state: "Vaihe 1",
+            text: "Valitse ensin potilaan diagnoosi"
+        },
+        {
+            state: "Vaihe 2",
+            text: "Syötä sitten potilaan paino.",
+            textCheck: "Tarkista vielä, onko potilaalla samansaikaista EBV-infektiota tai penisilliiniallergiaa."
+        },
+        {
+            state: "Vaihe 3",
+            text: "Laske sitten antibioottisuositus painamalla Laske suositus -painiketta."
+        }
+    ]
+
+    const [instruction, setInstruction] = useState(instructions[0]);
+
 
     /** State muuttuu ku valitaan tauti ja vastaavan taudin tiedot
      * tulee bäkistä? Nyt vaan kovakoodattu. Alle 40kg = mikstuura ja yli tabletti?
@@ -25,10 +34,9 @@ export default function Antibiotics() {
      * {index === 0 ? true : false} esimerkiksi, mutta vaikee tehdä esim vasta
      * propsina, ksoka aktiivisen vaihdossa käytän sitä tuolta? tota
      * "firstChoise"a pitää käyttää myös siihen mihin näytetään reseptinä.
-     * Mieti Miian kanssa mikä olisi hyvä.
     */
 
-    const [antibiotic, setAntibiotic] = React.useState([
+    const [antibiotic, setAntibiotic] = useState([
         {
             id: "J03.0",
             format: "Tabletti",
@@ -53,7 +61,7 @@ export default function Antibiotics() {
         }
     ]);
 
-    const [activeRecipe, setActiveRecipe] = React.useState(antibiotic[0].recipe);
+    const [activeRecipe, setActiveRecipe] = useState(antibiotic[0].recipe);
 
     const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -61,22 +69,32 @@ export default function Antibiotics() {
         if (diagnose !== "") {
             setFormSubmitted(true);
         }
-        
         console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnose);
+    }
+
+    function changeInstruction(index) {
+        setInstruction(instructions[index]);
     }
 
     
     return (
         <div className="antibiotics">
             <section>
-                <h1>Antibioottilaskuri</h1>
-                <h2>{instruction.state}</h2>
-                <hr className="line"></hr>
-                <p>{instruction.text}</p>
+                <h1>Lapsen antibioottilaskuri</h1>
+                {!formSubmitted && <div className="antibiotic-instructions">
+                    <h2>{instruction.state}</h2>
+                    <hr className="line"></hr>
+                    <p>{instruction.text}</p>
+                    {instruction.textCheck && <p>{instruction.textCheck}</p>}
+                </div>}
             </section>
-            <Form handleSubmit={receiveWeight} />
+            <Form 
+                handleSubmit={receiveWeight} 
+                changeInstruction={changeInstruction} 
+                setChosenDiagnose={setChosenDiagnose} 
+            />
             {formSubmitted && <Treatment 
-                disease={disease}
+                diagnose={chosenDiagnose}
                 antibiotic={antibiotic}
                 setAntibiotic={setAntibiotic}
                 activeRecipe={activeRecipe}
