@@ -1,6 +1,7 @@
 package fi.tuni.koodimankelit.antibiootit.controller;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,7 +43,7 @@ public class DiagnosesTest extends AntibioticsControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             )
 
-            // Response is HTTP 200
+            // Response is ok
             .andExpect(status().isOk())
             .andReturn();
 
@@ -52,5 +53,16 @@ public class DiagnosesTest extends AntibioticsControllerTest {
         assertTrue(actualResponse.has("diagnoseInfos"));
         assertTrue(actualResponse.get("diagnoseInfos").isArray());
 
+    }
+
+    @Test
+    public void diagnosesShouldThrowRuntimeException() throws Exception {
+
+        // Mock service to throw RuntimeException
+        when(service.getAllDiagnoseInfos()).thenThrow(new RuntimeException());
+
+        // Unable to connect to database
+        assertThrows(RuntimeException.class, 
+            () -> service.getAllDiagnoseInfos());
     }
 }
