@@ -56,13 +56,15 @@ public class DiagnosesTest extends AntibioticsControllerTest {
     }
 
     @Test
-    public void diagnosesShouldThrowRuntimeException() throws Exception {
+    public void runtimeExceptionShouldReturn500() throws Exception {
 
         // Mock service to throw RuntimeException
-        when(service.getAllDiagnoseInfos()).thenThrow(new RuntimeException());
+        when(service.getAllDiagnoseInfos())
+            .thenThrow(RuntimeException.class);
 
         // Unable to connect to database
-        assertThrows(RuntimeException.class, 
-            () -> service.getAllDiagnoseInfos());
+        mockMvc.perform(get(ADDRESS))
+        .andExpect(status().isInternalServerError())
+        .andReturn();
     }
 }
