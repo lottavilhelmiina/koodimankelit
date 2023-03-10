@@ -1,27 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import CopyNotification from "./CopyNotification";
 
-export default function Recipe() {
+export default function Recipe(props) {
+
+    const ab = props.ab;
+    const choice = props.choice;
+
+    const chosenAb = () => {
+        if (choice == "Ensimmäisen vaihtoehdon resepti") {
+            return  ab[0].name + " " + ab[0].dosage;
+        }
+        else {
+            return ab[1].name + " " + ab[1].dosage;;
+        }
+    }
+
+    const instr = () => {
+        if (choice == "Ensimmäisen vaihtoehdon resepti") {
+            return  ab[0].instruction;
+        }
+        else {
+            return ab[1].instruction;
+        }
+    }
 
     const TIMEOUT_DURATION = 1200;
 
-    const [antibiotic, setAntibiotic] = useState("Kefaleksiini jauhe 100 mg/ml")
-    const [dosageInstructions, setDosageInstructions] = useState("2,5 ml noin 12 tunnin välein 10 vrk:n ajan. Streptokokkinielutulehduksen hoitoon.");
+    const [antibiotic, setAntibiotic] = useState(chosenAb)
+    const [dosageInstructions, setDosageInstructions] = useState(instr);
     const [diagnosisCode, setDiagnosisCode] = useState("J03.0")
 
     const [showNotification, setShowNotification] = useState(false);
 
+    useEffect(() => {
+        setAntibiotic(chosenAb);
+    }, [chosenAb]);
+
+    useEffect(() => {
+        if (!editedRef.current) {
+            setDosageInstructions(instr);
+        }
+    }, [chosenAb, instr]);
+
     /**
      * Sets a timeout for notification when user copies the dosage instructions.
      */
-    useEffect(() => {
+/*     useEffect(() => {
         const timeout = setTimeout(() => {
             setShowNotification(false);
         }, TIMEOUT_DURATION);
         return () => {
             clearTimeout(timeout);
         };
-    }, [showNotification])
+    }, [showNotification]) */
 
     /**
      * Copies the dosage instructions to clipboard when user clicks the copy button.
@@ -29,7 +60,7 @@ export default function Recipe() {
      */
     const copy = async () => {
         await navigator.clipboard.writeText(dosageInstructions);
-        setShowNotification(true);
+        //setShowNotification(true);
     }
 
     const CopyButton = () => {
@@ -38,10 +69,12 @@ export default function Recipe() {
                 className="copy-button"
                 onClick={copy} 
                 disabled={dosageInstructions === ""}>
-                Kopioi resepti
+                <img src="./copy.png" /> Kopioi resepti
             </button>
         )
     }
+
+    const editedRef = useRef(false);
 
     /**
      * Handles input change if user changes the dosage instructions.
@@ -53,6 +86,7 @@ export default function Recipe() {
     const handleInputChange = (e) => {
         const newValue = e.target.value;
         setDosageInstructions(newValue);
+        editedRef.current = true;
       };
 
     /**
@@ -63,10 +97,10 @@ export default function Recipe() {
         return (
             <textarea
                 className="recipe-textfield"
-                rows={2}
+                rows={3}
                 value={dosageInstructions}
                 onChange={handleInputChange}
-                />
+            />
         )
     }
 
@@ -75,7 +109,12 @@ export default function Recipe() {
             <h3>Reseptin kirjoittaminen:</h3>
             <h4>{antibiotic}</h4>
             <div className="recipe-text-container">
-                <EditableDosageInstructions />
+                <textarea
+                    className="recipe-textfield"
+                    rows={3}
+                    value={dosageInstructions}
+                    onChange={handleInputChange}
+                />
                 <div className="recipe-container-bottom">
                     <span>ICD-10 koodi: <span className="bold">{diagnosisCode}</span></span>
                     <span className="notification-container">

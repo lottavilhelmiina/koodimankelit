@@ -8,7 +8,7 @@ export default function Form(props) {
      * After clicking an item, only the selected item is visible.
      */
     const [diagnosis, setDiagnosis] = useState("");
-    const [showAll, setShowAll] = useState(true);
+    //const [showAll, setShowAll] = useState(true);
     const diagnosisOptions = ["Streptokokki-tonsilliitti"
                             , "Välikorvatulehdus"
                             , "Sivuontelotulehdus"
@@ -17,6 +17,13 @@ export default function Form(props) {
                             , "Avohoitopneumonia"];
     const [isBronchitis, setIsBronchitis] = useState(false);
     
+    const Choose = () => {
+        return (
+            <><img className="choose" src="./heart.png" />
+            <span className="bold">Valitse diagnoosi</span>
+            </>
+        )
+    }
 
     /**
      * The component for diagnose menu.
@@ -25,12 +32,9 @@ export default function Form(props) {
     const DiagnosisMenu = () => {
         return (
             <div 
-                className="diagnosis-menu" 
-                onClick={() =>setShowAll(!showAll)}>
-                    
-                <span>{diagnosis || 'Valitse diagnoosi'}</span>
-
-                {showAll && (
+                className="diagnosis-menu dropdown" >
+                <button className="dropdown-btn">{diagnosis || <Choose />}</button>
+                <div className="dropdown-content">
                     <ul className="menu--items">
                         {diagnosisOptions
                             .filter((item) => item !== diagnosis)
@@ -42,7 +46,8 @@ export default function Form(props) {
                             </li>
                         ))}
                     </ul>
-                )}
+                </div>
+                
             </div>
         )
     }
@@ -56,13 +61,24 @@ export default function Form(props) {
         setDiagnosis(e.target.textContent);
         props.setChosenDiagnose(e.target.textContent);
         props.changeInstruction(1);
-        if (e.target.textContent === "Bronkiitti") {
+
+        console.log("Uusi diagnoosivalinta tehty")
+        const selected = e.target.textContent;
+        setDiagnosis(selected);
+        
+        if (selected === "Bronkiitti") {
             setIsBronchitis(true);
+            handleSubmit(selected, null);
         }
-        else {
+        else if (selected !== "Bronkiitti") {
             setIsBronchitis(false);
         }
-        setShowAll(false);
+        if (selected !== "Streptokokki-tonsilliitti") {
+            resetCheckboxes();
+        }
+        if (selected !== "Avohoitopneumonia") {
+            resetCheckboxes();
+        }        
     }
 
     /**
@@ -94,7 +110,11 @@ export default function Form(props) {
                 
             }
         }
-      }
+    }
+
+    const [penisillinAllergy, setPenisillinAllergy] = useState(false);
+    const [concurrentEBV, setConcurrentEBV] = useState(false);
+    const [concurrentMycoplasma, setConcurrentMycoplasma] = useState(false);
 
     /**
      * The component for the form submit button.
@@ -104,53 +124,79 @@ export default function Form(props) {
         return (
             <button 
                 className="form--button" 
-                type="submit">
+                type="submit"
+                disabled={!weight}>
                 Laske suositus
             </button>
         )
     }
 
     /**
-     * Handle form submission and send diagnosis and weight as parameters.
+     * Handle form submission and send form data as object parameter.
      * @param {*} e 
      */
     const handleClick = (e) => {
         e.preventDefault();
-        props.handleSubmit(diagnosis, weight);
+        const data = { diagnosis: diagnosis,
+                       weight: weight,
+                       allergy: penisillinAllergy,
+                       concurrentEBV: concurrentEBV,
+                       concurrentMycoplasma: concurrentMycoplasma }
+        props.handleSubmit(data);
+    }
+
+    const resetCheckboxes = () => {
+        setConcurrentEBV(false);
+        setConcurrentMycoplasma(false);
+    }
+
+    let placeholder = "Syötä paino"
+
+    const emptyPlaceholder = () => {
+        placeholder = "";
     }
 
     return (
         <form className="diagnosis-form" onSubmit={handleClick}>
             <DiagnosisMenu />
-            <input
-                id="weight-input"
-                className="form--input"
-                placeholder="Syötä paino (kg)"
-                name="weight"
-                value={weight}
-                onChange={handleInput}
-                type="text"
-                disabled={isBronchitis}
-                required
-            />
-            {diagnosis==="Streptokokki-tonsilliitti" &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Samanaikainen EBV-infektio
-                </label>}
-            {diagnosis==="Avohoitopneumonia" &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Samanaikainen mykoplasma
-                </label>}
-            {diagnosis && !isBronchitis &&
-                <label className="form--checkbox">
-                    <input 
-                        type="checkbox"
-                    /> Penisilliiniallergia
-                </label>}    
-            {diagnosis && weight && !isBronchitis && <SubmitButton />}
+            <div className="weight-input">
+                <input
+                    id="weight-input"
+                    className="form--input"
+                    placeholder={placeholder}
+                    onFocus={emptyPlaceholder}
+                    name="weight"
+                    value={weight}
+                    onChange={handleInput}
+                    type="text"
+                    disabled={isBronchitis || !diagnosis}
+                    required={true}
+                />
+                <span>kg</span>
+            </div>
+            <div className="checkbox-container">
+                {diagnosis==="Streptokokki-tonsilliitti" &&
+                    <label className="form--checkbox">
+                        <input 
+                            type="checkbox"
+                            onClick={() => setConcurrentEBV(!concurrentEBV)}
+                        /> Samanaikainen EBV-infektio
+                    </label>}
+                {diagnosis==="Avohoitopneumonia" &&
+                    <label className="form--checkbox">
+                        <input 
+                            type="checkbox"
+                            onClick={() => setConcurrentMycoplasma(!concurrentMycoplasma)}
+                        /> Samanaikainen mykoplasma
+                    </label>}
+                {diagnosis && !isBronchitis &&
+                    <label className="form--checkbox">
+                        <input 
+                            type="checkbox"
+                            onClick={() => setPenisillinAllergy(!penisillinAllergy)}
+                        /> Penisilliiniallergia
+                    </label>} 
+            </div>
+            {diagnosis && !isBronchitis && <SubmitButton />}
         </form>
     );}

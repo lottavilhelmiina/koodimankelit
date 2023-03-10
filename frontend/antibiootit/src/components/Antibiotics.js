@@ -65,11 +65,17 @@ export default function Antibiotics() {
 
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    const receiveWeight = (diagnose, weight) => {
-        if (diagnose !== "") {
+    const receiveInput = (data) => {
+        if (data.diagnosis !== "") {
             setFormSubmitted(true);
         }
-        console.log("Lapsen paino: " + weight + " kg ja diagnoosi: " + diagnose);
+
+        const ebv = data.concurrentEBV;
+        const mp = data.concurrentMycoplasma;
+              
+        console.log("Lapsen paino: " + data.weight + " kg ja diagnoosi: " + data.diagnosis);
+        console.log(ebv ? "Lapsella on samanaikainen ebv" : "Lapsella ei ole samanaikaista ebv:tä");
+        console.log(mp ? "Lapsella on samanaikainen mykoplasma" : "Lapsella ei ole samanaikaista mykoplasmaa");
     }
 
     function changeInstruction(index) {
@@ -89,10 +95,11 @@ export default function Antibiotics() {
                 </div>}
             </section>
             <Form 
-                handleSubmit={receiveWeight} 
+                handleSubmit={receiveInput} 
                 changeInstruction={changeInstruction} 
                 setChosenDiagnose={setChosenDiagnose} 
             />
+
             {formSubmitted && <Treatment 
                 diagnose={chosenDiagnose}
                 antibiotic={antibiotic}
@@ -100,7 +107,7 @@ export default function Antibiotics() {
                 activeRecipe={activeRecipe}
                 setActiveRecipe={setActiveRecipe}
             />}
-            {formSubmitted && <Recipe />}
+            {formSubmitted && <Recipe ab={antibiotic} choice={activeRecipe} />}
         </div>
     );
 }

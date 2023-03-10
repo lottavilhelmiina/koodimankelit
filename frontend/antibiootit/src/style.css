@@ -10,10 +10,14 @@
 }
 
 
+button, a, li, input {
+    cursor: pointer;
+}
+
 .header {
     font-family: Inter, sans-serif;
     display: flex;
-    height: 35px;
+    height: 53px;
     padding: 10px;
     top: 0;
     left: 0;
@@ -31,27 +35,25 @@
     margin-right: 40px;
 }
 
-.header--title {
+.header--title-link {
+    background: none!important;
+    border: none;
+    padding: 0!important;
     color: white;
-    margin-left: 10px;
-    font-size: 18px;
+    margin-left: 50px;
+    font-size: 24px;
 }
 
-
-.header--info {
-    color: white;
+.header--title-link {
+    cursor: pointer;
 }
 
-.header--feedback {
-    color: white;
-    margin-right: 20px;
-}
-
-.button-link {
+.header-link {
     background: none!important;
     border: none;
     padding: 0!important;
     color:white;
+    font-size: 16px;
 }
 
 footer {
@@ -64,6 +66,7 @@ footer {
     background-color: #5D769A;
     color: white;
     gap: 23px;
+    margin-top: 50px;
 }
 
 .footer--lauseke, .footer--tekijat {
@@ -170,8 +173,11 @@ aside {
     margin-top: 63px;
 }
 
+.weight-input {
+    grid-column-start: 2;
+}
+
 .form--input {
-    grid-column-start: 4;
     height: 45px;
     width: 250px;
     border-radius: 20px;
@@ -183,25 +189,51 @@ aside {
     border: 1.5px solid #395174;
 }
 
-::placeholder {
-    color: black;
-    font-weight: 200;
+.form--input:disabled {
+    color: #929292;
+    background-color: #E2E2E2;    
 }
 
-.form--checkbox {
-    vertical-align: bottom;
-    grid-column-start: 1;
+::placeholder {
+    color: black;
+    font-weight: bold;
+}
+
+.form--input:focus::placeholder {
+    color: transparent;
+}
+
+.form--input:disabled::placeholder {
+    color: #606874;
+}
+
+.form--input:hover:enabled {
+    background-color: #b5cdf1;
+}
+
+.choose {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
     margin-left: 30px;
+    margin-top: 10px;
 }
 
 .form--checkbox input {
     height: 20px;
     width: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    vertical-align: top;
 }
 
 .form--button {
-    grid-row-start: 4;
-    grid-column-start: 4;
+    grid-row-start: 2;
+    grid-column-start: 2;
     height: 50px;
     width: 250px;
     border-radius: 20px;
@@ -210,23 +242,68 @@ aside {
     font-weight: bold;
     font-size: 16px;
     border: 1.5px solid #395174;
+    box-shadow: 0 1.5px #7b7979;
+}
+
+.form--button:active:enabled {
+    box-shadow: 0 0px #7b7979;
+    transform: translateY(1.5px);
+}
+
+.form--button:hover:enabled {
+    background-color: #b5cdf1;
+}
+
+.form--button:disabled {
+    background-color: #E2E2E2;
 }
 
 .diagnosis-form {
     display: grid;
     margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .diagnosis-menu {
+    position: relative;
+    display: inline-block;
     grid-column-start: 1;
     width: 250px;
     padding: 0;
-    padding-top: 15px;
+    padding-top: 10px;
+    padding-bottom: 15px;
     margin: 10px;
-    text-indent: 25px;
+    text-indent: 30px;
     border: 1.5px solid #395174;
     border-radius: 20px;
     background-color: #D7E2F2;
+}
+
+.dropdown-content {
+    position: absolute;
+    display:none;
+    z-index: 1;
+    width: 250px;
+    padding: 0;
+    margin-left: -1px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    background-color: #D7E2F2;
+    border-bottom: 1.5px solid #395174;
+    border-left: 1.5px solid #395174;
+    border-right: 1.5px solid #395174;
+    border-radius: 0px 0px 20px 20px;
+
+}
+
+.dropdown-btn {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 16px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 
@@ -247,6 +324,11 @@ aside {
 
 .menu--items li {
     height: 40px;
+}
+
+.menu--items li:hover {
+    background-color: #5D769A;
+    color: white;
 }
 
 .recipe-container {
@@ -416,21 +498,31 @@ aside {
     background-color: white;
     border-radius: 20px;
     border: 1.5px solid #395174;
-    height: 120px;
+    height: 100%;
     width: 95%;
+    margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 2.5%;
+    padding: 0px;
 }
 
 .recipe-textfield {
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
     border-style: none;
     border-radius: 25px;
     font-family: Inter, sans-serif;
-    padding: 5px;
-    margin: 0px;
+    font-size: 16px;
+    text-indent: 2%;
+    padding: 10px;
+    margin: 0;
     width: 90%;
     resize: none;
+}
+
+.recipe-textfield:focus { 
+    outline: none;
 }
 
 .recipe-container-bottom {
@@ -438,28 +530,38 @@ aside {
     width: 95%;
     justify-content: space-between;
     background-color: white;
-    margin-left: 10px;
-}
-
-.recipe-container-bottom p {
-    padding: 5px;
+    padding-bottom: 5px;
+    padding-left: 4px;
 }
 
 .copy-button {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
+    bottom: 10%;
+    right: 3%;
     background-color: white;
-    border: solid;
-    border-width: 0.5px;
     border: 1.5px solid #395174;
-    border-radius: 25px;
+    border-radius: 20px;
     font-family: Inter, sans-serif;
-    font-size: 12px;
+    font-size: 16px;
+    font-size: 16px;
+    color: #395174;
+    box-shadow: 0 1.5px #7b7979;
+    padding: 10px;
+    text-indent: 5px;
+}
+
+.copy-button img {
+    width: 20px;
 }
 
 .copy-button:hover {
     background-color: #E9E9E9;
+}
+
+.copy-button:active {
+    background-color: #E9E9E9;
+    box-shadow: 0 0px #7b7979;
+    transform: translateY(1.5px);
 }
 
 .notification-container {
