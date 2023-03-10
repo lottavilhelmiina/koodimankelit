@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Form({ handleSubmit }) {
+export default function Form(props) {
     
     /**
      * States and items for the drop-down menu for selecting the diagnose.
@@ -50,7 +50,7 @@ export default function Form({ handleSubmit }) {
                 
             </div>
         )
-    }                        
+    }
 
     /**
      * Handle user's diagnose selection from the menu.
@@ -58,6 +58,10 @@ export default function Form({ handleSubmit }) {
      */
     const handleSelection = (e) => {
         e.preventDefault();
+        setDiagnosis(e.target.textContent);
+        props.setChosenDiagnose(e.target.textContent);
+        props.changeInstruction(1);
+
         console.log("Uusi diagnoosivalinta tehty")
         const selected = e.target.textContent;
         setDiagnosis(selected);
@@ -94,6 +98,7 @@ export default function Form({ handleSubmit }) {
      */
     const handleInput = (e) => {
         e.preventDefault();
+        props.changeInstruction(2);
         const input = e.target.value;
         if (VALID_WEIGHT_INPUT.test(input)) {
             // Replace comma with decimal point for consistency
@@ -137,7 +142,7 @@ export default function Form({ handleSubmit }) {
                        allergy: penisillinAllergy,
                        concurrentEBV: concurrentEBV,
                        concurrentMycoplasma: concurrentMycoplasma }
-        handleSubmit(data);
+        props.handleSubmit(data);
     }
 
     const resetCheckboxes = () => {
