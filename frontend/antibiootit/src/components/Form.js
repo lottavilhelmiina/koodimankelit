@@ -119,7 +119,8 @@ export default function Form({ handleSubmit }) {
         return (
             <button 
                 className="form--button" 
-                type="submit">
+                type="submit"
+                disabled={!weight}>
                 Laske suositus
             </button>
         )
@@ -163,7 +164,7 @@ export default function Form({ handleSubmit }) {
                     value={weight}
                     onChange={handleInput}
                     type="text"
-                    disabled={isBronchitis}
+                    disabled={isBronchitis || !diagnosis}
                     required={true}
                 />
                 <span>kg</span>
@@ -191,6 +192,6 @@ export default function Form({ handleSubmit }) {
                         /> Penisilliiniallergia
                     </label>} 
             </div>
-            {diagnosis && weight && !isBronchitis && <SubmitButton />}
+            {diagnosis && !isBronchitis && <SubmitButton />}
         </form>
     );}

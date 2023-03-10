@@ -187,6 +187,11 @@ aside {
     border: 1.5px solid #395174;
 }
 
+.form--input:disabled {
+    color: #929292;
+    background-color: #E2E2E2;    
+}
+
 ::placeholder {
     color: black;
     font-weight: bold;
@@ -200,7 +205,7 @@ aside {
     color: #606874;
 }
 
-.form--input:hover {
+.form--input:hover:enabled {
     background-color: #b5cdf1;
 }
 
@@ -238,13 +243,17 @@ aside {
     box-shadow: 0 1.5px #7b7979;
 }
 
-.form--button:active {
+.form--button:active:enabled {
     box-shadow: 0 0px #7b7979;
     transform: translateY(1.5px);
 }
 
-.form--button:hover {
+.form--button:hover:enabled {
     background-color: #b5cdf1;
+}
+
+.form--button:disabled {
+    background-color: #E2E2E2;
 }
 
 .diagnosis-form {
@@ -259,7 +268,7 @@ aside {
     width: 250px;
     padding: 0;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     margin: 10px;
     text-indent: 30px;
     border: 1.5px solid #395174;
@@ -281,6 +290,7 @@ aside {
     border-left: 1.5px solid #395174;
     border-right: 1.5px solid #395174;
     border-radius: 0px 0px 20px 20px;
+
 }
 
 .dropdown-btn {
@@ -456,24 +466,28 @@ aside {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     background-color: white;
     border-radius: 20px;
     border: 1.5px solid #395174;
     height: 100%;
     width: 95%;
-    margin: 10px 25px 20px 25px;
-    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 2.5%;
+    padding: 0px;
 }
 
 .recipe-textfield {
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
     border-style: none;
     border-radius: 25px;
     font-family: Inter, sans-serif;
     font-size: 16px;
-    padding: 5px;
+    text-indent: 2%;
+    padding: 10px;
     margin: 0;
     width: 90%;
     resize: none;
@@ -494,8 +508,8 @@ aside {
 
 .copy-button {
     position: absolute;
-    bottom: 25px;
-    right: 30px;
+    bottom: 10%;
+    right: 3%;
     background-color: white;
     border: 1.5px solid #395174;
     border-radius: 20px;
