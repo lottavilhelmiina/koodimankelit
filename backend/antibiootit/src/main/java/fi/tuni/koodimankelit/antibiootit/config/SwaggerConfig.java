@@ -17,7 +17,7 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                .title("Antibiootit API")
+                .title("Antibiotics API")
                 .version("1.0.0")
                 .license(new License().name("Apache 2.0").url("http://springdoc.org"))
                 .description("description")
