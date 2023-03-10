@@ -39,9 +39,7 @@ public class DiagnosesTest extends AntibioticsControllerTest {
 
         MvcResult result = mockMvc.perform(
             // Request
-            get("/api/antibiotics/diagnoses")
-            .contentType(MediaType.APPLICATION_JSON)
-            )
+            get("/api/antibiotics/diagnoses"))
 
             // Response is ok
             .andExpect(status().isOk())
