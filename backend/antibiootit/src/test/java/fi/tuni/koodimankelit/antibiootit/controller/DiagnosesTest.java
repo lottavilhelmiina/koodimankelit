@@ -23,6 +23,8 @@ import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
  * Tests /diagnoses endpoint HTTP requests and responses
  */
 public class DiagnosesTest extends AntibioticsControllerTest {
+
+    private static final String ADDRESS = "/api/antibiotics/diagnoses";
     
     @Test
     public void diagnosesShouldReturnList() throws Exception {
@@ -39,7 +41,7 @@ public class DiagnosesTest extends AntibioticsControllerTest {
 
         MvcResult result = mockMvc.perform(
             // Request
-            get("/api/antibiotics/diagnoses"))
+            get(ADDRESS))
 
             // Response is ok
             .andExpect(status().isOk())
