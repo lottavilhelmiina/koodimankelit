@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
 public class SwaggerConfig {
@@ -16,7 +15,7 @@ public class SwaggerConfig {
                 .info(new Info()
                 .title("Antibiotics API")
                 .version("1.0.0")
-                .description("The Antibiotics API provides accurate and up-to-date information on appropriate antibiotic recommendations for child patients.\n\n### Developers\n\nJuho Rantala, juho.a.rantala@tuni.fi\n\nNeera Kiviluoma, neera.kiviluoma@tuni.fi\n\nEveliina Sundberg, eveliina.sundberg@tuni.fi"))
-                .addServersItem(new Server().url("http://localhost:8080"));
+                .description("The Antibiotics API provides accurate and up-to-date information on appropriate antibiotic recommendations for child patients.\n\n### Developers\n\nJuho Rantala, juho.a.rantala@tuni.fi\n\nNeera Kiviluoma, neera.kiviluoma@tuni.fi\n\nEveliina Sundberg, eveliina.sundberg@tuni.fi")
+                );
     }    
 }
