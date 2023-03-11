@@ -1,8 +1,7 @@
 package fi.tuni.koodimankelit.antibiootit.services;
 
-import java.util.List;
-
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
@@ -19,7 +18,11 @@ public interface AntibioticsService {
      */
     public DiagnoseResponse calculateTreatments(Parameters parameters);
 
-    public List<DiagnoseInfo> getAllDiagnoseInfos();
+    /** 
+     * Returns all diagnoses and their basic information: id, name, etiology, checkboxes
+     * @return Diagnoses List of diagnose infos
+     */
+    public Diagnoses getAllDiagnoseInfos();
 
     public DiagnoseInfo getDiagnoseInfoByID(String id);
 }
