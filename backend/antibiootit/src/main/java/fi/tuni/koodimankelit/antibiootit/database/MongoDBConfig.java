@@ -11,6 +11,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 
+/**
+ * MongoDB configuration class
+ */
 @Configuration
 @EnableMongoRepositories(basePackages = "fi.tuni.koodimankelit.antibiootit.database")
 @PropertySource(value="classpath:secrets.properties", ignoreResourceNotFound = true)
