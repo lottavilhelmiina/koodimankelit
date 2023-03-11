@@ -9,8 +9,8 @@ public class Tablet extends Antibiotic {
 
     public Tablet(String antibiotic, String format, String info, String dosagePerDayUnit,
         int dosagePerDay, int maxDosePerDay, List<Strength> strength, String weightUnit,
-        int days, int dosesPerDay, int tabletsPerDose) {
-        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay);
+        int days, int dosesPerDay, int tabletsPerDose, List<DoseMultiplier> doseMultipliers) {
+        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, doseMultipliers);
         this.dosagePerDayUnit = dosagePerDayUnit;
         this.dosagePerDay = dosagePerDay;
         this.tabletsPerDose = tabletsPerDose;

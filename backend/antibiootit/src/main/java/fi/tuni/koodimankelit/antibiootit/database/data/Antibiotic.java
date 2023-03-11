@@ -2,7 +2,7 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 
 import java.util.List;
 
-public abstract class Antibiotic {
+public class Antibiotic {
     private final String antibiotic;
     private final String format;
     private final String info;
@@ -11,10 +11,10 @@ public abstract class Antibiotic {
     private final String weightUnit;
     private final int days;
     private final int dosesPerDay;
+    private final List<DoseMultiplier> doseMultipliers;
 
-    public Antibiotic(String antibiotic, String format, String info, 
-        int maxDosePerDay, List<Strength> strength, String weightUnit, int days,
-        int dosesPerDay) {
+    public Antibiotic(String antibiotic, String format, String info, int maxDosePerDay, 
+        List<Strength> strength, String weightUnit, int days, int dosesPerDay, List<DoseMultiplier> doseMultipliers) {
             this.antibiotic = antibiotic;
             this.format = format;
             this.info = info;
@@ -23,6 +23,7 @@ public abstract class Antibiotic {
             this.days = days;
             this.dosesPerDay = dosesPerDay;
             this.weightUnit = weightUnit;
+            this.doseMultipliers = doseMultipliers;
     }
 
     public String getAntibiotic() {
@@ -55,5 +56,9 @@ public abstract class Antibiotic {
 
     public int getDosesPerDay() {
         return this.dosesPerDay;
+    }
+
+    public List<DoseMultiplier> getDoseMultipliers() {
+        return this.doseMultipliers;
     }
 }

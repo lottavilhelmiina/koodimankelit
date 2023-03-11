@@ -12,13 +12,15 @@ public class DiagnoseInfo {
     private final String name;
     private final String etiology;
     private final List<CheckBoxInfo> checkBoxes;
+    private final boolean needsAntibiotics;
 
-    public DiagnoseInfo(String id, String name, String etiology, List<CheckBoxInfo> checkBoxes) {
+    public DiagnoseInfo(String id, String name, String etiology, List<CheckBoxInfo> checkBoxes, boolean needsAntibiotics) {
         super();
         this.id = id;
         this.name = name;
         this.etiology = etiology;
         this.checkBoxes = checkBoxes;
+        this.needsAntibiotics = needsAntibiotics;
     }
 
     public String getId() {
@@ -35,5 +37,9 @@ public class DiagnoseInfo {
 
     public List<CheckBoxInfo> getCheckBoxes() {
         return this.checkBoxes;
+    }
+
+    public boolean getNeedsAntibiotics() {
+        return this.needsAntibiotics;
     }
 }
