@@ -25,6 +25,7 @@ public class DataHandlerImpl implements DataHandler {
     @Override
     public Diagnose getDiagnoseById(String id) {
         Optional<Diagnose> findById = diagnoseRepository.findById(id);
+        // Check is diagnose found with given id
         if (findById.isPresent()) {
             Diagnose diagnose = findById.get();
             return diagnose;
@@ -45,6 +46,7 @@ public class DataHandlerImpl implements DataHandler {
     @Override
     public DiagnoseInfo getDiagnosisInfoById(String id) {
         Optional<DiagnoseInfo> findById = diagnoseRepository.getDiagnosisInfoById(id);
+        // Check is diagnosis info found with given id
         if (findById.isPresent()) {
             DiagnoseInfo diagnoseInfo = findById.get();
             return diagnoseInfo;
