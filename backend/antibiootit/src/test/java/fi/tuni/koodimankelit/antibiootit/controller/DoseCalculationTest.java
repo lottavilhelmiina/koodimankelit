@@ -40,7 +40,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         );
 
         when(service.getDiagnoseInfoByID(any()))
-        .thenReturn(new DiagnoseInfo("diagnosisID", "name", "etiology", new ArrayList<>()));
+        .thenReturn(new DiagnoseInfo("diagnosisID", "name", "etiology", new ArrayList<>(), true));
 
         // Actual test
         request(mockParameters)
@@ -93,7 +93,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .thenReturn(null);
 
         when(service.getDiagnoseInfoByID(any()))
-        .thenReturn(new DiagnoseInfo(null, null, null, null));
+        .thenReturn(new DiagnoseInfo(null, null, null, null, true));
 
         Mockito.doThrow(new InvalidParameterException(null)).when(validator).validate(any(), any());
 
