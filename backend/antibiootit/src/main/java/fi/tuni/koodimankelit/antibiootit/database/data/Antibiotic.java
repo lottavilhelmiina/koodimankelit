@@ -2,82 +2,114 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 
 import java.util.List;
 
+/**
+ * Database representation of antibiotic
+ */
 public class Antibiotic {
     private final String antibiotic;
     private final String format;
     private final String info;
-    private final String dosagePerDayUnit;
-    private final int dosagePerDay;
     private final int maxDosePerDay;
     private final List<Strength> strength;
     private final String weightUnit;
-    private final String resultUnit;
     private final int days;
     private final int dosesPerDay;
-    private final int tabletsPerDose;
+    private final List<DoseMultiplier> doseMultipliers;
 
-    public Antibiotic(String antibiotic, String format, String info, String dosagePerDayUnit, int dosagePerDay, 
-        int maxDosePerDay, List<Strength> strength, String weightUnit, String resultUnit, int days,
-        int dosesPerDay, int tabletsPerDose) {
+    /**
+     * Default constructor
+     * @param antibiotic antibiotic's name
+     * @param format antibiotic's format
+     * @param info extra info about antibiotic
+     * @param maxDosePerDay max dose per day
+     * @param strength list of different strengths of the antibiotic
+     * @param weightUnit used weight unit
+     * @param days how many days antibiotic needs to be taken
+     * @param dosesPerDay how many times a day antibiotic needs to be taken
+     * @param doseMultipliers info if dose needs to be multiplied on some days
+     */
+    public Antibiotic(String antibiotic, String format, String info, int maxDosePerDay, 
+        List<Strength> strength, String weightUnit, int days, int dosesPerDay, List<DoseMultiplier> doseMultipliers) {
             this.antibiotic = antibiotic;
             this.format = format;
             this.info = info;
-            this.dosagePerDayUnit = dosagePerDayUnit;
-            this.dosagePerDay = dosagePerDay;
             this.maxDosePerDay = maxDosePerDay;
             this.strength = strength;
             this.days = days;
             this.dosesPerDay = dosesPerDay;
             this.weightUnit = weightUnit;
-            this.resultUnit = resultUnit;
-            this.tabletsPerDose = tabletsPerDose;
+            this.doseMultipliers = doseMultipliers;
     }
 
+    /**
+     * Returns antibiotic's name
+     * @return STring name
+     */
     public String getAntibiotic() {
         return this.antibiotic;
     }
 
+    /**
+     * Returns antibiotic's format
+     * @return String format
+     */
     public String getFormat() {
         return this.format;
     }
 
+    /**
+     * returns antibiotic's extra info
+     * @return String info
+     */
     public String getInfo() {
         return this.info;
     }
 
-    public String getDosagePerDayUnit() {
-        return this.dosagePerDayUnit;
-    }
-
-    public int getDosagePerDay() {
-        return this.dosagePerDay;
-    }
-
+    /**
+     * Returns max dose per day value
+     * @return int maxDosePerDay
+     */
     public int getMaxDosePerDay() {
         return this.maxDosePerDay;
     }
 
+    /**
+     * Returns list of antibiotic's strengths
+     * @return List<Strength> strength
+     */
     public List<Strength> getStrength() {
         return this.strength;
     }
 
+    /**
+     * Returns used weight unit
+     * @return String weightUnit
+     */
     public String getWeightUnit() {
         return this.weightUnit;
     }
 
-    public String getResultUnit() {
-        return this.resultUnit;
-    }
-
+    /**
+     * Returns amount of days that antibiotic needs to be taken
+     * @return int days
+     */
     public int getDays() {
         return this.days;
     }
 
+    /**
+     * Returns how many doses needs to be taken per day
+     * @return int dosesPerDay
+     */
     public int getDosesPerDay() {
         return this.dosesPerDay;
     }
 
-    public int getTabletsPerDose() {
-        return this.tabletsPerDose;
+    /**
+     * Returns list of dose multipliers
+     * @return List<DoseMultiplier> doseMultipliers
+     */
+    public List<DoseMultiplier> getDoseMultipliers() {
+        return this.doseMultipliers;
     }
 }
