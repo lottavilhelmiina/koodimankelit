@@ -17,8 +17,8 @@ import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
 /**
  * Builder for diagnose response. Includes only suitable treatments 
  */
-public class DiagnoseResponseBuilder {
-    private final Diagnose diagnose;
+public class DiagnosisResponseBuilder {
+    private final Diagnose diagnosis;
     private final double weight;
     private final boolean usePenicillinAllergic;
 
@@ -63,12 +63,12 @@ public class DiagnoseResponseBuilder {
 
     /**
      * Default constructor
-     * @param diagnose Database entity instance
+     * @param diagnosis Database entity instance
      * @param weight weight in kilograms
      * @param usePenicillinAllergic True, if penicillin allergic option should be used
      */
-    public DiagnoseResponseBuilder(Diagnose diagnose, double weight, boolean usePenicillinAllergic) {
-        this.diagnose = diagnose;
+    public DiagnosisResponseBuilder(Diagnose diagnosis, double weight, boolean usePenicillinAllergic) {
+        this.diagnosis = diagnosis;
         this.weight = weight;
         this.usePenicillinAllergic = usePenicillinAllergic;
     }
@@ -80,7 +80,7 @@ public class DiagnoseResponseBuilder {
      */
     public DiagnoseResponse build() {
 
-        DiagnoseResponse diagnoseResponse = new DiagnoseResponse(diagnose.getId(), diagnose.getEtiology());
+        DiagnoseResponse diagnosisResponse = new DiagnoseResponse(diagnosis.getId(), diagnosis.getEtiology());
         List<Treatment> treatments = getTreatments();
 
         for(Treatment treatment : treatments) {
@@ -95,10 +95,10 @@ public class DiagnoseResponseBuilder {
             }
 
             AntibioticTreatment antibioticTreatment = builder.build();
-            diagnoseResponse.addTreatment(antibioticTreatment);
+            diagnosisResponse.addTreatment(antibioticTreatment);
         }
 
-        return diagnoseResponse;
+        return diagnosisResponse;
         
     }
 
@@ -110,7 +110,7 @@ public class DiagnoseResponseBuilder {
     private List<Treatment> getTreatments() {
 
         List<Treatment> treatments = new ArrayList<>();
-        for(Treatment treatment : this.diagnose.getTreatments()) {
+        for(Treatment treatment : this.diagnosis.getTreatments()) {
             if(isSuitableTreatment(treatment)) {
                 treatments.add(treatment);
             }
@@ -134,7 +134,7 @@ public class DiagnoseResponseBuilder {
             return PENICILLIN_ALLERGIC_CHOICE == treatment.getChoice();
         }
         else if (NO_ANTIBIOTIC_CHOICE == treatment.getChoice()) {
-            throw new NoAntibioticTreatmentException(this.diagnose);
+            throw new NoAntibioticTreatmentException(this.diagnosis);
         }
         else {
             return PRIMARY_CHOICE == treatment.getChoice() || SECONDARY_CHOICE == treatment.getChoice();

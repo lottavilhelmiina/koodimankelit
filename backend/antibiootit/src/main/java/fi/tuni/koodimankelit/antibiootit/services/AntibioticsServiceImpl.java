@@ -2,7 +2,7 @@ package fi.tuni.koodimankelit.antibiootit.services;
 
 import org.springframework.stereotype.Service;
 
-import fi.tuni.koodimankelit.antibiootit.builder.DiagnoseResponseBuilder;
+import fi.tuni.koodimankelit.antibiootit.builder.DiagnosisResponseBuilder;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
@@ -27,7 +27,7 @@ public class AntibioticsServiceImpl implements AntibioticsService {
         usePenicillinAllergic = usePenicillinAllergic || parameters.getCheckBoxes().stream().anyMatch(c -> c.getValue());
 
         // Build response
-        DiagnoseResponseBuilder builder = new DiagnoseResponseBuilder(diagnose, parameters.getWeight(), usePenicillinAllergic);
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(diagnose, parameters.getWeight(), usePenicillinAllergic);
         return builder.build();
         
     }
