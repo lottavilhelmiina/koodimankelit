@@ -1,46 +1,51 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import CopyNotification from "./CopyNotification";
 
 export default function Recipe(props) {
 
     const ab = props.ab;
-    const choice = props.choice;
 
-    const chosenAb = () => {
-        if (choice == "Ensimmäisen vaihtoehdon resepti") {
-            return  ab[0].name + " " + ab[0].dosage;
-        }
-        else {
-            return ab[1].name + " " + ab[1].dosage;;
-        }
-    }
-
-    const instr = () => {
-        if (choice == "Ensimmäisen vaihtoehdon resepti") {
-            return  ab[0].instruction;
-        }
-        else {
-            return ab[1].instruction;
-        }
-    }
-
-    const TIMEOUT_DURATION = 1200;
-
-    const [antibiotic, setAntibiotic] = useState(chosenAb)
-    const [dosageInstructions, setDosageInstructions] = useState(instr);
-    const [diagnosisCode, setDiagnosisCode] = useState("J03.0")
-
+    //const [antibiotic, setAntibiotic] = useState("")
+    const [dosageInstructions, setDosageInstructions] = useState(ab[0].instruction);
+    //const [diagnosisCode, setDiagnosisCode] = useState("");
     const [showNotification, setShowNotification] = useState(false);
 
-    useEffect(() => {
-        setAntibiotic(chosenAb);
-    }, [chosenAb]);
+    const antibiotic = ab[0].name + " " + ab[0].dosage;
+    const diagnosisCode = props.ab[0].id;
 
-    useEffect(() => {
-        if (!editedRef.current) {
-            setDosageInstructions(instr);
-        }
-    }, [chosenAb, instr]);
+    //const choice = props.choice;
+
+    // const chosenAb = () => {
+    //     if (choice == "Ensimmäisen vaihtoehdon resepti") {
+    //         return  ab[0].name + " " + ab[0].dosage;
+    //     }
+    //     else {
+    //         return ab[1].name + " " + ab[1].dosage;;
+    //     }
+    // }
+
+    // const instr = () => {
+    //     if (choice == "Ensimmäisen vaihtoehdon resepti") {
+    //         return  ab[0].instruction;
+    //     }
+    //     else {
+    //         return ab[1].instruction;
+    //     }
+    // }
+
+    //const TIMEOUT_DURATION = 1200;
+
+    
+
+    // useEffect(() => {
+    //     setAntibiotic(chosenAb);
+    // }, [chosenAb]);
+
+    // useEffect(() => {
+    //     if (!editedRef.current) {
+    //         setDosageInstructions(instr);
+    //     }
+    // }, [chosenAb, instr]);
 
     /**
      * Sets a timeout for notification when user copies the dosage instructions.
@@ -60,7 +65,7 @@ export default function Recipe(props) {
      */
     const copy = async () => {
         await navigator.clipboard.writeText(dosageInstructions);
-        //setShowNotification(true);
+        setShowNotification(true);
     }
 
     const CopyButton = () => {
@@ -69,7 +74,7 @@ export default function Recipe(props) {
                 className="copy-button"
                 onClick={copy} 
                 disabled={dosageInstructions === ""}>
-                <img src="./copy.png" /> Kopioi resepti
+                <img src="./copy.png" alt=""/> Kopioi resepti
             </button>
         )
     }
@@ -88,21 +93,6 @@ export default function Recipe(props) {
         setDosageInstructions(newValue);
         editedRef.current = true;
       };
-
-    /**
-     * An editable text area with dosage instructions from the backend as default.
-     * @returns A text area with dosage instructions.
-     */
-    const EditableDosageInstructions = () => {
-        return (
-            <textarea
-                className="recipe-textfield"
-                rows={3}
-                value={dosageInstructions}
-                onChange={handleInputChange}
-            />
-        )
-    }
 
     return (
         <div className="recipe-container">

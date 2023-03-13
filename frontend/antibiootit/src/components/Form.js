@@ -19,7 +19,7 @@ export default function Form(props) {
     
     const Choose = () => {
         return (
-            <><img className="choose" src="./heart.png" />
+            <><img className="choose" src="./heart.png" alt="" />
             <span className="bold">Valitse diagnoosi</span>
             </>
         )
