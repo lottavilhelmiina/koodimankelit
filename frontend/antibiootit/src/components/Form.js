@@ -68,7 +68,7 @@ export default function Form(props) {
         
         if (selected === "Bronkiitti") {
             setIsBronchitis(true);
-            handleSubmit(selected, null);
+            props.handleSubmit(selected, null);
         }
         else if (selected !== "Bronkiitti") {
             setIsBronchitis(false);
