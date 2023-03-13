@@ -86,4 +86,22 @@ public class CheckBoxValidatorTest {
 
         assertThrows(InvalidParameterException.class, () -> validator.validate(checkBoxInfos, infectionSelections));
     }
+
+    @Test
+    public void VoidResultsToException() {
+
+        // CheckBoxInfos null
+        checkBoxInfos = null;
+        infectionSelections = new ArrayList<>();
+        assertThrows(RuntimeException.class, () -> validator.validate(checkBoxInfos, infectionSelections));
+
+        // InfectionSelections null
+        checkBoxInfos = new ArrayList<>();
+        infectionSelections = null;
+        assertThrows(RuntimeException.class, () -> validator.validate(checkBoxInfos, infectionSelections));
+
+        // Both null
+        checkBoxInfos = null;
+        assertThrows(RuntimeException.class, () -> validator.validate(checkBoxInfos, infectionSelections));
+    }
 }
