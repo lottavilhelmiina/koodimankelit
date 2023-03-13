@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
-import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.NoAntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
@@ -64,7 +64,7 @@ public class AntibioticsController {
      * @return DiagnoseResponse Response body
      */
     @PostMapping("/dose-calculation")
-    public DiagnoseResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
+    public DiagnosisResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
         String diagnosisID = parameters.getDiagnosisID();
         DiagnoseInfo diagnosisInfo = antibioticsService.getDiagnoseInfoByID(diagnosisID);

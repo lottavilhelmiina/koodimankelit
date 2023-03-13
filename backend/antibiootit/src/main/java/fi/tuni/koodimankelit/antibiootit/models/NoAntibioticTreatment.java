@@ -6,7 +6,7 @@ public class NoAntibioticTreatment {
 
     private final String test = "No implementation";
     
-    public NoAntibioticTreatment(Diagnose diagnose) {
+    public NoAntibioticTreatment(Diagnose diagnosis) {
         // TODO implement constructor
     }
 

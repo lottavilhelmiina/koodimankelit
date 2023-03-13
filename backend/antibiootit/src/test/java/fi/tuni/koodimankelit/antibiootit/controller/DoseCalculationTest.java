@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
-import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
@@ -36,7 +36,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         // Mock needed methods
         when(service.calculateTreatments(any()))
         .thenReturn(
-            new DiagnoseResponse("diagnosisResponseID", "etiology")
+            new DiagnosisResponse("diagnosisResponseID", "etiology")
         );
 
         when(service.getDiagnoseInfoByID(any()))
