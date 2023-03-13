@@ -28,9 +28,9 @@ public class DiagnosesTest extends AntibioticsControllerTest {
     public void diagnosesShouldReturnList() throws Exception {
 
         DiagnoseInfo diagnose1 = new DiagnoseInfo(
-            "Code 1", "Diagnose 1", "Etiology 1", new ArrayList<>(), true);
+            "Code 1", "Diagnosis 1", "Etiology 1", new ArrayList<>(), true);
         DiagnoseInfo diagnose2 = new DiagnoseInfo(
-            "Code 2", "Diagnose 2", "Etiology 2", new ArrayList<>(), false);
+            "Code 2", "Diagnosis 2", "Etiology 2", new ArrayList<>(), false);
         List<DiagnoseInfo> diagnoseInfos = Arrays.asList(diagnose1, diagnose2);
         Diagnoses diagnoses = new Diagnoses(diagnoseInfos);
         

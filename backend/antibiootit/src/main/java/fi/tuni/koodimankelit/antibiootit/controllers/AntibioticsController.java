@@ -80,7 +80,7 @@ public class AntibioticsController {
 
     /** 
      * Returns all diagnoses and their basic information: id, name, etiology, checkboxes
-     * @return Diagnoses List of diagnose infos
+     * @return Diagnoses List of diagnosis infos
      */
     @GetMapping("/diagnoses")
     @Operation(summary = "Get all diagnoses", 

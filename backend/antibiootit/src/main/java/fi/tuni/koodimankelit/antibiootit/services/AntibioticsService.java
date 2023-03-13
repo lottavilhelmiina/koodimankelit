@@ -13,8 +13,8 @@ public interface AntibioticsService {
 
     /**
      * Calculates and generates treatments for given diagnosis
-     * @param parameters Diagnose generation parameters
-     * @return Diagnose with treatments
+     * @param parameters Diagnosis generation parameters
+     * @return Diagnosis with treatments
      */
     public DiagnosisResponse calculateTreatments(Parameters parameters);
 

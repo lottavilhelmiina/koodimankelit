@@ -15,7 +15,7 @@ import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 
 /**
- * Builder for diagnose response. Includes only suitable treatments 
+ * Builder for diagnosis response. Includes only suitable treatments 
  */
 public class DiagnosisResponseBuilder {
     private final Diagnose diagnosis;
@@ -75,8 +75,8 @@ public class DiagnosisResponseBuilder {
 
     
     /** 
-     * Build diagnose response object
-     * @return DiagnoseResponse generated instance
+     * Build diagnosis response object
+     * @return DiagnoisResponse generated instance
      */
     public DiagnosisResponse build() {
 
@@ -127,7 +127,7 @@ public class DiagnosisResponseBuilder {
      * Return True if treatment is suitable based on penicillin allergy
      * @param treatment specific treatment
      * @return boolean True, if treatment is suitable
-     * @throws NoAntibioticTreatmentException if diagnose has no antibiotic treatment
+     * @throws NoAntibioticTreatmentException if diagnosis has no antibiotic treatment
      */
     private boolean isSuitableTreatment(Treatment treatment) {
         if(this.usePenicillinAllergic) {
