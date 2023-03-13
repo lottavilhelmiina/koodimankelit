@@ -26,7 +26,7 @@ public class AuthorizationTest extends AntibioticsControllerTest {
 
     @BeforeEach
     public void mockService() {
-        when(service.getAllDiagnoseInfos()).thenReturn(new Diagnoses(null));
+        when(service.getAllDiagnosisInfos()).thenReturn(new Diagnoses(null));
         MockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(context).addFilters(new ApiKeyFilter("apikey"));
         mockMvc = builder.build();
     }
