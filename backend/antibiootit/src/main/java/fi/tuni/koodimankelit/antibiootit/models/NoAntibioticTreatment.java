@@ -1,12 +1,12 @@
 package fi.tuni.koodimankelit.antibiootit.models;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 
 public class NoAntibioticTreatment {
 
     private final String test = "No implementation";
     
-    public NoAntibioticTreatment(Diagnose diagnose) {
+    public NoAntibioticTreatment(Diagnosis diagnosis) {
         // TODO implement constructor
     }
 

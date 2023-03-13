@@ -6,9 +6,9 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * API representation of diagnose response with treatments
+ * API representation of diagnosis response with treatments
  */
-public class DiagnoseResponse {
+public class DiagnosisResponse {
 
     @JsonProperty("_id")
     private final String id;
@@ -19,9 +19,9 @@ public class DiagnoseResponse {
     /**
      * Default constructor
      * @param id ICD-10 identifier
-     * @param etiology common cause for diagnose
+     * @param etiology common cause for diagnosis
      */
-    public DiagnoseResponse(String id, String etiology) {
+    public DiagnosisResponse(String id, String etiology) {
         this.id = id;
         this.etiology = etiology;
         this.treatments = new ArrayList<>();

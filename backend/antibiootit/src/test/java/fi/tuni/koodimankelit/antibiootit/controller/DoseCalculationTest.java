@@ -14,9 +14,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
-import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
@@ -36,11 +36,11 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         // Mock needed methods
         when(service.calculateTreatments(any()))
         .thenReturn(
-            new DiagnoseResponse("diagnosisResponseID", "etiology")
+            new DiagnosisResponse("diagnosisResponseID", "etiology")
         );
 
-        when(service.getDiagnoseInfoByID(any()))
-        .thenReturn(new DiagnoseInfo("diagnosisID", "name", "etiology", new ArrayList<>(), true));
+        when(service.getDiagnosisInfoByID(any()))
+        .thenReturn(new DiagnosisInfo("diagnosisID", "name", "etiology", new ArrayList<>(), true));
 
         // Actual test
         request(mockParameters)
@@ -92,8 +92,8 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         when(service.calculateTreatments(any()))
         .thenReturn(null);
 
-        when(service.getDiagnoseInfoByID(any()))
-        .thenReturn(new DiagnoseInfo(null, null, null, null, true));
+        when(service.getDiagnosisInfoByID(any()))
+        .thenReturn(new DiagnosisInfo(null, null, null, null, true));
 
         Mockito.doThrow(new InvalidParameterException(null)).when(validator).validate(any(), any());
 
@@ -106,7 +106,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
     @Test
     public void runtimeExceptionShouldReturn500() throws Exception {
 
-        when(service.getDiagnoseInfoByID(any())).thenThrow(RuntimeException.class);
+        when(service.getDiagnosisInfoByID(any())).thenThrow(RuntimeException.class);
 
         request(mockParameters)
         .andDo(print())

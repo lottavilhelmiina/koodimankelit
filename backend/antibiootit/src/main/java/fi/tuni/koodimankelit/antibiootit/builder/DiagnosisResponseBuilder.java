@@ -5,20 +5,20 @@ import java.util.Comparator;
 import java.util.List;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Antibiotic;
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
-import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 
 /**
- * Builder for diagnose response. Includes only suitable treatments 
+ * Builder for diagnosis response. Includes only suitable treatments 
  */
-public class DiagnoseResponseBuilder {
-    private final Diagnose diagnose;
+public class DiagnosisResponseBuilder {
+    private final Diagnosis diagnosis;
     private final double weight;
     private final boolean usePenicillinAllergic;
 
@@ -63,24 +63,24 @@ public class DiagnoseResponseBuilder {
 
     /**
      * Default constructor
-     * @param diagnose Database entity instance
+     * @param diagnosis Database entity instance
      * @param weight weight in kilograms
      * @param usePenicillinAllergic True, if penicillin allergic option should be used
      */
-    public DiagnoseResponseBuilder(Diagnose diagnose, double weight, boolean usePenicillinAllergic) {
-        this.diagnose = diagnose;
+    public DiagnosisResponseBuilder(Diagnosis diagnosis, double weight, boolean usePenicillinAllergic) {
+        this.diagnosis = diagnosis;
         this.weight = weight;
         this.usePenicillinAllergic = usePenicillinAllergic;
     }
 
     
     /** 
-     * Build diagnose response object
-     * @return DiagnoseResponse generated instance
+     * Build diagnosis response object
+     * @return DiagnoisResponse generated instance
      */
-    public DiagnoseResponse build() {
+    public DiagnosisResponse build() {
 
-        DiagnoseResponse diagnoseResponse = new DiagnoseResponse(diagnose.getId(), diagnose.getEtiology());
+        DiagnosisResponse diagnosisResponse = new DiagnosisResponse(diagnosis.getId(), diagnosis.getEtiology());
         List<Treatment> treatments = getTreatments();
 
         for(Treatment treatment : treatments) {
@@ -95,10 +95,10 @@ public class DiagnoseResponseBuilder {
             }
 
             AntibioticTreatment antibioticTreatment = builder.build();
-            diagnoseResponse.addTreatment(antibioticTreatment);
+            diagnosisResponse.addTreatment(antibioticTreatment);
         }
 
-        return diagnoseResponse;
+        return diagnosisResponse;
         
     }
 
@@ -110,7 +110,7 @@ public class DiagnoseResponseBuilder {
     private List<Treatment> getTreatments() {
 
         List<Treatment> treatments = new ArrayList<>();
-        for(Treatment treatment : this.diagnose.getTreatments()) {
+        for(Treatment treatment : this.diagnosis.getTreatments()) {
             if(isSuitableTreatment(treatment)) {
                 treatments.add(treatment);
             }
@@ -127,14 +127,14 @@ public class DiagnoseResponseBuilder {
      * Return True if treatment is suitable based on penicillin allergy
      * @param treatment specific treatment
      * @return boolean True, if treatment is suitable
-     * @throws NoAntibioticTreatmentException if diagnose has no antibiotic treatment
+     * @throws NoAntibioticTreatmentException if diagnosis has no antibiotic treatment
      */
     private boolean isSuitableTreatment(Treatment treatment) {
         if(this.usePenicillinAllergic) {
             return PENICILLIN_ALLERGIC_CHOICE == treatment.getChoice();
         }
         else if (NO_ANTIBIOTIC_CHOICE == treatment.getChoice()) {
-            throw new NoAntibioticTreatmentException(this.diagnose);
+            throw new NoAntibioticTreatmentException(this.diagnosis);
         }
         else {
             return PRIMARY_CHOICE == treatment.getChoice() || SECONDARY_CHOICE == treatment.getChoice();

@@ -25,8 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 
 import fi.tuni.koodimankelit.antibiootit.controllers.AntibioticsController;
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
-import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;

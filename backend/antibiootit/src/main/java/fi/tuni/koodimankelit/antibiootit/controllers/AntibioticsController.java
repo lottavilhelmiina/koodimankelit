@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
-import fi.tuni.koodimankelit.antibiootit.models.DiagnoseResponse;
+import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.NoAntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 
@@ -61,15 +61,15 @@ public class AntibioticsController {
     /** 
      * Handle requests for dose calculation
      * @param parameters Request body
-     * @return DiagnoseResponse Response body
+     * @return DiagnosisResponse Response body
      */
     @PostMapping("/dose-calculation")
-    public DiagnoseResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
+    public DiagnosisResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
         String diagnosisID = parameters.getDiagnosisID();
-        DiagnoseInfo diagnoseInfo = antibioticsService.getDiagnoseInfoByID(diagnosisID);
+        DiagnosisInfo diagnosisInfo = antibioticsService.getDiagnosisInfoByID(diagnosisID);
 
-        List<CheckBoxInfo> checkBoxInfos = diagnoseInfo.getCheckBoxes();
+        List<CheckBoxInfo> checkBoxInfos = diagnosisInfo.getCheckBoxes();
         List<InfectionSelection> infectionSelections = parameters.getCheckBoxes();
 
         // Check that all required checkBoxes for the diagnosis are included in the request
@@ -80,7 +80,7 @@ public class AntibioticsController {
 
     /** 
      * Returns all diagnoses and their basic information: id, name, etiology, checkboxes
-     * @return Diagnoses List of diagnose infos
+     * @return Diagnoses List of diagnosis infos
      */
     @GetMapping("/diagnoses")
     @Operation(summary = "Get all diagnoses", 
@@ -90,7 +90,7 @@ public class AntibioticsController {
         @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public Diagnoses getDiagnoses() {
-        return this.antibioticsService.getAllDiagnoseInfos();
+        return this.antibioticsService.getAllDiagnosisInfos();
     }
 
     
@@ -122,7 +122,7 @@ public class AntibioticsController {
         return ResponseEntity
             .ok()
             .headers(headers)
-            .body(new NoAntibioticTreatment(ex.getDiagnose()));
+            .body(new NoAntibioticTreatment(ex.getDiagnosis()));
     }
 
 

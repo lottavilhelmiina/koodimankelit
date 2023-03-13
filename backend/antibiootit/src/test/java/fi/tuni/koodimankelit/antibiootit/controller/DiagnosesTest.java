@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
 /**
@@ -27,29 +28,30 @@ public class DiagnosesTest extends AntibioticsControllerTest {
     @Test
     public void diagnosesShouldReturnList() throws Exception {
 
-        DiagnoseInfo diagnose1 = new DiagnoseInfo(
-            "Code 1", "Diagnose 1", "Etiology 1", new ArrayList<>(), true);
-        DiagnoseInfo diagnose2 = new DiagnoseInfo(
-            "Code 2", "Diagnose 2", "Etiology 2", new ArrayList<>(), false);
-        List<DiagnoseInfo> diagnoseInfos = Arrays.asList(diagnose1, diagnose2);
-        Diagnoses diagnoses = new Diagnoses(diagnoseInfos);
+        DiagnosisInfo diagnosis1 = new DiagnosisInfo(
+            "Code 1", "Diagnosis 1", "Etiology 1", new ArrayList<>(), true);
+        DiagnosisInfo diagnosis2 = new DiagnosisInfo(
+            "Code 2", "Diagnosis 2", "Etiology 2", new ArrayList<>(), false);
+        List<DiagnosisInfo> diagnosisInfos = Arrays.asList(diagnosis1, diagnosis2);
+        Diagnoses diagnoses = new Diagnoses(diagnosisInfos);
         
         // Mock response
-        when(service.getAllDiagnoseInfos()).thenReturn(diagnoses);
+        when(service.getAllDiagnosisInfos()).thenReturn(diagnoses);
 
         MvcResult result = mockMvc.perform(
             // Request
             get(ADDRESS))
 
             // Response is ok
+            .andDo(print())
             .andExpect(status().isOk())
             .andReturn();
 
-        // Response has a list called "diagnoseInfos"
+        // Response has a list called "diagnosisInfos"
         JsonNode actualResponse = 
             jsonMapper.readTree(result.getResponse().getContentAsString());
-        assertTrue(actualResponse.has("diagnoseInfos"));
-        assertTrue(actualResponse.get("diagnoseInfos").isArray());
+        assertTrue(actualResponse.has("diagnosisInfos"));
+        assertTrue(actualResponse.get("diagnosisInfos").isArray());
 
     }
 
@@ -57,7 +59,7 @@ public class DiagnosesTest extends AntibioticsControllerTest {
     public void runtimeExceptionShouldReturn500() throws Exception {
 
         // Mock service to throw RuntimeException
-        when(service.getAllDiagnoseInfos())
+        when(service.getAllDiagnosisInfos())
             .thenThrow(RuntimeException.class);
 
         // Unable to connect to database
