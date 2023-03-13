@@ -67,9 +67,9 @@ public class AntibioticsController {
     public DiagnoseResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
         String diagnosisID = parameters.getDiagnosisID();
-        DiagnoseInfo diagnoseInfo = antibioticsService.getDiagnoseInfoByID(diagnosisID);
+        DiagnoseInfo diagnosisInfo = antibioticsService.getDiagnoseInfoByID(diagnosisID);
 
-        List<CheckBoxInfo> checkBoxInfos = diagnoseInfo.getCheckBoxes();
+        List<CheckBoxInfo> checkBoxInfos = diagnosisInfo.getCheckBoxes();
         List<InfectionSelection> infectionSelections = parameters.getCheckBoxes();
 
         // Check that all required checkBoxes for the diagnosis are included in the request
@@ -122,7 +122,7 @@ public class AntibioticsController {
         return ResponseEntity
             .ok()
             .headers(headers)
-            .body(new NoAntibioticTreatment(ex.getDiagnose()));
+            .body(new NoAntibioticTreatment(ex.getDiagnosis()));
     }
 
 

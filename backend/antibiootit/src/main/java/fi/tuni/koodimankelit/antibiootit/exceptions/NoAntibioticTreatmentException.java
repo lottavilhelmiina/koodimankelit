@@ -4,17 +4,17 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
 
 public class NoAntibioticTreatmentException extends RuntimeException {
 
-    private final Diagnose diagnose;
+    private final Diagnose diagnosis;
 
 
-    public NoAntibioticTreatmentException(Diagnose diagnose) {
-        super(String.format("No antibiotic treatment for diagnose: %s", diagnose.getId()));
-        this.diagnose = diagnose;
+    public NoAntibioticTreatmentException(Diagnose diagnosis) {
+        super(String.format("No antibiotic treatment for diagnosis: %s", diagnosis.getId()));
+        this.diagnosis = diagnosis;
     }
 
 
-    public Diagnose getDiagnose() {
-        return this.diagnose;
+    public Diagnose getDiagnosis() {
+        return this.diagnosis;
     }
 
 }
