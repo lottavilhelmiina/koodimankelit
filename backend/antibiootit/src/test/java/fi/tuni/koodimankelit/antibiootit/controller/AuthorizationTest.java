@@ -58,4 +58,15 @@ public class AuthorizationTest extends AntibioticsControllerTest {
         ).andDo(print())
         .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    public void wrongAuthorizationShouldReturn401() throws Exception {
+
+        mockMvc.perform(
+            get(ADDRESS)
+            .header("Authorization", "Basic someValue")
+        ).andDo(print())
+        .andExpect(status().isUnauthorized());
+    }
+
 }
