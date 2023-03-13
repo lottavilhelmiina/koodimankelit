@@ -2,8 +2,8 @@ package fi.tuni.koodimankelit.antibiootit.services;
 
 import java.util.List;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 
 /**
@@ -12,27 +12,27 @@ import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 public interface DataHandler {
 
     /**
-     * Finds and returns diagnose with the given id but if id is not
+     * Finds and returns diagnosis with the given id but if id is not
      * found, returns null.
      * @param id Diagnosis id
-     * @return Diagnose 
+     * @return Diagnosis 
      */
-    public Diagnose getDiagnoseById(String id);
+    public Diagnosis getDiagnosisById(String id);
 
     /**
      * Returns all diagnoses basic information: id, name, etiology, checkboxes
      * and if it needs antibiotics
-     * @return List<DiagnoseInfo> List of diagnose infos
+     * @return List<DiagnosisInfo> List of diagnosis infos
      */
-    public List<DiagnoseInfo> getAllDiagnoseInfos();
+    public List<DiagnosisInfo> getAllDiagnosisInfos();
 
     /**
      * Finds and returns diagnosis info with the given id but if id is not
      * found, returns null.
      * @param id Diagnosis id
-     * @return DiagnoseInfo Diagnosis info
+     * @return DiagnosisInfo Diagnosis info
      */
-    public DiagnoseInfo getDiagnosisInfoById(String id);
+    public DiagnosisInfo getDiagnosisInfoById(String id);
     
     /**
      * Returns all info texts

@@ -8,7 +8,7 @@ import nonapi.io.github.classgraph.json.Id;
  * Representation of diagnosis basic info
  */
 @Document(collection = "diagnoses")
-public class DiagnoseInfo {
+public class DiagnosisInfo {
 
     @Id
     private final String id;
@@ -20,12 +20,12 @@ public class DiagnoseInfo {
     /**
      * Default constructor
      * @param id ICD-10 identifier
-     * @param name name of diagnose
-     * @param etiology etiology (common cause) of diagnose
-     * @param checkBoxes list of possibly needed checkboxes for diagnose
-     * @param needsAntibiotics tells if diagnose needs antibiotics
+     * @param name name of diagnosis
+     * @param etiology etiology (common cause) of diagnosis
+     * @param checkBoxes list of possibly needed checkboxes for diagnosis
+     * @param needsAntibiotics tells if diagnosis needs antibiotics
      */
-    public DiagnoseInfo(String id, String name, String etiology, List<CheckBoxInfo> checkBoxes, boolean needsAntibiotics) {
+    public DiagnosisInfo(String id, String name, String etiology, List<CheckBoxInfo> checkBoxes, boolean needsAntibiotics) {
         super();
         this.id = id;
         this.name = name;
@@ -67,7 +67,7 @@ public class DiagnoseInfo {
     }
 
     /**
-     * Returns if diagnose need antibiotics
+     * Returns if diagnosis need antibiotics
      * @return boolean needsAntibiotics
      */
     public boolean getNeedsAntibiotics() {

@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Antibiotic;
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
@@ -18,7 +18,7 @@ import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
  * Builder for diagnosis response. Includes only suitable treatments 
  */
 public class DiagnosisResponseBuilder {
-    private final Diagnose diagnosis;
+    private final Diagnosis diagnosis;
     private final double weight;
     private final boolean usePenicillinAllergic;
 
@@ -67,7 +67,7 @@ public class DiagnosisResponseBuilder {
      * @param weight weight in kilograms
      * @param usePenicillinAllergic True, if penicillin allergic option should be used
      */
-    public DiagnosisResponseBuilder(Diagnose diagnosis, double weight, boolean usePenicillinAllergic) {
+    public DiagnosisResponseBuilder(Diagnosis diagnosis, double weight, boolean usePenicillinAllergic) {
         this.diagnosis = diagnosis;
         this.weight = weight;
         this.usePenicillinAllergic = usePenicillinAllergic;

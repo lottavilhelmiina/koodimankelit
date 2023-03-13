@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 import fi.tuni.koodimankelit.antibiootit.services.DataHandler;
 
@@ -22,19 +22,19 @@ public class DatabaseTestController {
     
     // TEST ONLY
     @PostMapping("/database-search")
-    public Diagnose getDiagnoseByID() {
-        return dataHandler.getDiagnoseById("J03.0");
+    public Diagnosis getDiagnosisByID() {
+        return dataHandler.getDiagnosisById("J03.0");
     }
     
     // TEST ONLY
-    @PostMapping("/get-diagnoseinfos")
-    public List<DiagnoseInfo> getDiagnoseInfos() {
-        return dataHandler.getAllDiagnoseInfos();
+    @PostMapping("/get-diagnosisinfos")
+    public List<DiagnosisInfo> getDiagnosisInfos() {
+        return dataHandler.getAllDiagnosisInfos();
     }
 
     // TEST ONLY
-    @PostMapping("/get-diagnoseinfo")
-    public DiagnoseInfo getDiagnosisInfo() {
+    @PostMapping("/get-diagnosisinfo")
+    public DiagnosisInfo getDiagnosisInfo() {
         return dataHandler.getDiagnosisInfoById("J03.0");
     }
 

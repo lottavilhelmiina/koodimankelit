@@ -6,10 +6,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Database representation of diagnose
+ * Database representation of diagnosis
  */
 @Document(collection = "diagnoses")
-public class Diagnose {
+public class Diagnosis {
 
     @Id
     private final String id;
@@ -26,12 +26,12 @@ public class Diagnose {
      * @param id ICD-10 identifier
      * @param name diagnosis name
      * @param etiology diagnosis etiology (common cause)
-     * @param infectionType infection type of the diagnose
-     * @param checkBoxes list of possibly needed checkboxes for diagnose
+     * @param infectionType infection type of the diagnosis
+     * @param checkBoxes list of possibly needed checkboxes for diagnosis
      * @param treatments List of all treatment options 
-     * @param needsAntibiotics tells if diagnose needs antibiotics
+     * @param needsAntibiotics tells if diagnosis needs antibiotics
      */
-    public Diagnose(String id, String name, String etiology, String infectionType, 
+    public Diagnosis(String id, String name, String etiology, String infectionType, 
         List<CheckBoxInfo> checkBoxes, List<Treatment> treatments, boolean needsAntibiotics) {
 
         super();

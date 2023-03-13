@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
 /**
@@ -28,11 +28,11 @@ public class DiagnosesTest extends AntibioticsControllerTest {
     @Test
     public void diagnosesShouldReturnList() throws Exception {
 
-        DiagnoseInfo diagnosis1 = new DiagnoseInfo(
+        DiagnosisInfo diagnosis1 = new DiagnosisInfo(
             "Code 1", "Diagnosis 1", "Etiology 1", new ArrayList<>(), true);
-        DiagnoseInfo diagnosis2 = new DiagnoseInfo(
+        DiagnosisInfo diagnosis2 = new DiagnosisInfo(
             "Code 2", "Diagnosis 2", "Etiology 2", new ArrayList<>(), false);
-        List<DiagnoseInfo> diagnosisInfos = Arrays.asList(diagnosis1, diagnosis2);
+        List<DiagnosisInfo> diagnosisInfos = Arrays.asList(diagnosis1, diagnosis2);
         Diagnoses diagnoses = new Diagnoses(diagnosisInfos);
         
         // Mock response

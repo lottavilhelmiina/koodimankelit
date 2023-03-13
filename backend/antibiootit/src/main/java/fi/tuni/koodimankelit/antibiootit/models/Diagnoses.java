@@ -2,7 +2,7 @@ package fi.tuni.koodimankelit.antibiootit.models;
 
 import java.util.List;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -12,13 +12,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Diagnoses {
 
     @Schema(description = "Information of each diagnosis")
-    private final List<DiagnoseInfo> diagnosisInfos;
+    private final List<DiagnosisInfo> diagnosisInfos;
     
     /**
      * Default constructor
      * @param List<DiagnoseInfo> information of each diagnosis
      */
-    public Diagnoses(List<DiagnoseInfo> diagnosisInfos) {
+    public Diagnoses(List<DiagnosisInfo> diagnosisInfos) {
         this.diagnosisInfos = diagnosisInfos;
     }
 
@@ -27,7 +27,7 @@ public class Diagnoses {
      * @return List<DiagnosisInfo> information of each diagnosis
      */
     @Schema(description = "Returns the list of all diagnosis infos")
-    public List<DiagnoseInfo> getDiagnosisInfos() {
+    public List<DiagnosisInfo> getDiagnosisInfos() {
         return this.diagnosisInfos;
     }
 }

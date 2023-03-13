@@ -3,8 +3,8 @@ package fi.tuni.koodimankelit.antibiootit.services;
 import org.springframework.stereotype.Service;
 
 import fi.tuni.koodimankelit.antibiootit.builder.DiagnosisResponseBuilder;
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
@@ -20,7 +20,7 @@ public class AntibioticsServiceImpl implements AntibioticsService {
 
     public DiagnosisResponse calculateTreatments(Parameters parameters) {
 
-        Diagnose diagnosis = dataHandler.getDiagnoseById(parameters.getDiagnosisID());
+        Diagnosis diagnosis = dataHandler.getDiagnosisById(parameters.getDiagnosisID());
 
         // If penicillinAllergic or any infection (checkBox is True)
         boolean usePenicillinAllergic = parameters.getPenicillinAllergic();
@@ -33,12 +33,12 @@ public class AntibioticsServiceImpl implements AntibioticsService {
     }
 
     public Diagnoses getAllDiagnoseInfos() {
-        Diagnoses allDiagnoses = new Diagnoses(this.dataHandler.getAllDiagnoseInfos());
+        Diagnoses allDiagnoses = new Diagnoses(this.dataHandler.getAllDiagnosisInfos());
         return allDiagnoses;
     }
 
     @Override
-    public DiagnoseInfo getDiagnoseInfoByID(String id) {
+    public DiagnosisInfo getDiagnoseInfoByID(String id) {
         return dataHandler.getDiagnosisInfoById(id);
     }
 

@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
@@ -40,7 +40,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         );
 
         when(service.getDiagnoseInfoByID(any()))
-        .thenReturn(new DiagnoseInfo("diagnosisID", "name", "etiology", new ArrayList<>(), true));
+        .thenReturn(new DiagnosisInfo("diagnosisID", "name", "etiology", new ArrayList<>(), true));
 
         // Actual test
         request(mockParameters)
@@ -93,7 +93,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .thenReturn(null);
 
         when(service.getDiagnoseInfoByID(any()))
-        .thenReturn(new DiagnoseInfo(null, null, null, null, true));
+        .thenReturn(new DiagnosisInfo(null, null, null, null, true));
 
         Mockito.doThrow(new InvalidParameterException(null)).when(validator).validate(any(), any());
 

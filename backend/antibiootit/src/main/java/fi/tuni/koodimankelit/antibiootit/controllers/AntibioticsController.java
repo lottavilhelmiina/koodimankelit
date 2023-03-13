@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
-import fi.tuni.koodimankelit.antibiootit.database.data.DiagnoseInfo;
+import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 
@@ -67,7 +67,7 @@ public class AntibioticsController {
     public DiagnosisResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
         String diagnosisID = parameters.getDiagnosisID();
-        DiagnoseInfo diagnosisInfo = antibioticsService.getDiagnoseInfoByID(diagnosisID);
+        DiagnosisInfo diagnosisInfo = antibioticsService.getDiagnoseInfoByID(diagnosisID);
 
         List<CheckBoxInfo> checkBoxInfos = diagnosisInfo.getCheckBoxes();
         List<InfectionSelection> infectionSelections = parameters.getCheckBoxes();

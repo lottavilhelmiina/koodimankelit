@@ -1,19 +1,19 @@
 package fi.tuni.koodimankelit.antibiootit.exceptions;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.Diagnose;
+import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 
 public class NoAntibioticTreatmentException extends RuntimeException {
 
-    private final Diagnose diagnosis;
+    private final Diagnosis diagnosis;
 
 
-    public NoAntibioticTreatmentException(Diagnose diagnosis) {
+    public NoAntibioticTreatmentException(Diagnosis diagnosis) {
         super(String.format("No antibiotic treatment for diagnosis: %s", diagnosis.getId()));
         this.diagnosis = diagnosis;
     }
 
 
-    public Diagnose getDiagnosis() {
+    public Diagnosis getDiagnosis() {
         return this.diagnosis;
     }
 
