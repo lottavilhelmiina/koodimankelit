@@ -93,7 +93,7 @@ public class Diagnosis {
     }
 
     /**
-     * Returns if diagnose needs antibiotics
+     * Returns if diagnosis needs antibiotics
      * @return boolean needsAntibiotics
      */
     public boolean getNeedsAntibiotics() {

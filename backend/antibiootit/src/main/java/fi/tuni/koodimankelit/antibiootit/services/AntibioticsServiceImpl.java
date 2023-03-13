@@ -32,13 +32,13 @@ public class AntibioticsServiceImpl implements AntibioticsService {
         
     }
 
-    public Diagnoses getAllDiagnoseInfos() {
+    public Diagnoses getAllDiagnosisInfos() {
         Diagnoses allDiagnoses = new Diagnoses(this.dataHandler.getAllDiagnosisInfos());
         return allDiagnoses;
     }
 
     @Override
-    public DiagnosisInfo getDiagnoseInfoByID(String id) {
+    public DiagnosisInfo getDiagnosisInfoByID(String id) {
         return dataHandler.getDiagnosisInfoById(id);
     }
 

@@ -35,7 +35,7 @@ public class DataHandlerImpl implements DataHandler {
 
     @Override
     public List<DiagnosisInfo> getAllDiagnosisInfos() {
-        return diagnosisRepository.getAllDiagnoseInfos();
+        return diagnosisRepository.getAllDiagnosisInfos();
     }
 
     @Override

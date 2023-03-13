@@ -16,7 +16,7 @@ public class Diagnoses {
     
     /**
      * Default constructor
-     * @param List<DiagnoseInfo> information of each diagnosis
+     * @param List<DiagnosisInfo> information of each diagnosis
      */
     public Diagnoses(List<DiagnosisInfo> diagnosisInfos) {
         this.diagnosisInfos = diagnosisInfos;

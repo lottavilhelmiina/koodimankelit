@@ -36,7 +36,7 @@ public class DiagnosesTest extends AntibioticsControllerTest {
         Diagnoses diagnoses = new Diagnoses(diagnosisInfos);
         
         // Mock response
-        when(service.getAllDiagnoseInfos()).thenReturn(diagnoses);
+        when(service.getAllDiagnosisInfos()).thenReturn(diagnoses);
 
         MvcResult result = mockMvc.perform(
             // Request
@@ -59,7 +59,7 @@ public class DiagnosesTest extends AntibioticsControllerTest {
     public void runtimeExceptionShouldReturn500() throws Exception {
 
         // Mock service to throw RuntimeException
-        when(service.getAllDiagnoseInfos())
+        when(service.getAllDiagnosisInfos())
             .thenThrow(RuntimeException.class);
 
         // Unable to connect to database

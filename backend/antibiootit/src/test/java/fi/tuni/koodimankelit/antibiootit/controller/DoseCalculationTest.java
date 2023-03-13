@@ -39,7 +39,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
             new DiagnosisResponse("diagnosisResponseID", "etiology")
         );
 
-        when(service.getDiagnoseInfoByID(any()))
+        when(service.getDiagnosisInfoByID(any()))
         .thenReturn(new DiagnosisInfo("diagnosisID", "name", "etiology", new ArrayList<>(), true));
 
         // Actual test
@@ -92,7 +92,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         when(service.calculateTreatments(any()))
         .thenReturn(null);
 
-        when(service.getDiagnoseInfoByID(any()))
+        when(service.getDiagnosisInfoByID(any()))
         .thenReturn(new DiagnosisInfo(null, null, null, null, true));
 
         Mockito.doThrow(new InvalidParameterException(null)).when(validator).validate(any(), any());
@@ -106,7 +106,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
     @Test
     public void runtimeExceptionShouldReturn500() throws Exception {
 
-        when(service.getDiagnoseInfoByID(any())).thenThrow(RuntimeException.class);
+        when(service.getDiagnosisInfoByID(any())).thenThrow(RuntimeException.class);
 
         request(mockParameters)
         .andDo(print())

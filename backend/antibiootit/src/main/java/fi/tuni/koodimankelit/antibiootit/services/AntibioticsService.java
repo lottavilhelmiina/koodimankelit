@@ -22,7 +22,7 @@ public interface AntibioticsService {
      * Returns all diagnoses and their basic information: id, name, etiology, checkboxes
      * @return Diagnoses List of diagnosis infos
      */
-    public Diagnoses getAllDiagnoseInfos();
+    public Diagnoses getAllDiagnosisInfos();
 
-    public DiagnosisInfo getDiagnoseInfoByID(String id);
+    public DiagnosisInfo getDiagnosisInfoByID(String id);
 }

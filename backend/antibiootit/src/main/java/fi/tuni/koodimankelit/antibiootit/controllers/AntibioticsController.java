@@ -61,13 +61,13 @@ public class AntibioticsController {
     /** 
      * Handle requests for dose calculation
      * @param parameters Request body
-     * @return DiagnoseResponse Response body
+     * @return DiagnosisResponse Response body
      */
     @PostMapping("/dose-calculation")
     public DiagnosisResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
         String diagnosisID = parameters.getDiagnosisID();
-        DiagnosisInfo diagnosisInfo = antibioticsService.getDiagnoseInfoByID(diagnosisID);
+        DiagnosisInfo diagnosisInfo = antibioticsService.getDiagnosisInfoByID(diagnosisID);
 
         List<CheckBoxInfo> checkBoxInfos = diagnosisInfo.getCheckBoxes();
         List<InfectionSelection> infectionSelections = parameters.getCheckBoxes();
@@ -90,7 +90,7 @@ public class AntibioticsController {
         @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     public Diagnoses getDiagnoses() {
-        return this.antibioticsService.getAllDiagnoseInfos();
+        return this.antibioticsService.getAllDiagnosisInfos();
     }
 
     

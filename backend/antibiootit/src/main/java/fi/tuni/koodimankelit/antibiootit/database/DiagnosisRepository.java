@@ -18,15 +18,15 @@ public interface DiagnosisRepository extends MongoRepository<Diagnosis, String> 
 
     /**
      * Returns all diagnosis basic information from database: id, name, etiology, checkBoxes and if it needs antibiotics
-     * @return List<DiagnoseInfo> 
+     * @return List<DiagnosisInfo> 
      */
     @Query(value = "{}", fields = "{'_id': 1, 'name': 1, 'etiology': 1, 'checkBoxes': 1, 'needsAntibiotics': 1}")
-    List<DiagnosisInfo> getAllDiagnoseInfos();
+    List<DiagnosisInfo> getAllDiagnosisInfos();
 
     /**
      * Finds and returns diagnosis info from database by given id
      * @param id diagnosis ICD-10 identifier
-     * @return Optional<DiagnoseInfo>
+     * @return Optional<DiagnosisInfo>
      */
     @Query("{_id: '?0'}")
     Optional<DiagnosisInfo> getDiagnosisInfoById(String id);
