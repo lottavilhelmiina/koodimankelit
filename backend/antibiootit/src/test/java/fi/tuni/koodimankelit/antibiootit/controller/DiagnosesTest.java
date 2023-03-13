@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,12 +28,12 @@ public class DiagnosesTest extends AntibioticsControllerTest {
     @Test
     public void diagnosesShouldReturnList() throws Exception {
 
-        DiagnoseInfo diagnose1 = new DiagnoseInfo(
+        DiagnoseInfo diagnosis1 = new DiagnoseInfo(
             "Code 1", "Diagnosis 1", "Etiology 1", new ArrayList<>(), true);
-        DiagnoseInfo diagnose2 = new DiagnoseInfo(
+        DiagnoseInfo diagnosis2 = new DiagnoseInfo(
             "Code 2", "Diagnosis 2", "Etiology 2", new ArrayList<>(), false);
-        List<DiagnoseInfo> diagnoseInfos = Arrays.asList(diagnose1, diagnose2);
-        Diagnoses diagnoses = new Diagnoses(diagnoseInfos);
+        List<DiagnoseInfo> diagnosisInfos = Arrays.asList(diagnosis1, diagnosis2);
+        Diagnoses diagnoses = new Diagnoses(diagnosisInfos);
         
         // Mock response
         when(service.getAllDiagnoseInfos()).thenReturn(diagnoses);
@@ -42,14 +43,15 @@ public class DiagnosesTest extends AntibioticsControllerTest {
             get(ADDRESS))
 
             // Response is ok
+            .andDo(print())
             .andExpect(status().isOk())
             .andReturn();
 
-        // Response has a list called "diagnoseInfos"
+        // Response has a list called "diagnosisInfos"
         JsonNode actualResponse = 
             jsonMapper.readTree(result.getResponse().getContentAsString());
-        assertTrue(actualResponse.has("diagnoseInfos"));
-        assertTrue(actualResponse.get("diagnoseInfos").isArray());
+        assertTrue(actualResponse.has("diagnosisInfos"));
+        assertTrue(actualResponse.get("diagnosisInfos").isArray());
 
     }
 

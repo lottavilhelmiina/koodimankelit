@@ -12,22 +12,22 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Diagnoses {
 
     @Schema(description = "Information of each diagnosis")
-    private final List<DiagnoseInfo> diagnoses;
+    private final List<DiagnoseInfo> diagnosisInfos;
     
     /**
      * Default constructor
      * @param List<DiagnoseInfo> information of each diagnosis
      */
-    public Diagnoses(List<DiagnoseInfo> diagnoseInfos) {
-        this.diagnoses = diagnoseInfos;
+    public Diagnoses(List<DiagnoseInfo> diagnosisInfos) {
+        this.diagnosisInfos = diagnosisInfos;
     }
 
     /**
      * Returns the list of all diagnoses
-     * @return List<DiagnoseInfo> information of each diagnosis
+     * @return List<DiagnosisInfo> information of each diagnosis
      */
-    @Schema(description = "Returns the list of all diagnoses")
-    public List<DiagnoseInfo> getDiagnoseInfos() {
-        return this.diagnoses;
+    @Schema(description = "Returns the list of all diagnosis infos")
+    public List<DiagnoseInfo> getDiagnosisInfos() {
+        return this.diagnosisInfos;
     }
 }
