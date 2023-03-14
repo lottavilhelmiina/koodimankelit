@@ -19,6 +19,7 @@ import jakarta.validation.Valid;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
+import fi.tuni.koodimankelit.antibiootit.models.InfoTexts;
 import fi.tuni.koodimankelit.antibiootit.models.NoAntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
@@ -91,6 +92,21 @@ public class AntibioticsController {
     })
     public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnosisInfos();
+    }
+
+    /**
+     * Returns all information texts for the web page
+     * @return InfoTexts List of information texts
+     */
+    @GetMapping("/info-texts")
+    @Operation(summary = "Get all infromation texts", 
+        description = "Returns all information texts for the web page")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successful operation"),
+        @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public InfoTexts getInfoTexts() {
+        return this.antibioticsService.getAllInfoTexts();
     }
 
     
