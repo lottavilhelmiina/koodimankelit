@@ -50,4 +50,16 @@ public class InfoTextsTest extends AntibioticsControllerTest {
         assertTrue(actualResponse.get("infoTexts").isArray());
     }
     
+    @Test
+    public void runtimeExceptionShouldReturn500() throws Exception {
+
+        // Mock service to throw RuntimeException
+        when(service.getAllInfoTexts())
+            .thenThrow(RuntimeException.class);
+
+        // Unable to connect to database
+        mockMvc.perform(get(ADDRESS))
+        .andExpect(status().isInternalServerError())
+        .andReturn();
+    }
 }
