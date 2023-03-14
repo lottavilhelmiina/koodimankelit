@@ -30,7 +30,7 @@ public class DatabaseTestController {
     // TEST ONLY
     @PostMapping("/database-search")
     public Diagnosis getDiagnosisByID() {
-        return dataHandler.getDiagnosisById("J03.");
+        return dataHandler.getDiagnosisById("J03.0");
     }
     
     // TEST ONLY
