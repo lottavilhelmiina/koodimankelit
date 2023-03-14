@@ -13,9 +13,10 @@ public interface DataHandler {
 
     /**
      * Finds and returns diagnosis with the given id but if id is not
-     * found, returns null.
+     * found
      * @param id Diagnosis id
      * @return Diagnosis 
+     * @throws DiagnosisNotFoundException
      */
     public Diagnosis getDiagnosisById(String id);
 
@@ -31,6 +32,7 @@ public interface DataHandler {
      * found, returns null.
      * @param id Diagnosis id
      * @return DiagnosisInfo Diagnosis info
+     * @throws DiagnosisNotFoundException
      */
     public DiagnosisInfo getDiagnosisInfoById(String id);
     

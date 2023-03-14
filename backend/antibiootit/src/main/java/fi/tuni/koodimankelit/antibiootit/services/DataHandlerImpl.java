@@ -10,6 +10,7 @@ import fi.tuni.koodimankelit.antibiootit.database.InfoTextRepository;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
+import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 
 @Service
 public class DataHandlerImpl implements DataHandler {
@@ -29,8 +30,9 @@ public class DataHandlerImpl implements DataHandler {
         if (findById.isPresent()) {
             Diagnosis diagnosis = findById.get();
             return diagnosis;
+        } else {
+            throw new DiagnosisNotFoundException("Diagnosis not found with id: " + id);
         }
-        return null;
     }
 
     @Override
@@ -50,7 +52,8 @@ public class DataHandlerImpl implements DataHandler {
         if (findById.isPresent()) {
             DiagnosisInfo diagnosisInfo = findById.get();
             return diagnosisInfo;
+        } else {
+            throw new DiagnosisNotFoundException("Diagnosis not found with id: " + id);
         }
-        return null;
     }
 }

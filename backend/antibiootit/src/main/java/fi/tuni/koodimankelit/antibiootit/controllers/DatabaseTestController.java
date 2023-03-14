@@ -1,13 +1,20 @@
 package fi.tuni.koodimankelit.antibiootit.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
+import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.services.DataHandler;
 
 @RestController
@@ -41,5 +48,18 @@ public class DatabaseTestController {
     @PostMapping("/get-infoTexts")
     public List<InfoText> getInfoTexts() {
         return dataHandler.getAllInfoTexts();
+    }
+
+    /**
+     * Handle DiagnosisNotFoundException and return HTTP 404
+     * @param ex DiagnosisNotFoundException
+     * @return Map<String, String> Error message
+     */
+    @ExceptionHandler(DiagnosisNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleDiagnosisNotFoundException(DiagnosisNotFoundException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Error", ex.getMessage());
+        return errorMap;
     }
 }
