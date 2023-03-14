@@ -30,6 +30,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
+import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 
@@ -138,5 +139,15 @@ public class AntibioticsController {
     }
 
 
+    /**
+     * Handle DiagnosisNotFoundException and return HTTP 404
+     */
+    @ExceptionHandler(DiagnosisNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleDiagnosisNotFoundException(DiagnosisNotFoundException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Error", ex.getMessage());
+        return errorMap;
+    }
 
 }
