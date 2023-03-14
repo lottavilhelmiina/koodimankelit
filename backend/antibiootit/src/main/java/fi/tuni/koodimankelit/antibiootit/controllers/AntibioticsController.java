@@ -26,8 +26,6 @@ import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 import fi.tuni.koodimankelit.antibiootit.services.AntibioticsService;
 import fi.tuni.koodimankelit.antibiootit.validator.CheckBoxValidator;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import fi.tuni.koodimankelit.antibiootit.database.data.CheckBoxInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
@@ -86,10 +84,6 @@ public class AntibioticsController {
     @GetMapping("/diagnoses")
     @Operation(summary = "Get all diagnoses", 
     description = "Returns a list of all diagnoses and their basic information")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Successful operation"),
-        @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnosisInfos();
     }
@@ -101,10 +95,6 @@ public class AntibioticsController {
     @GetMapping("/info-texts")
     @Operation(summary = "Get all infromation texts", 
         description = "Returns all information texts for the web page")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Successful operation"),
-        @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     public InfoTexts getInfoTexts() {
         return this.antibioticsService.getAllInfoTexts();
     }
