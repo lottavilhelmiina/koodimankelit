@@ -1,14 +1,11 @@
 import React from "react";
 
 export default function Choise(props) {
+    
     const styles = {
-        backgroundColor: props.choise ? "#FFFFFF" : "#D7E2F2"
+        backgroundColor: props.choise ? "#FFFFFF" : "#D7E2F2",
+        cursor: props.choise ? "auto" : "pointer"
     };
-
-
-
-    const directionUp = "chevron-up-outline";
-    const directionDown = "chevron-down-outline"
 
     const choiseNbr = props.index === 0 ? "Ensisijainen" : "Toissijainen"
 
@@ -17,7 +14,7 @@ export default function Choise(props) {
         <>
             {props.length > 1 && <div className="choise-header">
                 <h4>{`${choiseNbr} valinta`}</h4>
-                <ion-icon name={props.choise ? directionUp : directionDown} size="large"></ion-icon>
+                {!props.choise && <ion-icon name="chevron-down-outline" size="large"></ion-icon>}
             </div>}
             {props.choise && <div className="choise-inner">
                 <p>Antibiootti: {props.name} {props.dosage}</p>
