@@ -52,6 +52,8 @@ public class DatabaseTestController {
 
     /**
      * Handle DiagnosisNotFoundException and return HTTP 404
+     * @param ex DiagnosisNotFoundException
+     * @return Map<String, String> Error message
      */
     @ExceptionHandler(DiagnosisNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
