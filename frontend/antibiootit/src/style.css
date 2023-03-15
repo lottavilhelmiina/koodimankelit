@@ -156,9 +156,10 @@ aside {
 }
 
 .aside-update {
-    width: 85%;
-    margin-top: 25px;
+    width: 80%;
     text-align: end;
+    margin-top: 55px;
+    color: black;
 }
 
 .treatment-container {
