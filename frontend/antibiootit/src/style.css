@@ -342,6 +342,7 @@ aside {
     border-radius: 20px;
     height: 100%;
     margin-top: 20px;
+    margin-bottom: 60px;
 }
 
 .treatment-header {
@@ -506,23 +507,17 @@ aside {
     padding: 0px;
 }
 
-.recipe-textfield {
+.recipe-text {
     display: flex;
     flex-direction: column;
     align-self: flex-start;
-    border-style: none;
-    border-radius: 25px;
     font-family: Inter, sans-serif;
     font-size: 16px;
     text-indent: 2%;
     padding: 10px;
     margin: 0;
+    margin-bottom: 10px;
     width: 90%;
-    resize: none;
-}
-
-.recipe-textfield:focus { 
-    outline: none;
 }
 
 .recipe-container-bottom {
@@ -539,10 +534,10 @@ aside {
     bottom: 10%;
     right: 3%;
     background-color: white;
+    min-width: 25%;
     border: 1.5px solid #395174;
     border-radius: 20px;
     font-family: Inter, sans-serif;
-    font-size: 16px;
     font-size: 16px;
     color: #395174;
     box-shadow: 0 1.5px #7b7979;
@@ -550,8 +545,9 @@ aside {
     text-indent: 5px;
 }
 
-.copy-button img {
+.copy--image {
     width: 20px;
+    float: left;
 }
 
 .copy-button:hover {
