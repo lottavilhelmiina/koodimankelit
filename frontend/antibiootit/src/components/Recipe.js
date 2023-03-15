@@ -1,12 +1,11 @@
-import React, { useState, useRef } from "react";
-import CopyNotification from "./CopyNotification";
+import React, { useState, useEffect } from "react";
 
 export default function Recipe(props) {
 
     const ab = props.ab;
 
     //const [antibiotic, setAntibiotic] = useState("")
-    const [dosageInstructions, setDosageInstructions] = useState(ab[0].instruction);
+    const dosageInstructions = ab[0].instruction;
     //const [diagnosisCode, setDiagnosisCode] = useState("");
     const [showNotification, setShowNotification] = useState(false);
 
@@ -33,7 +32,7 @@ export default function Recipe(props) {
     //     }
     // }
 
-    //const TIMEOUT_DURATION = 1200;
+    const TIMEOUT_DURATION = 1000;
 
     
 
@@ -48,18 +47,6 @@ export default function Recipe(props) {
     // }, [chosenAb, instr]);
 
     /**
-     * Sets a timeout for notification when user copies the dosage instructions.
-     */
-/*     useEffect(() => {
-        const timeout = setTimeout(() => {
-            setShowNotification(false);
-        }, TIMEOUT_DURATION);
-        return () => {
-            clearTimeout(timeout);
-        };
-    }, [showNotification]) */
-
-    /**
      * Copies the dosage instructions to clipboard when user clicks the copy button.
      * Activates notification.
      */
@@ -68,48 +55,47 @@ export default function Recipe(props) {
         setShowNotification(true);
     }
 
+    const [copyText, setCopyText] = useState("Kopioi resepti")
+    const [hasMounted, setHasMounted] = useState(false);
+
+    /**
+     * Sets a timeout for notification when user copies the dosage instructions.
+     */
+    useEffect(() => {
+        if(hasMounted) {
+            const timeout = setTimeout(() => {
+            setCopyText("Kopioi resepti")
+            setShowNotification(false);
+            }, TIMEOUT_DURATION);
+            return () => {
+                setCopyText("Resepti kopioitu")
+                clearTimeout(timeout);
+            };
+        } else {
+            setHasMounted(true);
+        }
+    }, [showNotification, hasMounted])
+
     const CopyButton = () => {
         return (
             <button
                 className="copy-button"
                 onClick={copy} 
                 disabled={dosageInstructions === ""}>
-                <img src="./copy.png" alt=""/> Kopioi resepti
+                <img className="copy--image" src="./copy.png" alt=""/> {copyText}
             </button>
         )
     }
-
-    const editedRef = useRef(false);
-
-    /**
-     * Handles input change if user changes the dosage instructions.
-     * 
-     * NB! Function malfunction.
-     * 
-     * @param {*} e 
-     */
-    const handleInputChange = (e) => {
-        const newValue = e.target.value;
-        setDosageInstructions(newValue);
-        editedRef.current = true;
-      };
 
     return (
         <div className="recipe-container">
             <h3>Reseptin kirjoittaminen:</h3>
             <h4>{antibiotic}</h4>
             <div className="recipe-text-container">
-                <textarea
-                    className="recipe-textfield"
-                    rows={3}
-                    value={dosageInstructions}
-                    onChange={handleInputChange}
-                />
+                <p className="recipe-text">{dosageInstructions}
+                </p>
                 <div className="recipe-container-bottom">
                     <span>ICD-10 koodi: <span className="bold">{diagnosisCode}</span></span>
-                    <span className="notification-container">
-                    {showNotification && <CopyNotification />}
-                    </span>
                     <CopyButton />
                 </div>
             </div>
