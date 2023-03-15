@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import Form from "./Form";
 import Treatment from "./Treatment";
 import Recipe from "./Recipe";
-
+import GetDiagnoses from "./GetDiagnoses";
 
 export default function Antibiotics() {
 
     const [chosenDiagnose, setChosenDiagnose] = useState("");
     
+    GetDiagnoses();
+
     const instructions = [
         {
             state: "Vaihe 1",
