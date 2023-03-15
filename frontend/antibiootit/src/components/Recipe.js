@@ -79,12 +79,17 @@ export default function Recipe(props) {
     const CopyButton = () => {
         return (
             <button
+                style={styles}
                 className="copy-button"
                 onClick={copy} 
                 disabled={dosageInstructions === ""}>
                 <img className="copy--image" src="./copy.png" alt=""/> {copyText}
             </button>
         )
+    }
+
+    const styles = {
+        fontStyle: copyText==="Resepti kopioitu" ? "italic" : "normal"
     }
 
     return (
@@ -101,4 +106,6 @@ export default function Recipe(props) {
             </div>
         </div>
     );
+
+    
 };
