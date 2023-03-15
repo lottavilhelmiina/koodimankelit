@@ -82,15 +82,14 @@ export default function Form(props) {
     }
 
     /**
-     * State for child's weight. 
-     * Regex for weight input validation.
-     * Allows empty string, numbers with decimal separator, or numbers without decimal separator
+     * States for child's weight and validity
+     * If within min/max range: true, else: false. 
      * Values for min and max weights.
      */
     const [weight, setWeight] = useState("");
-    const VALID_WEIGHT_INPUT = /^$|^(\d+([,.]\d{0,1})?)$/;
-    const MIN_WEIGHT = 0.5;
-    const MAX_WEIGHT = 120;
+    const [isWeightOk, setIsWeightOk] = useState(false);
+    const MIN_WEIGHT = 4;
+    const MAX_WEIGHT = 100;
 
     /**
      * Handle and validate weight input.
@@ -98,17 +97,22 @@ export default function Form(props) {
      */
     const handleInput = (e) => {
         e.preventDefault();
-        props.changeInstruction(2);
         const input = e.target.value;
-        if (VALID_WEIGHT_INPUT.test(input)) {
-            // Replace comma with decimal point for consistency
-            const formattedWeight = input.replace(',', '.');
-            // Check that the entered value is within the desired range
-            if ((formattedWeight === "")
-             || (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT)) {
-                setWeight(input);
-                
-            }
+        setWeight(input);
+        props.changeInstruction(2);
+        
+        // Replace comma with decimal point for consistency
+        const formattedWeight = input.replace(',', '.');
+        
+        // Check that the entered value is within the desired range
+        if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
+            console.log("paino ok")
+            setIsWeightOk(true);
+        }
+        else {
+            // User must be notified, notification not yet implemented
+            console.log("Tarkista paino")
+            setIsWeightOk(false);
         }
     }
 
@@ -137,12 +141,18 @@ export default function Form(props) {
      */
     const handleClick = (e) => {
         e.preventDefault();
-        const data = { diagnosis: diagnosis,
+        if (isWeightOk) {
+            const data = { diagnosis: diagnosis,
                        weight: weight,
                        allergy: penisillinAllergy,
                        concurrentEBV: concurrentEBV,
                        concurrentMycoplasma: concurrentMycoplasma }
-        props.handleSubmit(data);
+            props.handleSubmit(data);
+        }
+        else {
+            console.log("Painon pitää olla 4-100 kg")
+        }
+        
     }
 
     const resetCheckboxes = () => {
