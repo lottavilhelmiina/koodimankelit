@@ -7,7 +7,7 @@ import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import fi.tuni.koodimankelit.antibiootit.authentication.ApiKeyFilter;
+import fi.tuni.koodimankelit.antibiootit.filter.ApiKeyFilter;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
 import static org.mockito.Mockito.when;

@@ -1,4 +1,4 @@
-package fi.tuni.koodimankelit.antibiootit.authentication;
+package fi.tuni.koodimankelit.antibiootit.filter;
 
 import java.io.IOException;
 
@@ -10,18 +10,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-
-
-public class ApiKeyFilter implements Filter {
-
-    private final static String HEADER_NAME = "X-API-KEY";
-
-    private final String apiKeySecret;
-
-    public ApiKeyFilter(String apiKeySecret) {
-        this.apiKeySecret = apiKeySecret;
-    }
+public class CorsFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -30,16 +19,18 @@ public class ApiKeyFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        String headerValue = httpRequest.getHeader(HEADER_NAME);
+        // Add required CORS headers
+        httpResponse.setHeader("Access-Control-Allow-Origin", "*");
+        httpResponse.setHeader("Access-Control-Allow-Methods", "GET, POST");
+        httpResponse.setHeader("Access-Control-Allow-Headers", "X-API-KEY, Content-Type");
 
-        if(headerValue == null || !headerValue.equals(apiKeySecret)) {
-            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        // Allow OPTIONS requests as they are
+        if (httpRequest.getMethod().equals("OPTIONS")) {
+            httpResponse.setStatus(HttpServletResponse.SC_OK);
             return;
         }
-        
-        
+
         chain.doFilter(request, response);
-        
     }
     
 }
