@@ -5,16 +5,15 @@ export default function GetDiagnoses() {
     useEffect(() => {
         const fetchData = async () => {
             const apikey = process.env.REACT_APP_API_KEY;
-            console.log(apikey);
-            const data = await fetch("localhost:8080/api/antibiotics/diagnoses",
+            const data = await fetch("http://localhost:8080/api/antibiotics/diagnoses",
             {
                 method: 'GET',
-                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-API-KEY': apikey
                 }
-            });
+            })
+            .then(res => res.json());
             console.log(data);
         }
 
@@ -23,3 +22,5 @@ export default function GetDiagnoses() {
 
     }, []);
 }
+
+// https://backend-production-0993.up.railway.app/api/antibiotics/diagnoses
