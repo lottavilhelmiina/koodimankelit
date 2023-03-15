@@ -1,4 +1,4 @@
-package fi.tuni.koodimankelit.antibiootit.authentication;
+package fi.tuni.koodimankelit.antibiootit.filter;
 
 import java.io.IOException;
 
@@ -30,13 +30,20 @@ public class ApiKeyFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+        // Allow OPTIONS requests without API key
+        if (httpRequest.getMethod().equals("OPTIONS")) {
+            httpResponse.setStatus(HttpServletResponse.SC_OK);
+            chain.doFilter(request, response);
+            return;
+        }
+
+
         String headerValue = httpRequest.getHeader(HEADER_NAME);
 
         if(headerValue == null || !headerValue.equals(apiKeySecret)) {
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
-        
         
         chain.doFilter(request, response);
         
