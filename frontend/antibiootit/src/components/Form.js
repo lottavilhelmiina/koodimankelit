@@ -125,7 +125,7 @@ export default function Form(props) {
             <button 
                 className="form--button" 
                 type="submit"
-                disabled={!weight}>
+                disabled={!weight || isBronchitis}>
                 Laske suositus
             </button>
         )
@@ -175,6 +175,14 @@ export default function Form(props) {
                 <span>kg</span>
             </div>
             <div className="checkbox-container">
+                {diagnosis &&
+                    <label className="form--checkbox">
+                        <input 
+                            type="checkbox"
+                            disabled={isBronchitis}
+                            onClick={() => setPenisillinAllergy(!penisillinAllergy)}
+                        /> Penisilliiniallergia
+                    </label>} 
                 {diagnosis==="Streptokokki-tonsilliitti" &&
                     <label className="form--checkbox">
                         <input 
@@ -189,14 +197,7 @@ export default function Form(props) {
                             onClick={() => setConcurrentMycoplasma(!concurrentMycoplasma)}
                         /> Samanaikainen mykoplasma
                     </label>}
-                {diagnosis && !isBronchitis &&
-                    <label className="form--checkbox">
-                        <input 
-                            type="checkbox"
-                            onClick={() => setPenisillinAllergy(!penisillinAllergy)}
-                        /> Penisilliiniallergia
-                    </label>} 
             </div>
-            {diagnosis && !isBronchitis && <SubmitButton />}
+            {diagnosis && <SubmitButton />}
         </form>
     );}

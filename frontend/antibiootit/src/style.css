@@ -218,10 +218,14 @@ aside {
 }
 
 .checkbox-container {
+    grid-row-start: 2;
+    grid-column-start: 2;
+    height: 80px;
     display: flex;
     flex-direction: column;
     margin-left: 30px;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .form--checkbox input {
@@ -233,7 +237,7 @@ aside {
 }
 
 .form--button {
-    grid-row-start: 2;
+    grid-row-start: 3;
     grid-column-start: 2;
     height: 50px;
     width: 250px;
@@ -257,6 +261,7 @@ aside {
 
 .form--button:disabled {
     background-color: #E2E2E2;
+    color: gray;
 }
 
 .diagnosis-form {
@@ -342,6 +347,7 @@ aside {
     border-radius: 20px;
     height: 100%;
     margin-top: 20px;
+    margin-bottom: 60px;
 }
 
 .treatment-header {
@@ -567,12 +573,6 @@ aside {
 .notification-container {
     background-color: lavender;
     display:flex;
-}
-
-.copy-notification {
-    background-color: #D7E2F2;
-    padding: 5px;
-    border-radius: 25px;    
 }
 
 .bold {
