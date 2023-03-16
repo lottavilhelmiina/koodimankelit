@@ -59,7 +59,7 @@ export default function Form(props) {
     const handleSelection = (e) => {
         e.preventDefault();
         setDiagnosis(e.target.textContent);
-        props.setChosenDiagnose(e.target.textContent);
+        props.setChosenDiagnosis(e.target.textContent);
         props.changeInstruction(1);
 
         console.log("Uusi diagnoosivalinta tehty")

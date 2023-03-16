@@ -2,49 +2,42 @@ import React, { useState, useEffect } from "react";
 
 export default function Recipe(props) {
 
-    const ab = props.ab;
+    const abChoices = props.abChoices;
+    const choice = props.activeRecipe;
 
-    //const [antibiotic, setAntibiotic] = useState("")
-    const dosageInstructions = ab[0].instruction;
+
+
+    const [chosenAb, setChosenAb] = useState("");
+    const [dosageInstructions, setDosageInstructions] = useState("");
     //const [diagnosisCode, setDiagnosisCode] = useState("");
     const [showNotification, setShowNotification] = useState(false);
-
-    const antibiotic = ab[0].name + " " + ab[0].dosage;
-    const diagnosisCode = props.ab[0].id;
-
-    //const choice = props.choice;
-
-    // const chosenAb = () => {
-    //     if (choice == "Ensimmäisen vaihtoehdon resepti") {
-    //         return  ab[0].name + " " + ab[0].dosage;
-    //     }
-    //     else {
-    //         return ab[1].name + " " + ab[1].dosage;;
-    //     }
-    // }
-
-    // const instr = () => {
-    //     if (choice == "Ensimmäisen vaihtoehdon resepti") {
-    //         return  ab[0].instruction;
-    //     }
-    //     else {
-    //         return ab[1].instruction;
-    //     }
-    // }
+    const diagnosisCode = props.abChoices[0].id;
 
     const TIMEOUT_DURATION = 1000;
 
-    
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     setAntibiotic(chosenAb);
-    // }, [chosenAb]);
+        const getChosenAb = () => {
+            // NB! Need to add case bronchitis!
+            if (choice === "Toisen vaihtoehdon resepti") {
+                return  abChoices[1];
+            }
+            else {
+                return abChoices[0];
+            }
+        }
+        const abData = getChosenAb().name + " " + getChosenAb().dosage;
+        const abInfo = getChosenAb().instruction;
+        setChosenAb(abData);
+        setDosageInstructions(abInfo);
+        // NB! This hardcoding is temporary!
+        if (props.diagnosis === "Bronkiitti") {
+            setDosageInstructions("Ei antibioottihoitoa")
+            setChosenAb("Ei antibioottisuositusta")
+        }
+        console.log("choice " + abData)
+    }, [choice, abChoices, props.diagnosis]);
 
-    // useEffect(() => {
-    //     if (!editedRef.current) {
-    //         setDosageInstructions(instr);
-    //     }
-    // }, [chosenAb, instr]);
 
     /**
      * Copies the dosage instructions to clipboard when user clicks the copy button.
@@ -95,7 +88,7 @@ export default function Recipe(props) {
     return (
         <div className="recipe-container">
             <h3>Reseptin kirjoittaminen:</h3>
-            <h4>{antibiotic}</h4>
+            <h4>{chosenAb}</h4>
             <div className="recipe-text-container">
                 <p className="recipe-text">{dosageInstructions}
                 </p>
