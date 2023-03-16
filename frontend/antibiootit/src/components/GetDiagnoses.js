@@ -5,7 +5,7 @@ export default function GetDiagnoses() {
     useEffect(() => {
         const fetchData = async () => {
             const apikey = process.env.REACT_APP_API_KEY;
-            const data = await fetch("http://localhost:8080/api/antibiotics/diagnoses",
+            const data = await fetch("https://backend-production-0993.up.railway.app/api/antibiotics/diagnoses",
             {
                 method: 'GET',
                 headers: {
@@ -22,5 +22,3 @@ export default function GetDiagnoses() {
 
     }, []);
 }
-
-// https://backend-production-0993.up.railway.app/api/antibiotics/diagnoses
