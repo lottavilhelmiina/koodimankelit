@@ -6,7 +6,7 @@ import Recipe from "./Recipe";
 
 export default function Antibiotics() {
 
-    const [chosenDiagnose, setChosenDiagnose] = useState("");
+    const [chosenDiagnosis, setChosenDiagnosis] = useState("");
     
     const instructions = [
         {
@@ -81,7 +81,7 @@ export default function Antibiotics() {
     function changeInstruction(index) {
         setInstruction(instructions[index]);
     }
-
+    console.log({chosenDiagnosis})
     
     return (
         <div className="antibiotics">
@@ -97,17 +97,17 @@ export default function Antibiotics() {
             <Form 
                 handleSubmit={receiveInput} 
                 changeInstruction={changeInstruction} 
-                setChosenDiagnose={setChosenDiagnose} 
+                setChosenDiagnosis={setChosenDiagnosis} 
             />
 
             {formSubmitted && <Treatment 
-                diagnose={chosenDiagnose}
+                diagnosis={chosenDiagnosis}
                 antibiotic={antibiotic}
                 setAntibiotic={setAntibiotic}
                 activeRecipe={activeRecipe}
                 setActiveRecipe={setActiveRecipe}
             />}
-            {formSubmitted && <Recipe ab={antibiotic} choice={activeRecipe} />}
+            {formSubmitted && <Recipe abChoices={antibiotic} activeRecipe={activeRecipe} diagnosis={chosenDiagnosis} />}
         </div>
     );
 }

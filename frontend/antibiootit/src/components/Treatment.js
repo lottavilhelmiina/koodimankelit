@@ -45,7 +45,7 @@ export default function Treatment(props) {
         <div className="treatment-container">
             <div className="treatment-header">
                 {<div className="treatment-icon"></div>}
-                <h2>{props.diagnose==="Bronkiitti" ?
+                <h2>{props.diagnosis==="Bronkiitti" ?
                 `Ei antibioottisuositusta` :
                 `Hoitosuositus ${props.antibiotic[0].format.toLowerCase()}na`}</h2>
             </div>
