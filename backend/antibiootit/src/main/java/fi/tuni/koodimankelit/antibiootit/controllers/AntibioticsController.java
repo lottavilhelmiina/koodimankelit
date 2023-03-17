@@ -29,7 +29,7 @@ public interface AntibioticsController {
      * @return DiagnosisResponse Response body
      */
     @Operation(summary = "Calculate antibiotic recommendation",
-        description = "Calculates the recommended dose of antibiotic for a given diagnosis and weight")
+        description = "Calculates the recommended dose of antibiotic for a given diagnosis and weight.")
     public DiagnosisResponse doseCalculation(@RequestBody @Valid Parameters parameters);
         
     /** 
@@ -37,7 +37,7 @@ public interface AntibioticsController {
      * @return Diagnoses List of diagnosis infos
      */
     @Operation(summary = "Get all diagnoses", 
-        description = "Returns a list of all diagnoses and their basic information")
+        description = "Retrieves a list of all diagnoses that can be used for antibiotics dose calculations.")
     public Diagnoses getDiagnoses();
 
     /**
@@ -45,7 +45,7 @@ public interface AntibioticsController {
      * @return InfoTexts List of information texts
      */
     @Operation(summary = "Get all infromation texts", 
-        description = "Returns all information texts for the web page")
+        description = "Gets information texts containing disclaimers and other relevant information for the webpage.")
     public InfoTexts getInfoTexts();
 
     
