@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import fi.tuni.koodimankelit.antibiootit.authentication.ApiKeyFilter;
+import fi.tuni.koodimankelit.antibiootit.filter.ApiKeyFilter;
 
 @Configuration
 @PropertySource(value = "classpath:secrets.properties", ignoreResourceNotFound = true)
@@ -16,10 +16,11 @@ public class ApiKeyConfig {
     private String apiKeySecret;
 
     @Bean
-    public FilterRegistrationBean<ApiKeyFilter> requestFilter() {
+    public FilterRegistrationBean<ApiKeyFilter> apiKeyFilter() {
         FilterRegistrationBean<ApiKeyFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new ApiKeyFilter(apiKeySecret));
         registrationBean.addUrlPatterns("/api/antibiotics/*");
+        registrationBean.setOrder(2);
         return registrationBean;
     }
 }
