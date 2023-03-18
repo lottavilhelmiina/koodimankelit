@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
@@ -20,15 +21,20 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                .title("Antibiotics API")
-                .version("1.0.0")
-                .description(
+                    .title("Antibiotics API")
+                    .version("1.0.0")
+                    .description(
                     "The Antibiotics API provides accurate and up-to-date information on " +
                     "appropriate antibiotic recommendations for child patients' respiratory tract infections. " +
                     "The information is based on the national Käypähoito treatment recommendations." +
                     "\n\n### Developers\n\nJuho Rantala, juho.a.rantala@tuni.fi" +
                     "\n\nNeera Kiviluoma, neera.kiviluoma@tuni.fi" +
-                    "\n\nEveliina Sundberg, eveliina.sundberg@tuni.fi")
+                    "\n\nEveliina Sundberg, eveliina.sundberg@tuni.fi" +
+                    "\n\n")
+                )
+                .externalDocs(new ExternalDocumentation()
+                    .description("Käypähoito recommendations")
+                    .url("https://www.kaypahoito.fi/")
                 );
     }    
 }
