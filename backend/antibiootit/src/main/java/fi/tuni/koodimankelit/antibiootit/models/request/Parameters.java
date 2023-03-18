@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+@Schema(description = "Request parameters")
 public class Parameters {
 
 

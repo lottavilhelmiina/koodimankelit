@@ -2,11 +2,14 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 
 import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import nonapi.io.github.classgraph.json.Id;
 
 /**
  * Representation of diagnosis basic info
  */
+@Schema(description = "Basic information of a diagnosis")
 @Document(collection = "diagnoses")
 public class DiagnosisInfo {
 

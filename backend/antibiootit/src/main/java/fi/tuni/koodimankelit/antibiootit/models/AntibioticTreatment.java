@@ -1,8 +1,11 @@
 package fi.tuni.koodimankelit.antibiootit.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * API response representation of antibiotic treatment
  */
+@Schema(description = "API response of antibiotic treatment")
 public class AntibioticTreatment {
     private final String format;
     private final String description;

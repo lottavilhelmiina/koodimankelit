@@ -1,8 +1,11 @@
 package fi.tuni.koodimankelit.antibiootit.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Represents the calculated antibiotic dosage result
  */
+@Schema(description = "Calculated antibiotic dosage result")
 public class DosageResult {
     private final Measurement dose;
 
