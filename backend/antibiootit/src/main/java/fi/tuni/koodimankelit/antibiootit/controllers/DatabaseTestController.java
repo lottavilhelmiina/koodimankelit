@@ -16,7 +16,9 @@ import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.services.DataHandler;
+import io.swagger.v3.oas.annotations.Hidden;
 
+@Hidden
 @RestController
 @RequestMapping("/api/databaseTest")
 public class DatabaseTestController {
