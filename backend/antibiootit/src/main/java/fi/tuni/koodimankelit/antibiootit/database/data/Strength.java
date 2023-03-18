@@ -12,17 +12,21 @@ public class Strength {
     private final int minWeight;
     @Field("unit")
     private final String unit;
+    @Field("text")
+    private final String text;
 
     /**
      * Default constructor
      * @param value value of strength
      * @param minWeight minimum weight to use this strength
      * @param unit unit of the strength
+     * @param text value of strength and unit combined as string
      */
-    public Strength(int value, int minWeight, String unit) {
+    public Strength(int value, int minWeight, String unit, String text) {
         this.value = value;
         this.minWeight = minWeight;
         this.unit = unit;
+        this.text = text;
     }
 
     /**
@@ -47,5 +51,13 @@ public class Strength {
      */
     public String getUnit() {
         return this.unit;
+    }
+
+    /**
+     * Returns text about the strength
+     * @return String text
+     */
+    public String getText() {
+        return this.text;
     }
 }
