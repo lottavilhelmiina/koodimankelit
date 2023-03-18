@@ -22,7 +22,13 @@ public class SwaggerConfig {
                 .info(new Info()
                 .title("Antibiotics API")
                 .version("1.0.0")
-                .description("The Antibiotics API provides accurate and up-to-date information on appropriate antibiotic recommendations for child patients.\n\n### Developers\n\nJuho Rantala, juho.a.rantala@tuni.fi\n\nNeera Kiviluoma, neera.kiviluoma@tuni.fi\n\nEveliina Sundberg, eveliina.sundberg@tuni.fi")
+                .description(
+                    "The Antibiotics API provides accurate and up-to-date information on " +
+                    "appropriate antibiotic recommendations for child patients' respiratory tract infections. " +
+                    "The information is based on the national Käypähoito treatment recommendations." +
+                    "\n\n### Developers\n\nJuho Rantala, juho.a.rantala@tuni.fi" +
+                    "\n\nNeera Kiviluoma, neera.kiviluoma@tuni.fi" +
+                    "\n\nEveliina Sundberg, eveliina.sundberg@tuni.fi")
                 );
     }    
 }
