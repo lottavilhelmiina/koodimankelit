@@ -1,8 +1,10 @@
 package fi.tuni.koodimankelit.antibiootit.models.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+@Schema(description = "Request checkbox selections")
 public class InfectionSelection {
 
     @NotBlank(message = "id is mandatory")

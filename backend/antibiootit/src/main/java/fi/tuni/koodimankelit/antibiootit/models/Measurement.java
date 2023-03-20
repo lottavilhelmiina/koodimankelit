@@ -1,9 +1,11 @@
 package fi.tuni.koodimankelit.antibiootit.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Representation of numerical measurement
  */
+@Schema(description = "Numerical measurement")
 public class Measurement {
 
     private final String unit;

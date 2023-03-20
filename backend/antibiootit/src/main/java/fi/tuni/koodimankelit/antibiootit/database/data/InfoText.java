@@ -2,11 +2,13 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import nonapi.io.github.classgraph.json.Id;
 
 /**
  * Database representation of info texts
  */
+@Schema(description = "Information text for the web page")
 @Document(collection = "infoTexts")
 public class InfoText {
     

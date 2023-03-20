@@ -8,10 +8,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * Represents all the info texts saved in the database
  */
-@Schema(description = "Represents all the info texts saved in the database")
+@Schema(description = "List of information texts")
 public class InfoTexts {
 
-    @Schema(description = "List of info texts for the web page")
     private final List<InfoText> texts;
 
     /**
@@ -26,7 +25,6 @@ public class InfoTexts {
      * Returns the list of all info texts
      * @return List<InfoText> Info texts
      */
-    @Schema(description = "Returns the list of all info texts")
     public List<InfoText> getInfoTexts() {
         return this.texts;
     }

@@ -1,8 +1,11 @@
 package fi.tuni.koodimankelit.antibiootit.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Represents when to take the antibiotic
  */
+@Schema(description = "Instructions for antibiotic use")
 public class Instructions {
     private final int days;
     private final int dosesPerDay;

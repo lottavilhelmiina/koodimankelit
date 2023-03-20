@@ -5,9 +5,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * API representation of diagnosis response with treatments
  */
+@Schema(description = "API diagnosis response with treatments")
 public class DiagnosisResponse {
 
     @JsonProperty("_id")

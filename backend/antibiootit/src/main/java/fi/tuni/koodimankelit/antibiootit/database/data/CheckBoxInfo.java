@@ -2,9 +2,12 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Database representation of checkboxes
  */
+@Schema(description = "Representation of a checkbox")
 public class CheckBoxInfo {
 
     @Field("id")

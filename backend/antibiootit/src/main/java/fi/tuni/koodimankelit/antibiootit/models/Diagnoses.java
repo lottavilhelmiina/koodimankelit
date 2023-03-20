@@ -8,10 +8,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 /**
  * Represents all the diagnoses saved in the database
  */
-@Schema(description = "Represents all the diagnoses saved in the database")
+@Schema(description = "List of diagnoses")
 public class Diagnoses {
 
-    @Schema(description = "Information of each diagnosis")
     private final List<DiagnosisInfo> diagnosisInfos;
     
     /**
@@ -26,7 +25,6 @@ public class Diagnoses {
      * Returns the list of all diagnoses
      * @return List<DiagnosisInfo> information of each diagnosis
      */
-    @Schema(description = "Returns the list of all diagnosis infos")
     public List<DiagnosisInfo> getDiagnosisInfos() {
         return this.diagnosisInfos;
     }
