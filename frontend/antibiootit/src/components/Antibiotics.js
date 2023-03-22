@@ -3,22 +3,28 @@ import Form from "./Form";
 import Treatment from "./Treatment";
 import Recipe from "./Recipe";
 import GetDiagnoses from "./GetDiagnoses";
+import GetInfoTexts from "./GetInfoTexts";
 
 export default function Antibiotics() {
 
     const [chosenDiagnosis, setChosenDiagnosis] = useState("");
     
     const [diagnoses, setDiagnoses] = useState([]);
+    const [infoTexts, setInfoTexts] = useState([]);
 
     async function fetchData() {
-        const list = await GetDiagnoses();
-        setDiagnoses(list);
+        const diagnosesList = await GetDiagnoses();
+        setDiagnoses(diagnosesList);
+
+        const infoTextsList = await GetInfoTexts();
+        setInfoTexts(infoTextsList);
     }
     useEffect(() => {
         fetchData();
     }, []);
 
     console.log(diagnoses);
+    console.log(infoTexts);
 
     const instructions = [
         {
