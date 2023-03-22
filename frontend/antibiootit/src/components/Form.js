@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Form(props) {
     
-    /**
-     * States and items for the drop-down menu for selecting the diagnose.
-     * All items are shown by default.
-     * After clicking an item, only the selected item is visible.
-     */
+    const fullInfo = props.diagnoses;
+    const diagnosisNames = fullInfo.map(diagnosisInfo => diagnosisInfo.name);
+
     const [diagnosis, setDiagnosis] = useState("");
-    //const [showAll, setShowAll] = useState(true);
-    const diagnosisOptions = ["Streptokokki-tonsilliitti"
-                            , "Välikorvatulehdus"
-                            , "Sivuontelotulehdus"
-                            , "Bronkiitti"
-                            , "Obstruktiivinen bronkiitti"
-                            , "Avohoitopneumonia"];
+    
+    // This will be replaced by handling the 'needsAntibiotics' attribute of the diagnosis.
     const [isBronchitis, setIsBronchitis] = useState(false);
+
+    const [additionalCheckboxes, setAdditionalCheckboxes] = useState();
+
+    useEffect(() =>{
+        if (diagnosis) {
+            const chosen = fullInfo.filter(infection => infection.name === diagnosis);
+            if (chosen[0].checkBoxes.length > 0) {
+                setAdditionalCheckboxes(chosen[0].checkBoxes)
+                console.log(chosen[0].checkBoxes)
+            }
+        }
+    }, [diagnosis])
     
     const Choose = () => {
         return (
@@ -25,10 +30,6 @@ export default function Form(props) {
         )
     }
 
-    /**
-     * The component for diagnose menu.
-     * @returns The diagnose menu.
-     */
     const DiagnosisMenu = () => {
         return (
             <div 
@@ -36,12 +37,12 @@ export default function Form(props) {
                 <button className="dropdown-btn">{diagnosis || <Choose />}</button>
                 <div className="dropdown-content">
                     <ul className="menu--items">
-                        {diagnosisOptions
+                        {diagnosisNames
                             .filter((item) => item !== diagnosis)
                             .map((item) => (
                             <li 
                                 key={item} 
-                                onClick={handleSelection}>
+                                onClick={handleMenuSelection}>
                                 {item}
                             </li>
                         ))}
@@ -52,19 +53,12 @@ export default function Form(props) {
         )
     }
 
-    /**
-     * Handle user's diagnose selection from the menu.
-     * @param {*} e 
-     */
-    const handleSelection = (e) => {
+    const handleMenuSelection = (e) => {
         e.preventDefault();
-        setDiagnosis(e.target.textContent);
-        props.setChosenDiagnosis(e.target.textContent);
-        props.changeInstruction(1);
-
-        console.log("Uusi diagnoosivalinta tehty")
         const selected = e.target.textContent;
         setDiagnosis(selected);
+        props.setChosenDiagnosis(selected);
+        props.changeInstruction(1);
         
         if (selected === "Bronkiitti") {
             setIsBronchitis(true);
@@ -81,30 +75,25 @@ export default function Form(props) {
         }        
     }
 
-    /**
-     * States for child's weight and validity
-     * If within min/max range: true, else: false. 
-     * Values for min and max weights.
-     */
+    const resetCheckboxes = () => {
+        setConcurrentEBV(false);
+        setConcurrentMycoplasma(false);
+        setAdditionalCheckboxes([]);
+    }
+
     const [weight, setWeight] = useState("");
     const [isWeightOk, setIsWeightOk] = useState(false);
     const MIN_WEIGHT = 4;
     const MAX_WEIGHT = 100;
 
-    /**
-     * Handle and validate weight input.
-     * @param {*} e 
-     */
     const handleInput = (e) => {
         e.preventDefault();
         const input = e.target.value;
         setWeight(input);
         props.changeInstruction(2);
-        
-        // Replace comma with decimal point for consistency
+
         const formattedWeight = input.replace(',', '.');
         
-        // Check that the entered value is within the desired range
         if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
             console.log("paino ok")
             setIsWeightOk(true);
@@ -120,10 +109,6 @@ export default function Form(props) {
     const [concurrentEBV, setConcurrentEBV] = useState(false);
     const [concurrentMycoplasma, setConcurrentMycoplasma] = useState(false);
 
-    /**
-     * The component for the form submit button.
-     * @returns The submit button for form.
-     */
     const SubmitButton = () => {
         return (
             <button 
@@ -135,10 +120,6 @@ export default function Form(props) {
         )
     }
 
-    /**
-     * Handle form submission and send form data as object parameter.
-     * @param {*} e 
-     */
     const handleClick = (e) => {
         e.preventDefault();
         if (isWeightOk) {
@@ -153,11 +134,6 @@ export default function Form(props) {
             console.log("Painon pitää olla 4-100 kg")
         }
         
-    }
-
-    const resetCheckboxes = () => {
-        setConcurrentEBV(false);
-        setConcurrentMycoplasma(false);
     }
 
     let placeholder = "Syötä paino"
@@ -193,14 +169,14 @@ export default function Form(props) {
                             onClick={() => setPenisillinAllergy(!penisillinAllergy)}
                         /> Penisilliiniallergia
                     </label>} 
-                {diagnosis==="Streptokokki-tonsilliitti" &&
+                {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'EBV-001').length > 0 &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
                             onClick={() => setConcurrentEBV(!concurrentEBV)}
                         /> Samanaikainen EBV-infektio
                     </label>}
-                {diagnosis==="Avohoitopneumonia" &&
+                {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'MYK-001').length > 0 &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
