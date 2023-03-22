@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Form from "./Form";
 import Treatment from "./Treatment";
 import Recipe from "./Recipe";
@@ -8,7 +8,17 @@ export default function Antibiotics() {
 
     const [chosenDiagnosis, setChosenDiagnosis] = useState("");
     
-    GetDiagnoses();
+    const [diagnoses, setDiagnoses] = useState([]);
+
+    async function fetchData() {
+        const list = await GetDiagnoses();
+        setDiagnoses(list);
+    }
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    console.log(diagnoses);
 
     const instructions = [
         {
@@ -43,21 +53,21 @@ export default function Antibiotics() {
             id: "J03.0",
             format: "Tabletti",
             name: "Amoksisilliini",
-            dosage: "100mg/ml",
-            dose: "2ml",
-            doseInDay: "4ml",
-            instruction: "2 krt/vrk, yht 5vrk ajan",
+            dosage: "100 mg/ml",
+            dose: "2 ml",
+            doseInDay: "4 ml",
+            instruction: "2 krt/vrk, yht 5 vrk ajan",
             recipe: "Ensimmäisen vaihtoehdon resepti",
             choise: true
         },
         {
             id: "J03.1",
             format: "Tabletti",
-            name: "Amoksisilliini2",
-            dosage: "100mg/ml2",
-            dose: "2ml2",
-            doseInDay: "4ml2",
-            instruction: "2 krt/vrk, yht 5vrk ajan2",
+            name: "Kefaleksiini",
+            dosage: "100 mg/ml",
+            dose: "2 ml",
+            doseInDay: "4 ml",
+            instruction: "2 krt/vrk, yht 6 vrk ajan",
             recipe: "Toisen vaihtoehdon resepti",
             choise: false
         }
@@ -97,6 +107,7 @@ export default function Antibiotics() {
                 </div>}
             </section>
             <Form 
+                diagnoses={diagnoses}
                 handleSubmit={receiveInput} 
                 changeInstruction={changeInstruction} 
                 setChosenDiagnosis={setChosenDiagnosis} 
