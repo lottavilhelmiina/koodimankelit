@@ -20,7 +20,7 @@ export default function Form(props) {
                 console.log(chosen[0].checkBoxes)
             }
         }
-    }, [diagnosis])
+    }, [diagnosis, fullInfo])
     
     const Choose = () => {
         return (
