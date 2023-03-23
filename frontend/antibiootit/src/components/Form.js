@@ -5,6 +5,7 @@ export default function Form(props) {
     const fullInfo = props.diagnoses;
     const diagnosisNames = fullInfo.map(diagnosisInfo => diagnosisInfo.name);
 
+    // Store the entire diagnosis data here, not just the name!
     const [diagnosis, setDiagnosis] = useState("");
     
     // This will be replaced by handling the 'needsAntibiotics' attribute of the diagnosis.
@@ -14,7 +15,8 @@ export default function Form(props) {
 
     useEffect(() =>{
         if (diagnosis) {
-            const chosen = fullInfo.filter(infection => infection.name === diagnosis);
+            const chosen = fullInfo.filter(infection => infection.name === diagnosis.name);
+            console.log(diagnosis)
             if (chosen[0].checkBoxes.length > 0) {
                 setAdditionalCheckboxes(chosen[0].checkBoxes)
                 console.log(chosen[0].checkBoxes)
@@ -34,11 +36,11 @@ export default function Form(props) {
         return (
             <div 
                 className="diagnosis-menu dropdown" >
-                <button className="dropdown-btn">{diagnosis || <Choose />}</button>
+                <button className="dropdown-btn">{diagnosis.name || <Choose />}</button>
                 <div className="dropdown-content">
                     <ul className="menu--items">
                         {diagnosisNames
-                            .filter((item) => item !== diagnosis)
+                            .filter((item) => item !== diagnosis.name)
                             .map((item) => (
                             <li 
                                 key={item} 
@@ -56,7 +58,7 @@ export default function Form(props) {
     const handleMenuSelection = (e) => {
         e.preventDefault();
         const selected = e.target.textContent;
-        setDiagnosis(selected);
+        setDiagnosis(fullInfo.filter(d => d.name === selected)[0]);
         props.setChosenDiagnosis(selected);
         props.changeInstruction(1);
         
@@ -105,7 +107,7 @@ export default function Form(props) {
         }
     }
 
-    const [penisillinAllergy, setPenisillinAllergy] = useState(false);
+    const [penicillinAllergy, setPenicillinAllergy] = useState(false);
     const [concurrentEBV, setConcurrentEBV] = useState(false);
     const [concurrentMycoplasma, setConcurrentMycoplasma] = useState(false);
 
@@ -123,11 +125,19 @@ export default function Form(props) {
     const handleClick = (e) => {
         e.preventDefault();
         if (isWeightOk) {
-            const data = { diagnosis: diagnosis,
-                       weight: weight,
-                       allergy: penisillinAllergy,
-                       concurrentEBV: concurrentEBV,
-                       concurrentMycoplasma: concurrentMycoplasma }
+            const data = { diagnosisID: diagnosis.id,
+                           weight: weight,
+                           penicillinAllergic: penicillinAllergy,
+                           checkBoxes: [
+                                { 
+                                    id: 'EBV-001',
+                                    value: concurrentEBV
+                                },
+                                {
+                                    id: 'MYK-001',
+                                    value: concurrentMycoplasma
+                                }
+                           ]}
             props.handleSubmit(data);
         }
         else {
@@ -166,7 +176,7 @@ export default function Form(props) {
                         <input 
                             type="checkbox"
                             disabled={isBronchitis}
-                            onClick={() => setPenisillinAllergy(!penisillinAllergy)}
+                            onClick={() => setPenicillinAllergy(!penicillinAllergy)}
                         /> Penisilliiniallergia
                     </label>} 
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'EBV-001').length > 0 &&
