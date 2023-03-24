@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 462">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-family: Bahnschrift, Bahnschrift;
+        font-size: 84px;
+        font-variation-settings: 'wght' 400, 'wdth' 100;
+      }
+
+      .cls-2 {
+        stroke-linejoin: round;
+        stroke-width: 20px;
+      }
+
+      .cls-2, .cls-3 {
+        fill: #395174;
+        stroke: #395174;
+      }
+
+      .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        letter-spacing: -.03em;
+      }
+    </style>
+  </defs>
+  <polygon class="cls-2" points="177 304 337 304 314.43 195 278.21 195.01 197.17 195 177 304"/>
+  <path class="cls-3" d="m256.87,140.85c-17.47,0-31.63,14.16-31.63,31.63s14.16,31.63,31.63,31.63,31.63-14.16,31.63-31.63-14.16-31.63-31.63-31.63Zm-.19,43.12c-6.34,0-11.48-5.14-11.48-11.48s5.14-11.48,11.48-11.48,11.48,5.14,11.48,11.48-5.14,11.48-11.48,11.48Z"/>
+  <text class="cls-1" transform="translate(203.07 284.7)"><tspan class="cls-4" x="0" y="0">K</tspan><tspan x="51.43" y="0">G</tspan></text>
+</svg>
