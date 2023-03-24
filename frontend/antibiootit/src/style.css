@@ -21,12 +21,13 @@ button, a, li, input {
     padding: 10px;
     top: 0;
     left: 0;
-    position: relative;
+    position: fixed;
     background-color: #5D769A;
     width: 100%;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0px 2.98256px 7.4564px rgba(0, 0, 0, 0.2);
+    z-index: 3;
 }
 
 .header--links {
@@ -86,6 +87,7 @@ footer {
 
 main {
     font-family: Inter, sans-serif;
+    margin-top: 20px;
     width: 100%;
     position: relative;
     display: grid;
@@ -178,8 +180,23 @@ aside {
     grid-column-start: 2;
 }
 
+.weight-icon {
+    position: absolute;
+    margin-right: -100px;
+    margin-left: 30px;
+    margin-top: 4px;
+    z-index: 1;
+    width: 65px
+}
+
+.kg-text {
+    position: absolute;
+    margin-left: -80px;
+    margin-top: 24px;
+}
+
 .form--input {
-    height: 45px;
+    height: 50px;
     width: 250px;
     border-radius: 20px;
     text-align: center;
@@ -212,9 +229,24 @@ aside {
     background-color: #b5cdf1;
 }
 
-.choose {
-    margin-right: 10px;
-    width: 20px;
+.diagnosis-menu-choose {
+    font-weight: bold;
+    padding-left: 10px;
+    padding-top: 5px;
+    z-index: 2;
+}
+
+.diagnosis-menu-name {
+    margin-top: 20px;
+    z-index: 2;
+    letter-spacing: 0.5px;
+    margin-left: 10px;
+}
+
+.dropdown-btn {
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 16px;
 }
 
 .checkbox-container {
@@ -300,12 +332,6 @@ aside {
     border-right: 1.5px solid #395174;
     border-radius: 0px 0px 20px 20px;
 
-}
-
-.dropdown-btn {
-    background: rgba(0, 0, 0, 0);
-    border: none;
-    font-size: 16px;
 }
 
 .dropdown:hover .dropdown-content {
