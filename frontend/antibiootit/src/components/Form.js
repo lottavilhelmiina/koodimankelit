@@ -26,9 +26,19 @@ export default function Form(props) {
     
     const Choose = () => {
         return (
-            <><img className="choose" src="./heart.png" alt="" />
-            <span className="bold">Valitse diagnoosi</span>
-            </>
+            <span className="diagnosis-menu-choose">
+                Valitse diagnoosi
+             </span>
+
+        )
+    }
+
+    const ShowDiagnosisName = () => {
+        const name = diagnosis.name;
+        return (
+            <span className="diagnosis-menu-name">
+                {name}
+            </span>
         )
     }
 
@@ -36,7 +46,7 @@ export default function Form(props) {
         return (
             <div 
                 className="diagnosis-menu dropdown" >
-                <button className="dropdown-btn">{diagnosis.name || <Choose />}</button>
+                <button className="dropdown-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}</button>
                 <div className="dropdown-content">
                     <ul className="menu--items">
                         {diagnosisNames
@@ -166,19 +176,20 @@ export default function Form(props) {
         <form className="diagnosis-form" onSubmit={handleClick}>
             <DiagnosisMenu />
             <div className="weight-input">
-                <input
-                    id="weight-input"
-                    className="form--input"
-                    placeholder={placeholder}
-                    onFocus={emptyPlaceholder}
-                    name="weight"
-                    value={weight}
-                    onChange={handleInput}
-                    type="text"
-                    disabled={isBronchitis || !diagnosis}
-                    required={true}
-                />
-                <span>kg</span>
+                <span><img className="weight-icon" src="../icons/weight-icon.svg" alt="" />
+                
+                    <input
+                        id="weight-input"
+                        className="form--input"
+                        placeholder={placeholder}
+                        onFocus={emptyPlaceholder}
+                        name="weight"
+                        value={weight}
+                        onChange={handleInput}
+                        type="text"
+                        disabled={isBronchitis || !diagnosis}
+                        required={true}
+                    /><span className="kg-text">kg</span></span>
             </div>
             <div className="checkbox-container">
                 {diagnosis &&
