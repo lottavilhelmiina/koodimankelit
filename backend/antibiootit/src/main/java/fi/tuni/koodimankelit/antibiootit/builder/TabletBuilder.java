@@ -5,6 +5,7 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
+import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 
 public class TabletBuilder extends AntibioticTreatmentBuilder {
 
@@ -19,7 +20,7 @@ public class TabletBuilder extends AntibioticTreatmentBuilder {
     @Override
     protected DosageFormula buildFormula() {
         return new DosageFormula(
-            new Measurement(strength.getUnit(), strength.getValue()),
+            new StrengthMeasurement(strength.getUnit(), strength.getValue(), strength.getText()),
             new Measurement(antibiotic.getDosagePerDayUnit(), antibiotic.getTabletsPerDose() * strength.getValue())
         );
     }
