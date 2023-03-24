@@ -6,14 +6,19 @@ import GetDiagnoses from "./GetDiagnoses";
 import GetInfoTexts from "./GetInfoTexts";
 import GetRecommendedTreatment from "./GetRecommendedTreatment";
 
+const STEP1 = 4;
+const STEP4 = 11;
+
 export default function Antibiotics() {
 
     const [chosenDiagnosis, setChosenDiagnosis] = useState("");
     
-    const [diagnoses, setDiagnoses] = useState([]);
-    const [infoTexts, setInfoTexts] = useState([]);
+    const [diagnoses, setDiagnoses] = useState(null);
+    const [infoTexts, setInfoTexts] = useState(null);
 
     const [treatments, setTreatments] = useState([]);
+
+    const [instruction, setInstruction] = useState([]);
 
 
     async function fetchData() {
@@ -22,30 +27,14 @@ export default function Antibiotics() {
 
         const infoTextsList = await GetInfoTexts();
         setInfoTexts(infoTextsList);
+
+        setInstruction(infoTextsList[STEP1]);
     }
     useEffect(() => {
         fetchData();
     }, []);
 
     console.log(infoTexts);
-
-    const instructions = [
-        {
-            state: "Vaihe 1",
-            text: "Valitse ensin potilaan diagnoosi"
-        },
-        {
-            state: "Vaihe 2",
-            text: "Syötä sitten potilaan paino.",
-            textCheck: "Tarkista vielä, onko potilaalla samansaikaista EBV-infektiota tai penisilliiniallergiaa."
-        },
-        {
-            state: "Vaihe 3",
-            text: "Laske sitten antibioottisuositus painamalla Laske suositus -painiketta."
-        }
-    ]
-
-    const [instruction, setInstruction] = useState(instructions[0]);
 
 
     /** State muuttuu ku valitaan tauti ja vastaavan taudin tiedot
@@ -89,6 +78,7 @@ export default function Antibiotics() {
     const receiveInput = (data) => {
         if (data.diagnosis !== "") {
             setFormSubmitted(true);
+            setInstruction(infoTexts[STEP4]);
         }
 
         // Case bronchitis not yet implemented
@@ -107,26 +97,30 @@ export default function Antibiotics() {
     console.log(treatments.length);
 
     function changeInstruction(index) {
-        setInstruction(instructions[index]);
+        setInstruction(infoTexts[index]);
     }
     console.log({chosenDiagnosis})
+
+    if(!diagnoses || !infoTexts) {
+        return <p className="loading-text">Loading...</p>
+    }
     
     return (
         <div className="antibiotics">
             <section>
                 <h1>Lapsen antibioottilaskuri</h1>
-                {!formSubmitted && <div className="antibiotic-instructions">
-                    <h2>{instruction.state}</h2>
+                <div className="antibiotic-instructions">
+                    <h2>{instruction.id}</h2>
                     <hr className="line"></hr>
                     <p>{instruction.text}</p>
-                    {instruction.textCheck && <p>{instruction.textCheck}</p>}
-                </div>}
+                </div>
             </section>
             <Form 
                 diagnoses={diagnoses}
                 handleSubmit={receiveInput} 
                 changeInstruction={changeInstruction} 
-                setChosenDiagnosis={setChosenDiagnosis} 
+                setChosenDiagnosis={setChosenDiagnosis}
+                formSubmitted={formSubmitted} 
             />
 
             {formSubmitted && <Treatment 
