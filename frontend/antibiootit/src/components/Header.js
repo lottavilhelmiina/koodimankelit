@@ -1,19 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Header() {
     return (
         <header className="header">
-            <button 
+            <Link to="/" 
                 className="header--title-link"
-                onClick={() => window.location.reload()}>
-                    Antibiootit.fi</button>
+                onClick={() => window.location.href = "/"}>
+                    Antibiootit.fi</Link>
             <div className="header--links">
-                <button className="header-link">
+                <Link to="/tietoa" className="header-link">
                     Tietoa sivustosta
-                </button>
-                <button className="header-link">
+                </Link>
+                <Link to="/palaute" className="header-link">
                     Palautekysely
-                </button>          
+                </Link>          
             </div>
         </header>
     )

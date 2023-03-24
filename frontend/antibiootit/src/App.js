@@ -1,12 +1,17 @@
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Main from './components/Main';
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <>
       <Header />
-      <Main />
+      <Routes>
+				<Route path="/" element={<Main path = "/" />} />
+				<Route path="/tietoa" element={<Main path = "/tietoa" />} />
+				<Route path="/palaute" element={<Main path = "/palaute" />} />
+			</Routes>
       <Footer />
     </>
   );

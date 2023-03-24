@@ -36,6 +36,10 @@ button, a, li, input {
     margin-right: 40px;
 }
 
+Link {
+    text-decoration: none;
+}
+
 .header--title-link {
     background: none!important;
     border: none;
@@ -598,4 +602,18 @@ aside {
 
 .bold {
     font-weight: bold;
+}
+
+.info-container {
+    font-family: Inter, sans-serif;
+    padding-top: 80px;
+    margin: auto;
+    width: 60%;
+}
+
+.feedback-container {
+    font-family: Inter, sans-serif;
+    padding-top: 80px;
+    margin: auto;
+    width: 60%;
 }
