@@ -13,6 +13,8 @@ export default function Antibiotics() {
     const [diagnoses, setDiagnoses] = useState([]);
     const [infoTexts, setInfoTexts] = useState([]);
 
+    const [treatments, setTreatments] = useState([]);
+
 
     async function fetchData() {
         const diagnosesList = await GetDiagnoses();
@@ -89,16 +91,20 @@ export default function Antibiotics() {
             setFormSubmitted(true);
         }
 
-        console.log(data);
-        const ebv = data.concurrentEBV;
-        const mp = data.concurrentMycoplasma;
-              
-        console.log("Lapsen paino: " + data.weight + " kg ja diagnoosi: " + data.diagnosis);
-        console.log(ebv ? "Lapsella on samanaikainen ebv" : "Lapsella ei ole samanaikaista ebv:tä");
-        console.log(mp ? "Lapsella on samanaikainen mykoplasma" : "Lapsella ei ole samanaikaista mykoplasmaa");
-
-       GetRecommendedTreatment(data);
+        // Case bronchitis not yet implemented
+        if (data.diagnosisID !== 'J20.9') {
+            GetRecommendedTreatment(data)
+            .then(response => {
+                setTreatments(response.treatments);
+            })
+            .catch(error => {
+                console.log(error)
+            });
+            
+        }
     }
+
+    console.log(treatments.length);
 
     function changeInstruction(index) {
         setInstruction(instructions[index]);
