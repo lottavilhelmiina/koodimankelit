@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+const STEP2 = 5;
+const STEP3 = 6;
+
 export default function Form(props) {
     
     const fullInfo = props.diagnoses;
@@ -71,7 +74,9 @@ export default function Form(props) {
         const selectedInfo = fullInfo.filter(d => d.name === selected)[0]
         setDiagnosis(selectedInfo);
         props.setChosenDiagnosis(selected);
-        props.changeInstruction(1);
+        if(!props.formSubmitted) {
+            props.changeInstruction(STEP2);
+        }
         
         if (selectedInfo.id === 'J20.9') {
             setIsBronchitis(true);
@@ -106,7 +111,9 @@ export default function Form(props) {
         e.preventDefault();
         const input = e.target.value;
         setWeight(input);
-        props.changeInstruction(2);
+        if(!props.formSubmitted) {
+            props.changeInstruction(STEP3);
+        }
 
         const formattedWeight = input.replace(',', '.');
         
