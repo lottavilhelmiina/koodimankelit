@@ -599,3 +599,7 @@ aside {
 .bold {
     font-weight: bold;
 }
+
+.loading-text {
+    margin-top: 50px;
+}

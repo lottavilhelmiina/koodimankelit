@@ -102,7 +102,7 @@ export default function Antibiotics() {
     console.log({chosenDiagnosis})
 
     if(!diagnoses || !infoTexts) {
-        return <p>Loading...</p>
+        return <p className="loading-text">Loading...</p>
     }
     
     return (
