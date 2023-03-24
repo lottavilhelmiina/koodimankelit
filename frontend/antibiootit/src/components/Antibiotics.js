@@ -104,6 +104,8 @@ export default function Antibiotics() {
         }
     }
 
+    console.log(treatments.length);
+
     function changeInstruction(index) {
         setInstruction(instructions[index]);
     }
