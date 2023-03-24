@@ -13,6 +13,8 @@ export default function Antibiotics() {
     const [diagnoses, setDiagnoses] = useState([]);
     const [infoTexts, setInfoTexts] = useState([]);
 
+    const [treatments, setTreatments] = useState([]);
+
 
     async function fetchData() {
         const diagnosesList = await GetDiagnoses();
@@ -91,7 +93,14 @@ export default function Antibiotics() {
 
         // Case bronchitis not yet implemented
         if (data.diagnosisID !== 'J20.9') {
-            GetRecommendedTreatment(data);
+            GetRecommendedTreatment(data)
+            .then(response => {
+                setTreatments(response.treatments);
+            })
+            .catch(error => {
+                console.log(error)
+            });
+            
         }
     }
 
