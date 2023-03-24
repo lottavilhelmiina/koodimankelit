@@ -40,7 +40,9 @@ public abstract class AntibioticTreatmentBuilder {
             throw new RuntimeException("Selected antibiotic has no suitable strength");
         }
 
-        Instructions instructions = new Instructions(antibiotic.getDays(), antibiotic.getDosesPerDay());
+        Instructions instructions = 
+            new Instructions(antibiotic.getDays(), antibiotic.getDosesPerDay(), 
+                antibiotic.getDoseMultipliers());
 
         return new AntibioticTreatment(
             antibiotic.getFormat(),
