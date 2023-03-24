@@ -4,7 +4,7 @@ export default async function GetRecommendedTreatment(props) {
 
     const requestBody = {
         "diagnosisID": "H66.0",
-        "weight": 10,
+        "weight": "10",
         "penicillinAllergic": true,
         "checkBoxes": [
         ]
@@ -18,13 +18,13 @@ export default async function GetRecommendedTreatment(props) {
             'Content-Type': 'application/json',
             'X-API-KEY': apikey
         },
-        body: requestBody
+        body: JSON.stringify(props)
     }
     return await fetch(url, options)
-        .then(res => {
-            console.log("res")
-            console.log(res)
-            res.json();
+        .then(res => res.json() )
+        .then(data => {
+            console.log(data)
+            return data;
         })
         .catch(err => {
 			console.log(err);

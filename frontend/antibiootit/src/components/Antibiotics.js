@@ -89,15 +89,10 @@ export default function Antibiotics() {
             setFormSubmitted(true);
         }
 
-        console.log(data);
-        const ebv = data.concurrentEBV;
-        const mp = data.concurrentMycoplasma;
-              
-        console.log("Lapsen paino: " + data.weight + " kg ja diagnoosi: " + data.diagnosis);
-        console.log(ebv ? "Lapsella on samanaikainen ebv" : "Lapsella ei ole samanaikaista ebv:tä");
-        console.log(mp ? "Lapsella on samanaikainen mykoplasma" : "Lapsella ei ole samanaikaista mykoplasmaa");
-
-       GetRecommendedTreatment(data);
+        // Case bronchitis not yet implemented
+        if (data.diagnosisID !== 'J20.9') {
+            GetRecommendedTreatment(data);
+        }
     }
 
     function changeInstruction(index) {

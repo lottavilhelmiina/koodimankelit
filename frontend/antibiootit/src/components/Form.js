@@ -58,15 +58,19 @@ export default function Form(props) {
     const handleMenuSelection = (e) => {
         e.preventDefault();
         const selected = e.target.textContent;
-        setDiagnosis(fullInfo.filter(d => d.name === selected)[0]);
+        const selectedInfo = fullInfo.filter(d => d.name === selected)[0]
+        setDiagnosis(selectedInfo);
         props.setChosenDiagnosis(selected);
         props.changeInstruction(1);
         
-        if (selected === "Bronkiitti") {
+        if (selectedInfo.id === 'J20.9') {
             setIsBronchitis(true);
-            props.handleSubmit(selected, null);
+            const data = {
+                diagnosisID: selectedInfo.id
+            }
+            props.handleSubmit(data);
         }
-        else if (selected !== "Bronkiitti") {
+        else if (selectedInfo.id !== 'J20.9') {
             setIsBronchitis(false);
         }
         if (selected !== "Streptokokki-tonsilliitti") {
@@ -125,19 +129,25 @@ export default function Form(props) {
     const handleClick = (e) => {
         e.preventDefault();
         if (isWeightOk) {
-            const data = { diagnosisID: diagnosis.id,
-                           weight: weight,
-                           penicillinAllergic: penicillinAllergy,
-                           checkBoxes: [
-                                { 
-                                    id: 'EBV-001',
-                                    value: concurrentEBV
-                                },
-                                {
-                                    id: 'MYK-001',
-                                    value: concurrentMycoplasma
-                                }
-                           ]}
+            const checkBoxes = [
+                {
+                    id: 'EBV-001',
+                    value: concurrentEBV
+                },
+                {
+                    id: 'MYK-001',
+                    value: concurrentMycoplasma
+                  }
+            ];
+            const matchingCheckBoxes = checkBoxes.filter(cb => {
+                return diagnosis.checkBoxes.some(c => c.id === cb.id);
+            });
+            const data = { 
+                            diagnosisID: diagnosis.id,
+                            weight: weight,
+                            penicillinAllergic: penicillinAllergy,
+                            checkBoxes: matchingCheckBoxes
+                        }
             props.handleSubmit(data);
         }
         else {
