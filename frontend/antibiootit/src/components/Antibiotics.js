@@ -4,6 +4,7 @@ import Treatment from "./Treatment";
 import Recipe from "./Recipe";
 import GetDiagnoses from "./GetDiagnoses";
 import GetInfoTexts from "./GetInfoTexts";
+import GetRecommendedTreatment from "./GetRecommendedTreatment";
 
 export default function Antibiotics() {
 
@@ -11,6 +12,7 @@ export default function Antibiotics() {
     
     const [diagnoses, setDiagnoses] = useState([]);
     const [infoTexts, setInfoTexts] = useState([]);
+
 
     async function fetchData() {
         const diagnosesList = await GetDiagnoses();
@@ -23,7 +25,6 @@ export default function Antibiotics() {
         fetchData();
     }, []);
 
-    console.log(diagnoses);
     console.log(infoTexts);
 
     const instructions = [
@@ -88,12 +89,15 @@ export default function Antibiotics() {
             setFormSubmitted(true);
         }
 
+        console.log(data);
         const ebv = data.concurrentEBV;
         const mp = data.concurrentMycoplasma;
               
         console.log("Lapsen paino: " + data.weight + " kg ja diagnoosi: " + data.diagnosis);
         console.log(ebv ? "Lapsella on samanaikainen ebv" : "Lapsella ei ole samanaikaista ebv:tä");
         console.log(mp ? "Lapsella on samanaikainen mykoplasma" : "Lapsella ei ole samanaikaista mykoplasmaa");
+
+       GetRecommendedTreatment(data);
     }
 
     function changeInstruction(index) {
