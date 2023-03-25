@@ -1,5 +1,8 @@
 package fi.tuni.koodimankelit.antibiootit.models;
 
+import java.util.List;
+
+import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -9,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Instructions {
     private final int days;
     private final int dosesPerDay;
+    private final List<DoseMultiplier> doseMultipliers;
 
 
     /**
@@ -16,9 +20,10 @@ public class Instructions {
      * @param days amount how many days the treatment lasts
      * @param dosesPerDay amount how many times the antibiotic needs to be taken in a day
      */
-    public Instructions(int days, int dosesPerDay) {
+    public Instructions(int days, int dosesPerDay, List<DoseMultiplier> doseMultipliers) {
         this.days = days;
         this.dosesPerDay = dosesPerDay;
+        this.doseMultipliers = doseMultipliers;
     }
 
 
@@ -33,7 +38,8 @@ public class Instructions {
 
 
     
-    /** Returns how many times a day the antibiotic needs to be taken
+    /** 
+     * Returns how many times a day the antibiotic needs to be taken
      * @return int times in a day
      */
     public int getDosesPerDay() {
@@ -41,4 +47,11 @@ public class Instructions {
     }
 
 
+    /**
+     * Returns list of dose multiplications
+     * @return List<DoseMultiplier> List of dose multiplications
+     */
+    public List<DoseMultiplier> getDoseMultipliers() {
+        return this.doseMultipliers;
+    }
 }
