@@ -180,7 +180,10 @@ export default function Form(props) {
     }
 
     return (
-        <form className="diagnosis-form" onSubmit={handleClick}>
+        <form 
+            className="diagnosis-form" 
+            autoComplete="off"
+            onSubmit={handleClick}>
             <DiagnosisMenu />
             <div className="weight-input">
                 <span><img className="weight-icon" src="../icons/weight-icon.svg" alt="" />
@@ -205,7 +208,7 @@ export default function Form(props) {
                             type="checkbox"
                             disabled={isBronchitis}
                             onClick={() => setPenicillinAllergy(!penicillinAllergy)}
-                        /> Penisilliiniallergia
+                        /> <span className={isBronchitis ? "disabled" : "enabled"}>Penisilliiniallergia</span>
                     </label>} 
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'EBV-001').length > 0 &&
                     <label className="form--checkbox">
