@@ -272,6 +272,10 @@ aside {
     vertical-align: top;
 }
 
+.disabled {
+    color: #929292;
+}
+
 .form--button {
     grid-row-start: 3;
     grid-column-start: 2;
