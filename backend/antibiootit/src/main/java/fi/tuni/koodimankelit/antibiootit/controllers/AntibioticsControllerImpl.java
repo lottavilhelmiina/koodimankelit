@@ -94,6 +94,7 @@ public class AntibioticsControllerImpl implements AntibioticsController {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> handleRuntimeException(RuntimeException ex) {
+        System.out.println(ex); // Log exceptions
         return ResponseEntity.internalServerError().build();
 
     }
