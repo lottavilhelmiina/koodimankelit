@@ -47,6 +47,7 @@ public class AntibioticsControllerImpl implements AntibioticsController {
     }
 
     @PostMapping("/dose-calculation")
+    @Override
     public DiagnosisResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
         String diagnosisID = parameters.getDiagnosisID();
@@ -62,17 +63,20 @@ public class AntibioticsControllerImpl implements AntibioticsController {
     }
 
     @GetMapping("/diagnoses")
+    @Override
     public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnosisInfos();
     }
 
     @GetMapping("/info-texts")
+    @Override
     public InfoTexts getInfoTexts() {
         return this.antibioticsService.getAllInfoTexts();
     }
 
     @ExceptionHandler(InvalidParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @Override
     public Map<String, String> handleInvalidParameterException(InvalidParameterException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Error", ex.getMessage());
@@ -81,6 +85,7 @@ public class AntibioticsControllerImpl implements AntibioticsController {
 
     @ExceptionHandler(NoAntibioticTreatmentException.class)
     @ResponseStatus(HttpStatus.OK)
+    @Override
     public ResponseEntity<NoAntibioticTreatment> handleNoAntiobiticTreatmentException(NoAntibioticTreatmentException ex) {
         
         HttpHeaders headers = new HttpHeaders();
@@ -93,6 +98,7 @@ public class AntibioticsControllerImpl implements AntibioticsController {
     }
 
     @ExceptionHandler(RuntimeException.class)
+    @Override
     public ResponseEntity<Object> handleRuntimeException(RuntimeException ex) {
         System.out.println(ex); // Log exceptions
         return ResponseEntity.internalServerError().build();
@@ -101,6 +107,7 @@ public class AntibioticsControllerImpl implements AntibioticsController {
 
     @ExceptionHandler(DiagnosisNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    @Override
     public Map<String, String> handleDiagnosisNotFoundException(DiagnosisNotFoundException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Error", ex.getMessage());
