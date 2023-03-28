@@ -114,6 +114,15 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .andReturn();
     }
 
+    @Test
+    public void invalidPayloadShouldReturn400() throws Exception {
+
+        String payload = "{\"diagnosisID\":\"J03.0\",\"weight\":0.0,\"checkBoxes\":[]"; // Missing end }
+
+        request(payload)
+        .andExpect(status().isBadRequest());
+    }
+
 
 
     private ResultActions request(Parameters parameters) throws Exception {
