@@ -20,6 +20,8 @@ export default function Form(props) {
         if (diagnosis) {
             const chosen = fullInfo.filter(infection => infection.name === diagnosis.name);
             console.log(diagnosis)
+            console.log("vaatiiko antibioottia?")
+            console.log(diagnosis.needsAntibiotics);
             if (chosen[0].checkBoxes.length > 0) {
                 setAdditionalCheckboxes(chosen[0].checkBoxes)
                 console.log(chosen[0].checkBoxes)
@@ -49,9 +51,12 @@ export default function Form(props) {
         return (
             <div 
                 className="diagnosis-menu dropdown" >
-                <button className="dropdown-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}</button>
+                <button 
+                    className="dropdown-btn"
+                    data-testid="diagnosis-menu-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
+                </button>
                 <div className="dropdown-content">
-                    <ul className="menu--items">
+                    <ul className="menu--items" data-testid="diagnosis-menu">
                         {diagnosisNames
                             .filter((item) => item !== diagnosis.name)
                             .map((item) => (
@@ -70,6 +75,7 @@ export default function Form(props) {
 
     const handleMenuSelection = (e) => {
         e.preventDefault();
+        setFormatWeight(true);
         const selected = e.target.textContent;
         const selectedInfo = fullInfo.filter(d => d.name === selected)[0]
         setDiagnosis(selectedInfo);
@@ -84,6 +90,7 @@ export default function Form(props) {
                 diagnosisID: selectedInfo.id
             }
             props.handleSubmit(data);
+            
         }
         else if (selectedInfo.id !== 'J20.9') {
             setIsBronchitis(false);
@@ -147,6 +154,7 @@ export default function Form(props) {
 
     const handleClick = (e) => {
         e.preventDefault();
+        //console.log(e.target)
         if (isWeightOk) {
             const checkBoxes = [
                 {
