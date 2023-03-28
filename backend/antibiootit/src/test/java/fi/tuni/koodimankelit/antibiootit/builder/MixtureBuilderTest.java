@@ -13,8 +13,12 @@ import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
+import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 
+/**
+ * Test class for MixtureBuilder
+ */
 public class MixtureBuilderTest {
     
 
@@ -44,6 +48,9 @@ public class MixtureBuilderTest {
         multipliers.add(new DoseMultiplier(1, 2));
     }
     
+    /**
+     * Test that correct strength is selected from populated list
+     */
     @Test
     public void testCorrectStrengthIsSelected() {
         assertEquals(100, getTreatmentStrength(0));
@@ -53,18 +60,56 @@ public class MixtureBuilderTest {
         assertEquals(160, getTreatmentStrength(50));
     }
 
+    /**
+     * Test that negative weight results to exception
+     */
     @Test
     public void testNegativeWeightThrowsException() {
         assertThrows(RuntimeException.class, () -> getTreatment(-1));
     }
 
+    /**
+     * Test that empty strength list results to exception with valid weight
+     */
     @Test
     public void testEmptyStrengthListThrowsException() {
         ArrayList<Strength> emptyStrengths = new ArrayList<>();
         MixtureBuilder builder = new MixtureBuilder(
             new Mixture(null, null, null, 0, emptyStrengths, null, 0, 0, null, 0, null, multipliers),
-            0);
+            10);
         assertThrows(RuntimeException.class, () -> builder.build());
+    }
+
+    /**
+     * Test that result has correct fields which do not require calculation
+     */
+    @Test
+    public void testCorrectLabels() {
+        AntibioticTreatment treatment = getTreatment(10);
+
+        assertEquals("antibiotic", treatment.getAntibiotic());
+        assertEquals("format", treatment.getFormat());
+        assertEquals("info", treatment.getDescription());
+    }
+
+    /**
+     * Test that instructions are correct
+     */
+    @Test
+    public void testCorrectInstructions() {
+        AntibioticTreatment treatment = getTreatment(10);
+        Instructions instructions = treatment.getInstructions();
+
+        assertEquals(10, instructions.getDays());
+        assertEquals(3, instructions.getDosesPerDay());
+
+        List<DoseMultiplier> multipliers = instructions.getDoseMultipliers();
+        assertEquals(2, multipliers.size());
+
+        assertEquals(0, multipliers.get(0).getId());
+        assertEquals(1, multipliers.get(0).getMultiplier());
+        assertEquals(1, multipliers.get(1).getId());
+        assertEquals(2, multipliers.get(1).getMultiplier());
     }
 
     private AntibioticTreatment getTreatment(double weight) {
