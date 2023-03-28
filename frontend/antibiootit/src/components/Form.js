@@ -104,6 +104,7 @@ export default function Form(props) {
 
     const [weight, setWeight] = useState("");
     const [isWeightOk, setIsWeightOk] = useState(false);
+    const [formatWeight, setFormatWeight] = useState(true);
     const MIN_WEIGHT = 4;
     const MAX_WEIGHT = 100;
 
@@ -120,6 +121,7 @@ export default function Form(props) {
         if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
             console.log("paino ok")
             setIsWeightOk(true);
+            setFormatWeight(true);
         }
         else {
             // User must be notified, notification not yet implemented
@@ -159,18 +161,29 @@ export default function Form(props) {
             const matchingCheckBoxes = checkBoxes.filter(cb => {
                 return diagnosis.checkBoxes.some(c => c.id === cb.id);
             });
-            const data = { 
-                            diagnosisID: diagnosis.id,
-                            weight: weight,
-                            penicillinAllergic: penicillinAllergy,
-                            checkBoxes: matchingCheckBoxes
-                        }
-            props.handleSubmit(data);
+
+            const formattedWeight = parseFloat(weight).toFixed(2).replace(".", ",");
+            
+            const weightForCalculations = parseFloat(weight).toFixed(2).replace(",", ".");
+            if (weightForCalculations >= MIN_WEIGHT && weightForCalculations <= MAX_WEIGHT) {
+                setIsWeightOk(true);
+                setWeight(formattedWeight)
+                setFormatWeight(true);
+
+                const data = { 
+                                diagnosisID: diagnosis.id,
+                                weight: weightForCalculations,
+                                penicillinAllergic: penicillinAllergy,
+                                checkBoxes: matchingCheckBoxes
+                            }
+                props.handleSubmit(data);
+
+            }            
         }
-        else {
-            console.log("Painon pitää olla 4-100 kg")
+        else if (diagnosis && !isWeightOk) {
+            setFormatWeight(false);
+            console.log("Painon pitää olla 4 - 100 kg")
         }
-        
     }
 
     let placeholder = "Syötä paino"
@@ -190,10 +203,10 @@ export default function Form(props) {
                 
                     <input
                         id="weight-input"
-                        className="form--input"
+                        className={formatWeight ? "form--input" : "form--input-notok" }
                         placeholder={placeholder}
                         onFocus={emptyPlaceholder}
-                        name="weight"
+                        name="weight"   
                         value={weight}
                         onChange={handleInput}
                         type="text"
