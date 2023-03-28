@@ -13,7 +13,10 @@ import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
+import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
+import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Instructions;
+import fi.tuni.koodimankelit.antibiootit.models.Measurement;
 import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 
 /**
@@ -28,7 +31,7 @@ public class MixtureBuilderTest {
     private Mixture mixture = new Mixture(
         "antibiotic", "format", "info", 300,
         strengths,
-        "weightUnit", 10, 3, "resultUnit", 40, "unit",
+        "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit",
         multipliers
     );
 
@@ -36,7 +39,7 @@ public class MixtureBuilderTest {
     public void populateStrengths() {
         strengths.clear();
         strengths.add(new Strength(100, 0, null, null));
-        strengths.add(new Strength(120, 10, null, null));
+        strengths.add(new Strength(120, 10, "strengthUnit", "strengthText"));
         strengths.add(new Strength(140, 20, null, null));
         strengths.add(new Strength(160, 30, null, null));
     }
@@ -112,12 +115,65 @@ public class MixtureBuilderTest {
         assertEquals(2, multipliers.get(1).getMultiplier());
     }
 
+    /**
+     * Test that formula is correct
+     */
+    @Test
+    public void testCorrectFormula() {
+
+        // 10 kg -> Strength{120, 10} should be chosen.
+        AntibioticTreatment treatment = getTreatment(10); 
+        DosageFormula dosageFormula = treatment.getDosageFormula();
+        Measurement dosage = dosageFormula.getDosage();
+        StrengthMeasurement strengthMeasurement = dosageFormula.getStrength();
+
+        assertEquals("dosagePerWeightPerDayUnit", dosage.getUnit());
+        assertEquals(40, dosage.getValue());
+
+        assertEquals("strengthUnit", strengthMeasurement.getUnit());
+        assertEquals("strengthText", strengthMeasurement.getText());
+        assertEquals(120, strengthMeasurement.getValue());
+    }
+
+    @Test
+    public void testCorrectResults() {
+        // 22 kg -> Strength{140, 20} should be chosen.
+        // ( 22 kg * 40 mg/kg/d ) / ( 140 mg/ml ) / ( 3 times each day ) = 2.095
+        // Should be rounded to 2.0
+        assertEquals(2.0, getDosageResult(22));
+
+        // 39 kg -> Strength{160, 30} should be chosen.
+        // ( 39 kg * 40 mg/kg/d ) / ( 160 mg/ml ) / ( 3 times each day ) = 3.25
+        // Should be rounded to 3.5
+        assertEquals(3.5, getDosageResult(39));
+
+        // 8.79 kg -> Strength{100, 0} should be chosen.
+        // ( 8.79 kg * 40 mg/kg/d ) / ( 100 mg/ml ) / ( 3 times each day ) = 1.172
+        // Should be rounded to 1
+        assertEquals(1, getDosageResult(8.79));
+    }
+
+    /**
+     * Test that result unit is correct
+     */
+    @Test
+    public void testCorrectResultUnit() {
+        assertEquals("resultUnit", getTreatment(20).getDosageResult().getDose().getUnit());
+    }
+
     private AntibioticTreatment getTreatment(double weight) {
         return new MixtureBuilder(mixture, weight).build();
     }
 
     private double getTreatmentStrength(double weight) {
         return getTreatment(weight).getDosageFormula().getStrength().getValue();
+    }
+
+    private double getDosageResult(double weight) {
+        AntibioticTreatment treatment = getTreatment(weight);
+        DosageResult result = treatment.getDosageResult();
+
+        return result.getDose().getValue();
     }
 
 }
