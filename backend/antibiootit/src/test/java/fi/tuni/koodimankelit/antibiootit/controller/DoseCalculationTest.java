@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
+import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
@@ -114,6 +115,23 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .andReturn();
     }
 
+    @Test
+    public void invalidIdShouldReturn404() throws Exception {
+        when(service.getDiagnosisInfoByID(any())).thenThrow(DiagnosisNotFoundException.class);
+
+        request(mockParameters)
+        .andExpect(status().isNotFound())
+        .andReturn();
+    }
+
+    @Test
+    public void invalidPayloadShouldReturn400() throws Exception {
+
+        String payload = "{\"diagnosisID\":\"J03.0\",\"weight\":0.0,\"checkBoxes\":[]"; // Missing end }
+
+        request(payload)
+        .andExpect(status().isBadRequest());
+    }
 
 
     private ResultActions request(Parameters parameters) throws Exception {
