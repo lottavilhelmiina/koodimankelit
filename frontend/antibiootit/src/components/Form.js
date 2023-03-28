@@ -178,18 +178,12 @@ export default function Form(props) {
                             }
                 props.handleSubmit(data);
 
-            }
-            else {
-                console.log("Painossa vikaa")
-            }
-
-            
+            }            
         }
         else if (diagnosis && !isWeightOk) {
             setFormatWeight(false);
             console.log("Painon pitää olla 4 - 100 kg")
         }
-        
     }
 
     let placeholder = "Syötä paino"
