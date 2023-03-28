@@ -3,6 +3,7 @@ package fi.tuni.koodimankelit.antibiootit.controllers;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
@@ -76,4 +77,11 @@ public interface AntibioticsController {
      * @return Map<String, String> Error message
      */
     public Map<String, String> handleDiagnosisNotFoundException(DiagnosisNotFoundException ex);
+
+    /**
+     * Handle HttpMessageNotReadableException and return HTTP 400
+     * @param ex HttpMessageNotReadableException
+     * @return Map<String, String> Error message
+     */
+    public Map<String, String> handleNotValidMessageException(HttpMessageNotReadableException ex);
 }
