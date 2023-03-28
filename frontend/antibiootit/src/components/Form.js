@@ -11,18 +11,16 @@ export default function Form(props) {
     // Store the entire diagnosis data here, not just the name!
     const [diagnosis, setDiagnosis] = useState("");
     
-    // This will be replaced by handling the 'needsAntibiotics' attribute of the diagnosis.
-    const [isBronchitis, setIsBronchitis] = useState(false);
+    const [needsAntibiotics, setNeedsAntibiotics] = useState(false);
 
     const [additionalCheckboxes, setAdditionalCheckboxes] = useState();
 
     useEffect(() =>{
         if (diagnosis) {
             const chosen = fullInfo.filter(infection => infection.name === diagnosis.name);
-            console.log(diagnosis)
+            setNeedsAntibiotics(chosen[0].needsAntibiotics);
             if (chosen[0].checkBoxes.length > 0) {
                 setAdditionalCheckboxes(chosen[0].checkBoxes)
-                console.log(chosen[0].checkBoxes)
             }
         }
     }, [diagnosis, fullInfo])
@@ -49,9 +47,12 @@ export default function Form(props) {
         return (
             <div 
                 className="diagnosis-menu dropdown" >
-                <button className="dropdown-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}</button>
+                <button 
+                    className="dropdown-btn"
+                    data-testid="diagnosis-menu-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
+                </button>
                 <div className="dropdown-content">
-                    <ul className="menu--items">
+                    <ul className="menu--items" data-testid="diagnosis-menu">
                         {diagnosisNames
                             .filter((item) => item !== diagnosis.name)
                             .map((item) => (
@@ -70,6 +71,7 @@ export default function Form(props) {
 
     const handleMenuSelection = (e) => {
         e.preventDefault();
+        setFormatWeight(true);
         const selected = e.target.textContent;
         const selectedInfo = fullInfo.filter(d => d.name === selected)[0]
         setDiagnosis(selectedInfo);
@@ -78,15 +80,16 @@ export default function Form(props) {
             props.changeInstruction(STEP2);
         }
         
-        if (selectedInfo.id === 'J20.9') {
-            setIsBronchitis(true);
+        if (selectedInfo.needsAntibiotics === false) {
+            setNeedsAntibiotics(false);
             const data = {
                 diagnosisID: selectedInfo.id
             }
             props.handleSubmit(data);
+            
         }
-        else if (selectedInfo.id !== 'J20.9') {
-            setIsBronchitis(false);
+        else if (selectedInfo.needsAntibiotics === true) {
+            setNeedsAntibiotics(true);
         }
         if (selected !== "Streptokokki-tonsilliitti") {
             resetCheckboxes();
@@ -104,6 +107,7 @@ export default function Form(props) {
 
     const [weight, setWeight] = useState("");
     const [isWeightOk, setIsWeightOk] = useState(false);
+    const [formatWeight, setFormatWeight] = useState(true);
     const MIN_WEIGHT = 4;
     const MAX_WEIGHT = 100;
 
@@ -120,6 +124,7 @@ export default function Form(props) {
         if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
             console.log("paino ok")
             setIsWeightOk(true);
+            setFormatWeight(true);
         }
         else {
             // User must be notified, notification not yet implemented
@@ -137,7 +142,7 @@ export default function Form(props) {
             <button 
                 className="form--button" 
                 type="submit"
-                disabled={!weight || isBronchitis}>
+                disabled={!weight || !needsAntibiotics}>
                 Laske suositus
             </button>
         )
@@ -159,18 +164,29 @@ export default function Form(props) {
             const matchingCheckBoxes = checkBoxes.filter(cb => {
                 return diagnosis.checkBoxes.some(c => c.id === cb.id);
             });
-            const data = { 
-                            diagnosisID: diagnosis.id,
-                            weight: weight,
-                            penicillinAllergic: penicillinAllergy,
-                            checkBoxes: matchingCheckBoxes
-                        }
-            props.handleSubmit(data);
+
+            const formattedWeight = parseFloat(weight).toFixed(2).replace(".", ",");
+            
+            const weightForCalculations = parseFloat(weight).toFixed(2).replace(",", ".");
+            if (weightForCalculations >= MIN_WEIGHT && weightForCalculations <= MAX_WEIGHT) {
+                setIsWeightOk(true);
+                setWeight(formattedWeight)
+                setFormatWeight(true);
+
+                const data = { 
+                                diagnosisID: diagnosis.id,
+                                weight: weightForCalculations,
+                                penicillinAllergic: penicillinAllergy,
+                                checkBoxes: matchingCheckBoxes
+                            }
+                props.handleSubmit(data);
+
+            }            
         }
-        else {
-            console.log("Painon pitää olla 4-100 kg")
+        else if (diagnosis && !isWeightOk) {
+            setFormatWeight(false);
+            console.log("Painon pitää olla 4 - 100 kg")
         }
-        
     }
 
     let placeholder = "Syötä paino"
@@ -190,14 +206,14 @@ export default function Form(props) {
                 
                     <input
                         id="weight-input"
-                        className="form--input"
+                        className={formatWeight ? "form--input" : "form--input-notok" }
                         placeholder={placeholder}
                         onFocus={emptyPlaceholder}
-                        name="weight"
+                        name="weight"   
                         value={weight}
                         onChange={handleInput}
                         type="text"
-                        disabled={isBronchitis || !diagnosis}
+                        disabled={!needsAntibiotics || !diagnosis}
                         required={true}
                     /><span className="kg-text">kg</span></span>
             </div>
@@ -206,9 +222,9 @@ export default function Form(props) {
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
-                            disabled={isBronchitis}
+                            disabled={!needsAntibiotics}
                             onClick={() => setPenicillinAllergy(!penicillinAllergy)}
-                        /> <span className={isBronchitis ? "disabled" : "enabled"}>Penisilliiniallergia</span>
+                        /> <span className={!needsAntibiotics ? "disabled" : "enabled"}>Penisilliiniallergia</span>
                     </label>} 
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'EBV-001').length > 0 &&
                     <label className="form--checkbox">
