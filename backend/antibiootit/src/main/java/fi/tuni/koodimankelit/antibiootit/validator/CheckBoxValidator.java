@@ -34,7 +34,7 @@ public class CheckBoxValidator {
         }
 
         if(!requestIDs.equals(requiredIDs)) {
-            throw new InvalidParameterException(String.format("All required chekcBoxes not found: %s", requiredIDs));
+            throw new InvalidParameterException(String.format("Only these checkboxes should be present: %s", requiredIDs));
         }
     }
 }

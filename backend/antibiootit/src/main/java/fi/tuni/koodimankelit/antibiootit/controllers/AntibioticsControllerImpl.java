@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +47,7 @@ public class AntibioticsControllerImpl implements AntibioticsController {
     }
 
     @PostMapping("/dose-calculation")
+    @Override
     public DiagnosisResponse doseCalculation(@RequestBody @Valid Parameters parameters) {
         
         String diagnosisID = parameters.getDiagnosisID();
@@ -61,17 +63,20 @@ public class AntibioticsControllerImpl implements AntibioticsController {
     }
 
     @GetMapping("/diagnoses")
+    @Override
     public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnosisInfos();
     }
 
     @GetMapping("/info-texts")
+    @Override
     public InfoTexts getInfoTexts() {
         return this.antibioticsService.getAllInfoTexts();
     }
 
     @ExceptionHandler(InvalidParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @Override
     public Map<String, String> handleInvalidParameterException(InvalidParameterException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Error", ex.getMessage());
@@ -80,6 +85,7 @@ public class AntibioticsControllerImpl implements AntibioticsController {
 
     @ExceptionHandler(NoAntibioticTreatmentException.class)
     @ResponseStatus(HttpStatus.OK)
+    @Override
     public ResponseEntity<NoAntibioticTreatment> handleNoAntiobiticTreatmentException(NoAntibioticTreatmentException ex) {
         
         HttpHeaders headers = new HttpHeaders();
@@ -92,14 +98,26 @@ public class AntibioticsControllerImpl implements AntibioticsController {
     }
 
     @ExceptionHandler(RuntimeException.class)
+    @Override
     public ResponseEntity<Object> handleRuntimeException(RuntimeException ex) {
+        System.out.println(ex); // Log exceptions
         return ResponseEntity.internalServerError().build();
 
     }
 
     @ExceptionHandler(DiagnosisNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    @Override
     public Map<String, String> handleDiagnosisNotFoundException(DiagnosisNotFoundException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("Error", ex.getMessage());
+        return errorMap;
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @Override
+    public Map<String, String> handleNotValidMessageException(HttpMessageNotReadableException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("Error", ex.getMessage());
         return errorMap;
