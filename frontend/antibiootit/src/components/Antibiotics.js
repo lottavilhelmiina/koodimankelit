@@ -34,12 +34,8 @@ export default function Antibiotics() {
         fetchData();
     }, []);
 
-    console.log(infoTexts);
-
+    //console.log(infoTexts);
     
-    // Tää pitää tehä sit ekaks niin että kokoaa sen reseptin treatments[0]:sta?
-    // Ja sit päivittää uuteen Treatment.js:ssä ku käyttäjä klikkaa vaihtoehtojen
-    // välillä
     const [activeRecipe, setActiveRecipe] = useState("");
 
     useEffect(() => {
@@ -59,6 +55,14 @@ export default function Antibiotics() {
             GetRecommendedTreatment(data)
             .then(response => {
                 setTreatments(response.treatments);
+                // Also set the first active recipe
+                const dosageValue = response.treatments[0].dosageResult.dose.value;
+                const dosageUnit = response.treatments[0].dosageResult.dose.unit;
+                const instructionDosesPerDay = response.treatments[0].instructions.dosesPerDay;
+                const instructionDays = response.treatments[0].instructions.days;
+                const recipe = `${dosageValue} ${dosageUnit} ${instructionDosesPerDay} kertaa/vrk ${instructionDays} vrk:n ajan`;
+                setActiveRecipe(recipe);
+                
                 console.log(treatments.length);
             })
             .catch(error => {

@@ -3,26 +3,24 @@ import Choise from "./Choise"
 
 export default function Treatment(props) {
 
-    const [activeChoice, setActiveChoice] = useState(props.antibiotic[0])
+    const [activeChoice, setActiveChoice] = useState(props.antibiotic[0]);
 
     const style = {
         backgroundColor: "white"
     }
 
     function toggleChoise(name) {
-        /**for(let i = 0; i < props.antibiotic.length; i++) {
-            if(props.antibiotic[i].name === name) {
-                Tähän resepti pitää ottaa esim props.antibiotic[i].dosageResult.value jne
-                ja ne yhdistää tulokseks joka sitte laittaa tohon
-                setActiveRecipe
-                eli const recipe = `${juttuja}`
-                Tää on vanha
-                props.setActiveRecipe(props.antibiotic[i].recipe)
-            }
-        }*/
         for(let i = 0; i < props.antibiotic.length; i++ ) {
             if(props.antibiotic[i].antibiotic === name) {
                 setActiveChoice(props.antibiotic[i]);
+
+                const dosageValue = props.antibiotic[i].dosageResult.dose.value;
+                const dosageUnit = props.antibiotic[i].dosageResult.dose.unit;
+                const instructionDosesPerDay = props.antibiotic[i].instructions.dosesPerDay;
+                const instructionDays = props.antibiotic[i].instructions.days;
+                const recipe = `${dosageValue} ${dosageUnit} ${instructionDosesPerDay} kertaa/vrk ${instructionDays} vrk:n ajan`;
+                console.log(recipe);
+                props.setActiveRecipe(recipe);
             }
         }
         console.log(activeChoice);
