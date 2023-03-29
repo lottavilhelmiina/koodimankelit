@@ -11,20 +11,16 @@ export default function Form(props) {
     // Store the entire diagnosis data here, not just the name!
     const [diagnosis, setDiagnosis] = useState("");
     
-    // This will be replaced by handling the 'needsAntibiotics' attribute of the diagnosis.
-    const [isBronchitis, setIsBronchitis] = useState(false);
+    const [needsAntibiotics, setNeedsAntibiotics] = useState(false);
 
     const [additionalCheckboxes, setAdditionalCheckboxes] = useState();
 
     useEffect(() =>{
         if (diagnosis) {
             const chosen = fullInfo.filter(infection => infection.name === diagnosis.name);
-            console.log(diagnosis)
-            console.log("vaatiiko antibioottia?")
-            console.log(diagnosis.needsAntibiotics);
+            setNeedsAntibiotics(chosen[0].needsAntibiotics);
             if (chosen[0].checkBoxes.length > 0) {
                 setAdditionalCheckboxes(chosen[0].checkBoxes)
-                console.log(chosen[0].checkBoxes)
             }
         }
     }, [diagnosis, fullInfo])
@@ -84,16 +80,16 @@ export default function Form(props) {
             props.changeInstruction(STEP2);
         }
         
-        if (selectedInfo.id === 'J20.9') {
-            setIsBronchitis(true);
+        if (selectedInfo.needsAntibiotics === false) {
+            setNeedsAntibiotics(false);
             const data = {
                 diagnosisID: selectedInfo.id
             }
             props.handleSubmit(data);
             
         }
-        else if (selectedInfo.id !== 'J20.9') {
-            setIsBronchitis(false);
+        else if (selectedInfo.needsAntibiotics === true) {
+            setNeedsAntibiotics(true);
         }
         if (selected !== "Streptokokki-tonsilliitti") {
             resetCheckboxes();
@@ -146,7 +142,7 @@ export default function Form(props) {
             <button 
                 className="form--button" 
                 type="submit"
-                disabled={!weight || isBronchitis}>
+                disabled={!weight || !needsAntibiotics}>
                 Laske suositus
             </button>
         )
@@ -218,7 +214,7 @@ export default function Form(props) {
                         value={weight}
                         onChange={handleInput}
                         type="text"
-                        disabled={isBronchitis || !diagnosis}
+                        disabled={!needsAntibiotics || !diagnosis}
                         required={true}
                     /><span className="kg-text">kg</span></span>
             </div>
@@ -227,9 +223,9 @@ export default function Form(props) {
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
-                            disabled={isBronchitis}
+                            disabled={!needsAntibiotics}
                             onClick={() => setPenicillinAllergy(!penicillinAllergy)}
-                        /> <span className={isBronchitis ? "disabled" : "enabled"}>Penisilliiniallergia</span>
+                        /> <span className={!needsAntibiotics ? "disabled" : "enabled"}>Penisilliiniallergia</span>
                     </label>} 
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'EBV-001').length > 0 &&
                     <label className="form--checkbox">
