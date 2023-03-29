@@ -7,7 +7,6 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
-import fi.tuni.koodimankelit.antibiootit.models.InfoTexts;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
 @Service
@@ -36,11 +35,6 @@ public class AntibioticsServiceImpl implements AntibioticsService {
     public Diagnoses getAllDiagnosisInfos() {
         Diagnoses allDiagnoses = new Diagnoses(this.dataHandler.getAllDiagnosisInfos());
         return allDiagnoses;
-    }
-
-    public InfoTexts getAllInfoTexts() {
-        InfoTexts allInfoTexts = new InfoTexts(this.dataHandler.getAllInfoTexts());
-        return allInfoTexts;
     }
 
     @Override

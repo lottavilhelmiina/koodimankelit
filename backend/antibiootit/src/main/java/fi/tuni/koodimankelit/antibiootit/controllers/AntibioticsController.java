@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
-import fi.tuni.koodimankelit.antibiootit.models.InfoTexts;
 import fi.tuni.koodimankelit.antibiootit.models.NoAntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,15 +39,6 @@ public interface AntibioticsController {
     @Operation(summary = "Get all diagnoses", 
         description = "Retrieves a list of all diagnoses that can be used for antibiotics dose calculations.")
     public Diagnoses getDiagnoses();
-
-    /**
-     * Returns all information texts for the web page
-     * @return InfoTexts List of information texts
-     */
-    @Operation(summary = "Get all infromation texts", 
-        description = "Gets information texts containing disclaimers and other relevant information for the webpage.")
-    public InfoTexts getInfoTexts();
-
     
     /** 
      * Handle InvalidParameterException and return HTTP 400

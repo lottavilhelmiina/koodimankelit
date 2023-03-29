@@ -4,7 +4,6 @@ import java.util.List;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
-import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 
 /**
  * Database related services
@@ -36,9 +35,4 @@ public interface DataHandler {
      */
     public DiagnosisInfo getDiagnosisInfoById(String id);
     
-    /**
-     * Returns all info texts
-     * @return List<InfoText> List of info texts
-     */
-    public List<InfoText> getAllInfoTexts();
 }
