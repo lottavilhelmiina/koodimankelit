@@ -135,6 +135,9 @@ public class MixtureBuilderTest {
         assertEquals(120, strengthMeasurement.getValue());
     }
 
+    /**
+     * Test that the rounded result is correct
+     */
     @Test
     public void testRoundedResults() {
         // 22 kg -> Strength{140, 20} should be chosen.
@@ -153,6 +156,9 @@ public class MixtureBuilderTest {
         assertEquals(1, getRoundedResult(8.79));
     }
 
+    /**
+     * Test that the non-rounded result is correct (3 decimals)
+     */
     @Test
     public void testAccurateResults() {
         // Explanation in the test above
@@ -163,6 +169,9 @@ public class MixtureBuilderTest {
         assertEquals(1.172, getAccurateResult(8.79));
     }
 
+    /**
+     * Test that the rounding works correctly
+     */
     @Test
     public void testResultRounding() {
 
