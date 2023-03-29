@@ -20,7 +20,6 @@ import jakarta.validation.Valid;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
-import fi.tuni.koodimankelit.antibiootit.models.InfoTexts;
 import fi.tuni.koodimankelit.antibiootit.models.NoAntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
@@ -66,12 +65,6 @@ public class AntibioticsControllerImpl implements AntibioticsController {
     @Override
     public Diagnoses getDiagnoses() {
         return this.antibioticsService.getAllDiagnosisInfos();
-    }
-
-    @GetMapping("/info-texts")
-    @Override
-    public InfoTexts getInfoTexts() {
-        return this.antibioticsService.getAllInfoTexts();
     }
 
     @ExceptionHandler(InvalidParameterException.class)

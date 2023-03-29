@@ -13,7 +13,6 @@ import java.util.Map;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
-import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.services.DataHandler;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -45,11 +44,6 @@ public class DatabaseTestController {
     @PostMapping("/get-diagnosisinfo")
     public DiagnosisInfo getDiagnosisInfo() {
         return dataHandler.getDiagnosisInfoById("J03.0");
-    }
-
-    @PostMapping("/get-infoTexts")
-    public List<InfoText> getInfoTexts() {
-        return dataHandler.getAllInfoTexts();
     }
 
     /**

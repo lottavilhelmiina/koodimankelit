@@ -6,21 +6,17 @@ import java.util.List;
 import java.util.Optional;
 
 import fi.tuni.koodimankelit.antibiootit.database.DiagnosisRepository;
-import fi.tuni.koodimankelit.antibiootit.database.InfoTextRepository;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
-import fi.tuni.koodimankelit.antibiootit.database.data.InfoText;
 import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 
 @Service
 public class DataHandlerImpl implements DataHandler {
     
     private final DiagnosisRepository diagnosisRepository;
-    private final InfoTextRepository infoTextRepository;
 
-    public DataHandlerImpl(DiagnosisRepository diagnosisRepository, InfoTextRepository infoTextRepository) {
+    public DataHandlerImpl(DiagnosisRepository diagnosisRepository) {
         this.diagnosisRepository = diagnosisRepository;
-        this.infoTextRepository = infoTextRepository;
     }
 
     @Override
@@ -38,11 +34,6 @@ public class DataHandlerImpl implements DataHandler {
     @Override
     public List<DiagnosisInfo> getAllDiagnosisInfos() {
         return diagnosisRepository.getAllDiagnosisInfos();
-    }
-
-    @Override
-    public List<InfoText> getAllInfoTexts() {
-        return infoTextRepository.findAll();
     }
 
     @Override
