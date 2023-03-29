@@ -35,7 +35,7 @@ export default function Antibiotics() {
     }, []);
 
     //console.log(infoTexts);
-    
+
     const [activeRecipe, setActiveRecipe] = useState("");
 
     useEffect(() => {
@@ -100,7 +100,7 @@ export default function Antibiotics() {
             />
             {formSubmitted && treatments && <Treatment 
                 diagnosis={chosenDiagnosis}
-                antibiotic={treatments}
+                treatments={treatments}
                 setActiveRecipe={setActiveRecipe}
                 format={treatments[0].format}
             />}
