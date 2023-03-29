@@ -36,7 +36,7 @@ export default function Antibiotics() {
 
     //console.log(infoTexts);
 
-    const [activeRecipe, setActiveRecipe] = useState("");
+    const [activeRecipe, setActiveRecipe] = useState(null);
 
     useEffect(() => {
         console.log("Active recipe toggled");
@@ -55,13 +55,22 @@ export default function Antibiotics() {
             GetRecommendedTreatment(data)
             .then(response => {
                 setTreatments(response.treatments);
-                // Also set the first active recipe
+                // Also set the first active recipe 
                 const dosageValue = response.treatments[0].dosageResult.dose.value;
                 const dosageUnit = response.treatments[0].dosageResult.dose.unit;
                 const instructionDosesPerDay = response.treatments[0].instructions.dosesPerDay;
                 const instructionDays = response.treatments[0].instructions.days;
                 const recipe = `${dosageValue} ${dosageUnit} ${instructionDosesPerDay} kertaa/vrk ${instructionDays} vrk:n ajan`;
-                setActiveRecipe(recipe);
+                const antibiote = response.treatments[0].antibiotic;
+                const strength = response.treatments[0].dosageFormula.strength.text;
+
+                const treatment = {
+                    text: recipe,
+                    antibioteName: antibiote,
+                    antibioteStrength: strength
+                }
+
+                setActiveRecipe(treatment);
                 
                 console.log(treatments.length);
             })
@@ -71,6 +80,7 @@ export default function Antibiotics() {
             
         }
     }
+    console.log(treatments);
 
     function changeInstruction(index) {
         setInstruction(infoTexts[index]);

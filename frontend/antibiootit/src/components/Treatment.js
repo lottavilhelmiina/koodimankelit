@@ -19,8 +19,16 @@ export default function Treatment(props) {
                 const instructionDosesPerDay = props.treatments[i].instructions.dosesPerDay;
                 const instructionDays = props.treatments[i].instructions.days;
                 const recipe = `${dosageValue} ${dosageUnit} ${instructionDosesPerDay} kertaa/vrk ${instructionDays} vrk:n ajan`;
-                console.log(recipe);
-                props.setActiveRecipe(recipe);
+                const antibiote = props.treatments[i].antibiotic;
+                const strength = props.treatments[i].dosageFormula.strength.text;
+
+                const treatment = {
+                    text: recipe,
+                    antibioteName: antibiote,
+                    antibioteStrength: strength
+                }
+
+                props.setActiveRecipe(treatment);
             }
         }
         console.log(activeChoice);
