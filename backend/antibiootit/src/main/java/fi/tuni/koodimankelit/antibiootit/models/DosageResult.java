@@ -8,16 +8,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "Calculated antibiotic dosage result")
 public class DosageResult {
     private final Measurement dose;
-    private final Measurement unroundedDose;
+    private final Measurement accurateDose;
 
 
     /**
      * Default constructor
      * @param dose one-time dosage
      */
-    public DosageResult(Measurement dose, Measurement unroundedDose) {
+    public DosageResult(Measurement dose, Measurement accurateDose) {
         this.dose = dose;
-        this.unroundedDose = unroundedDose;
+        this.accurateDose = accurateDose;
     }
 
 
@@ -33,8 +33,8 @@ public class DosageResult {
      * Returns the more accurate one-time dose (rounded to three decimals)
      * @return unrounded dose
      */
-    public Measurement getUnroundedDose() {
-        return this.unroundedDose;
+    public Measurement getAccurateDose() {
+        return this.accurateDose;
     }
 
 }
