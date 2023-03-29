@@ -136,21 +136,21 @@ public class MixtureBuilderTest {
     }
 
     @Test
-    public void testCorrectResults() {
+    public void testRoundedResults() {
         // 22 kg -> Strength{140, 20} should be chosen.
         // ( 22 kg * 40 mg/kg/d ) / ( 140 mg/ml ) / ( 3 times each day ) = 2.095
         // Should be rounded to 2.0
-        assertEquals(2.0, getDosageResult(22));
+        assertEquals(2.0, getRoundedResult(22));
 
         // 39 kg -> Strength{160, 30} should be chosen.
         // ( 39 kg * 40 mg/kg/d ) / ( 160 mg/ml ) / ( 3 times each day ) = 3.25
         // Should be rounded to 3.5
-        assertEquals(3.5, getDosageResult(39));
+        assertEquals(3.5, getRoundedResult(39));
 
         // 8.79 kg -> Strength{100, 0} should be chosen.
         // ( 8.79 kg * 40 mg/kg/d ) / ( 100 mg/ml ) / ( 3 times each day ) = 1.172
         // Should be rounded to 1
-        assertEquals(1, getDosageResult(8.79));
+        assertEquals(1, getRoundedResult(8.79));
     }
 
     /**
@@ -169,7 +169,7 @@ public class MixtureBuilderTest {
         return getTreatment(weight).getDosageFormula().getStrength().getValue();
     }
 
-    private double getDosageResult(double weight) {
+    private double getRoundedResult(double weight) {
         AntibioticTreatment treatment = getTreatment(weight);
         DosageResult result = treatment.getDosageResult();
 
