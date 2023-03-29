@@ -27,8 +27,12 @@ public class TabletBuilder extends AntibioticTreatmentBuilder {
 
     @Override
     protected DosageResult buildResult() {
+        String resultUnit = "kpl";
+        int dosageResult = antibiotic.getTabletsPerDose();
+        
         return new DosageResult(
-            new Measurement("kpl", antibiotic.getTabletsPerDose())
+            new Measurement(resultUnit, dosageResult),
+            new Measurement(resultUnit, dosageResult)
         );
     }
     

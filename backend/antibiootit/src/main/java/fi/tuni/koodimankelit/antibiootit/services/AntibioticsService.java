@@ -3,7 +3,6 @@ package fi.tuni.koodimankelit.antibiootit.services;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
-import fi.tuni.koodimankelit.antibiootit.models.InfoTexts;
 import fi.tuni.koodimankelit.antibiootit.models.request.Parameters;
 
 /**
@@ -27,9 +26,4 @@ public interface AntibioticsService {
 
     public DiagnosisInfo getDiagnosisInfoByID(String id);
 
-    /**
-     * Returns all information texts
-     * @return InfoTexts List of information texts
-     */
-    public InfoTexts getAllInfoTexts();
 }

@@ -1,20 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
     return (
         <header className="header">
-            <Link to="/" 
+            <NavLink to="/" 
                 className="header--title-link"
                 onClick={() => window.location.href = "/"}>
-                    Antibiootit.fi</Link>
+                    Antibiootit.fi</NavLink>
             <div className="header--links">
-                <Link to="/tietoa" className="header-link">
+                <NavLink to="/tietoa" 
+                    className={({ isActive }) => 
+                        (isActive ? "active-class" : "not-active-class")}>
                     Tietoa sivustosta
-                </Link>
-                <Link to="/palaute" className="header-link">
+                </NavLink>
+                <NavLink to="/palaute" 
+                    className={({ isActive }) => 
+                        (isActive ? "active-class" : "not-active-class")}>
                     Palautekysely
-                </Link>          
+                </NavLink>          
             </div>
         </header>
     )
