@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const STEP2 = 5;
-const STEP3 = 6;
+const STEP2 = 8;
+const STEP3 = 9;
 
 export default function Form(props) {
     

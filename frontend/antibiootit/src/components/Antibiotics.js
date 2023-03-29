@@ -6,8 +6,8 @@ import GetDiagnoses from "./GetDiagnoses";
 import GetInfoTexts from "./GetInfoTexts";
 import GetRecommendedTreatment from "./GetRecommendedTreatment";
 
-const STEP1 = 4;
-const STEP4 = 11;
+const STEP1 = 7;
+const STEP4 = 13;
 
 export default function Antibiotics() {
 
