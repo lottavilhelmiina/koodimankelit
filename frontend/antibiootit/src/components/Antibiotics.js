@@ -82,7 +82,7 @@ export default function Antibiotics() {
             <section>
                 <h1>Lapsen antibioottilaskuri</h1>
                 <div className="antibiotic-instructions">
-                    <h2>{instruction.id}</h2>
+                    <h2>{instruction.header}</h2>
                     <hr className="line"></hr>
                     <p>{instruction.text}</p>
                 </div>
