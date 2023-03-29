@@ -2,6 +2,7 @@ package fi.tuni.koodimankelit.antibiootit.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class MixtureBuilderTest {
     private List<DoseMultiplier> multipliers = new ArrayList<>();
 
     private Mixture mixture = new Mixture(
-        "antibiotic", "format", "info", 300,
+        "antibiotic", "format", "info", 3000,
         strengths,
         "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit",
         multipliers
@@ -219,6 +220,25 @@ public class MixtureBuilderTest {
     @Test
     public void testCorrectResultUnit() {
         assertEquals("resultUnit", getTreatment(20).getDosageResult().getDose().getUnit());
+    }
+
+    /**
+     * Test max dose limit for the antibiotic
+     */
+    @Test
+    public void testMaxLimit() {
+        // Max dose is 3000 mg/d. With 40 mg/kg/d dosage the max weight is 75 kg
+        // After that weight limit, the dose should be calculated using 3000 mg/d regardless of weight
+
+        // Selected strength is 160 mg/ml with all weights over 30 kg
+        // When limit is reached, ( 3000 mg/d ) / ( 160 mg/ml ) / ( 3 times a day ) = 6.25
+
+        assertTrue(getAccurateResult(60) < 6.25);
+        assertTrue(getAccurateResult(74.9) < 6.25);
+        assertEquals(6.25, getAccurateResult(75));
+        assertEquals(6.25, getAccurateResult(75.1));
+        assertEquals(6.25, getAccurateResult(80));
+        assertEquals(6.25, getAccurateResult(100000));
     }
 
     private AntibioticTreatment getTreatment(double weight) {
