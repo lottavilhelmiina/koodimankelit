@@ -1,6 +1,6 @@
 import references from "../data/references.json";
 
-export default function getReferences() {
+export default async function getReferences() {
     const referencesList = references.map(item => {
         return (item)
     })
