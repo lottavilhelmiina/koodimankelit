@@ -36,10 +36,6 @@ button, a, li, input {
     margin-right: 40px;
 }
 
-Link {
-    text-decoration: none;
-}
-
 .header--title-link {
     background: none!important;
     text-decoration: none;
@@ -54,7 +50,18 @@ Link {
     cursor: pointer;
 }
 
-.header-link {
+.active-class {
+    background: none!important;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 5px;
+    border: none;
+    padding: 0!important;
+    color:white;
+    font-size: 16px;
+}
+
+.not-active-class {
     background: none!important;
     text-decoration: none;
     border: none;
