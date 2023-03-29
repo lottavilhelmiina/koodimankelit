@@ -20,8 +20,8 @@ export default function Recipe(props) {
 
     useEffect(() => {
         
-        setChosenAb(activeRecipe.name);
-        setDosageInstructions(activeRecipe.instruction);
+        setChosenAb(activeRecipe.antibioteName + " " + activeRecipe.antibioteStrength);
+        setDosageInstructions(activeRecipe.text);
         
         
         // NB! This hardcoding is temporary!
