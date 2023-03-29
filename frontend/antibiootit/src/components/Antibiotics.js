@@ -6,8 +6,8 @@ import GetDiagnoses from "./GetDiagnoses";
 import GetInfoTexts from "./GetInfoTexts";
 import GetRecommendedTreatment from "./GetRecommendedTreatment";
 
-const STEP1 = 4;
-const STEP4 = 11;
+const STEP1 = 7;
+const STEP4 = 13;
 
 export default function Antibiotics() {
 
@@ -34,12 +34,8 @@ export default function Antibiotics() {
         fetchData();
     }, []);
 
-    console.log(infoTexts);
+    //console.log(infoTexts);
 
-    
-    // Tää pitää tehä sit ekaks niin että kokoaa sen reseptin treatments[0]:sta?
-    // Ja sit päivittää uuteen Treatment.js:ssä ku käyttäjä klikkaa vaihtoehtojen
-    // välillä
     const [activeRecipe, setActiveRecipe] = useState("");
 
     useEffect(() => {
@@ -59,6 +55,14 @@ export default function Antibiotics() {
             GetRecommendedTreatment(data)
             .then(response => {
                 setTreatments(response.treatments);
+                // Also set the first active recipe
+                const dosageValue = response.treatments[0].dosageResult.dose.value;
+                const dosageUnit = response.treatments[0].dosageResult.dose.unit;
+                const instructionDosesPerDay = response.treatments[0].instructions.dosesPerDay;
+                const instructionDays = response.treatments[0].instructions.days;
+                const recipe = `${dosageValue} ${dosageUnit} ${instructionDosesPerDay} kertaa/vrk ${instructionDays} vrk:n ajan`;
+                setActiveRecipe(recipe);
+                
                 console.log(treatments.length);
             })
             .catch(error => {
@@ -82,7 +86,7 @@ export default function Antibiotics() {
             <section>
                 <h1>Lapsen antibioottilaskuri</h1>
                 <div className="antibiotic-instructions">
-                    <h2>{instruction.id}</h2>
+                    <h2>{instruction.header}</h2>
                     <hr className="line"></hr>
                     <p>{instruction.text}</p>
                 </div>
@@ -96,7 +100,7 @@ export default function Antibiotics() {
             />
             {formSubmitted && treatments && <Treatment 
                 diagnosis={chosenDiagnosis}
-                antibiotic={treatments}
+                treatments={treatments}
                 setActiveRecipe={setActiveRecipe}
                 format={treatments[0].format}
             />}

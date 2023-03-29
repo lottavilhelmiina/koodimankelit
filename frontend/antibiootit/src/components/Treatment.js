@@ -3,26 +3,24 @@ import Choise from "./Choise"
 
 export default function Treatment(props) {
 
-    const [activeChoice, setActiveChoice] = useState(props.antibiotic[0])
+    const [activeChoice, setActiveChoice] = useState(props.treatments[0]);
 
     const style = {
         backgroundColor: "white"
     }
 
     function toggleChoise(name) {
-        /**for(let i = 0; i < props.antibiotic.length; i++) {
-            if(props.antibiotic[i].name === name) {
-                Tähän resepti pitää ottaa esim props.antibiotic[i].dosageResult.value jne
-                ja ne yhdistää tulokseks joka sitte laittaa tohon
-                setActiveRecipe
-                eli const recipe = `${juttuja}`
-                Tää on vanha
-                props.setActiveRecipe(props.antibiotic[i].recipe)
-            }
-        }*/
-        for(let i = 0; i < props.antibiotic.length; i++ ) {
-            if(props.antibiotic[i].antibiotic === name) {
-                setActiveChoice(props.antibiotic[i]);
+        for(let i = 0; i < props.treatments.length; i++ ) {
+            if(props.treatments[i].antibiotic === name) {
+                setActiveChoice(props.treatments[i]);
+
+                const dosageValue = props.treatments[i].dosageResult.dose.value;
+                const dosageUnit = props.treatments[i].dosageResult.dose.unit;
+                const instructionDosesPerDay = props.treatments[i].instructions.dosesPerDay;
+                const instructionDays = props.treatments[i].instructions.days;
+                const recipe = `${dosageValue} ${dosageUnit} ${instructionDosesPerDay} kertaa/vrk ${instructionDays} vrk:n ajan`;
+                console.log(recipe);
+                props.setActiveRecipe(recipe);
             }
         }
         console.log(activeChoice);
@@ -30,7 +28,7 @@ export default function Treatment(props) {
 
     }
 
-    let AntibioticElements = props.antibiotic.map((antibiote, index) => 
+    let AntibioticElements = props.treatments.map((antibiote, index) => 
         <Choise
             key={index}
             index={index}
@@ -42,7 +40,7 @@ export default function Treatment(props) {
             toggleChoise={toggleChoise}
             choise={antibiote.antibiotic === activeChoice.antibiotic ? true : false}
             diagnose={props.diagnose}
-            length={props.antibiotic.length}
+            length={props.treatments.length}
         />
     )
 
@@ -52,7 +50,7 @@ export default function Treatment(props) {
         setOpenCalculations(prevStatus => !prevStatus)
     }
 
-    if(!props.antibiotic) {
+    if(!props.treatments) {
         return <p>Haetaan hoitosuosituksia...</p>
     }
 
