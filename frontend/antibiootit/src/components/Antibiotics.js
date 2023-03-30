@@ -12,6 +12,7 @@ const STEP4 = 13;
 export default function Antibiotics() {
 
     const [chosenDiagnosis, setChosenDiagnosis] = useState("");
+    const [chosenWeight, setChosenWeight] = useState(null);
     
     const [diagnoses, setDiagnoses] = useState(null);
     const [infoTexts, setInfoTexts] = useState(null);
@@ -106,10 +107,12 @@ export default function Antibiotics() {
                 handleSubmit={receiveInput} 
                 changeInstruction={changeInstruction} 
                 setChosenDiagnosis={setChosenDiagnosis}
+                setChosenWeight={setChosenWeight}
                 formSubmitted={formSubmitted} 
             />
             {formSubmitted && treatments && <Treatment 
                 diagnosis={chosenDiagnosis}
+                weight={chosenWeight}
                 treatments={treatments}
                 setActiveRecipe={setActiveRecipe}
                 format={treatments[0].format}

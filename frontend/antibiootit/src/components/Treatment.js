@@ -1,9 +1,19 @@
 import React, {useState} from "react"
 import Choise from "./Choise"
+import 'katex/dist/katex.min.css';
+import { InlineMath } from 'react-katex';
 
 export default function Treatment(props) {
 
     const [activeChoice, setActiveChoice] = useState(props.treatments[0]);
+    const [activeVariables, setActiveVariables] = useState({
+        weight: `${props.weight}kg`,
+        doseInDay: `${props.treatments[0].dosageResult.dose.value * props.treatments[0].instructions.dosesPerDay} ml`,
+        dosesPerDay: `${props.treatments[0].instructions.dosesPerDay}`,
+        strength: `${props.treatments[0].dosageFormula.strength.text}`,
+        result: `${props.treatments[0].dosageResult.dose.value} ${props.treatments[0].dosageResult.dose.unit}`,
+        accResult: `${props.treatments[0].dosageResult.accurateDose.value} ${props.treatments[0].dosageResult.accurateDose.unit}`
+    });
 
     const style = {
         backgroundColor: "white"
@@ -13,6 +23,15 @@ export default function Treatment(props) {
         for(let i = 0; i < props.treatments.length; i++ ) {
             if(props.treatments[i].antibiotic === name) {
                 setActiveChoice(props.treatments[i]);
+
+                setActiveVariables({
+                    weight: `${props.weight}kg`,
+                    doseInDay: `${props.treatments[i].dosageResult.dose.value * props.treatments[i].instructions.dosesPerDay}ml`,
+                    dosesPerDay: `${props.treatments[i].instructions.dosesPerDay}`,
+                    strength: `${props.treatments[i].dosageFormula.strength.text}`,
+                    result: `${props.treatments[i].dosageResult.dose.value} ${props.treatments[i].dosageResult.dose.unit}`,
+                    accResult: `${props.treatments[i].dosageResult.accurateDose.value} ${props.treatments[i].dosageResult.accurateDose.unit}`
+                });
 
                 const dosageValue = props.treatments[i].dosageResult.dose.value;
                 const dosageUnit = props.treatments[i].dosageResult.dose.unit;
@@ -58,6 +77,16 @@ export default function Treatment(props) {
         setOpenCalculations(prevStatus => !prevStatus)
     }
 
+    function MathFormula(mathprops) {
+        return (
+            <div>
+                <InlineMath math={`\\frac{\\frac{${mathprops.weight} \\cdot 
+                ${mathprops.doseInDay}}{${mathprops.dosesPerDay}}}{${mathprops.strength}}
+                =${mathprops.accResult} \\approx ${mathprops.result}`}/>
+            </div>
+        )
+    }
+
     if(!props.treatments) {
         return <p>Haetaan hoitosuosituksia...</p>
     }
@@ -101,7 +130,14 @@ export default function Treatment(props) {
                 </div>}
             </div>
             {openCalculations && <div className="treatment-calculations">
-                Laskukaavat tähän
+                <MathFormula
+                    weight={activeVariables.weight}
+                    doseInDay={activeVariables.doseInDay}
+                    dosesPerDay={activeVariables.dosesPerDay}
+                    strength={activeVariables.strength}
+                    result={activeVariables.result}
+                    accResult={activeVariables.accResult}
+                />
             </div>}
         </div>
     )
