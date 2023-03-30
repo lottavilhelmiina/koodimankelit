@@ -83,8 +83,14 @@ export default function Treatment(props) {
             <div className="treatment-extra">
                 <button className="btn-calculate" onClick={calculate} disabled={props.diagnose==="Bronkiitti"}>
                     {openCalculations ?
-                    <p><ion-icon name="eye-off-outline"></ion-icon> Piilota kaava</p> :
-                    <p><ion-icon name="calculator-outline"></ion-icon> Laskukaava</p>}
+                    <div className="btn-elements">
+                        <img className="func-icon-closed" src="./icons/function-icon-closed.svg" alt="icon-closed"/>
+                        <p> Piilota kaava</p> 
+                    </div> :
+                    <div className="btn-elements">
+                        <img className="func-icon-open" src="./icons/function-icon-open.svg" alt="icon-open"/>
+                        <p> Laskukaava</p>
+                    </div>}
                 </button>
                 {!openCalculations && <div className="test2-container">
                     {props.diagnose==="Välikorvatulehdus" &&
