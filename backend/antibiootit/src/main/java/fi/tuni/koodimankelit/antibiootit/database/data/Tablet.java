@@ -7,16 +7,14 @@ import java.util.List;
  */
 public class Tablet extends Antibiotic {
     private final int tabletsPerDose;
-    private final int dosagePerDay;
-    private final String dosagePerDayUnit;
 
     /**
      * Default constructor
      * @param antibiotic antibiotic's name
      * @param format antibiotic's format
      * @param info extra info about antibiotic
-     * @param dosagePerDayUnit unit for dosage per day value
-     * @param dosagePerDay dosage per day value
+     * @param dosagePerWeightPerDayUnit unit for dosage per day value
+     * @param dosagePerWeightPerDay dosage per day value
      * @param maxDosePerDay max dose per day
      * @param strength list of different strengths of the antibiotic
      * @param weightUnit used weight unit
@@ -25,12 +23,10 @@ public class Tablet extends Antibiotic {
      * @param tabletsPerDose how many tablets needs to be taken per dose
      * @param doseMultipliers info if dose needs to be multiplied on some days
      */
-    public Tablet(String antibiotic, String format, String info, String dosagePerDayUnit,
-        int dosagePerDay, int maxDosePerDay, List<Strength> strength, String weightUnit,
+    public Tablet(String antibiotic, String format, String info, String dosagePerWeightPerDayUnit,
+        int dosagePerWeightPerDay, int maxDosePerDay, List<Strength> strength, String weightUnit,
         int days, int dosesPerDay, int tabletsPerDose, List<DoseMultiplier> doseMultipliers) {
-        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, doseMultipliers);
-        this.dosagePerDayUnit = dosagePerDayUnit;
-        this.dosagePerDay = dosagePerDay;
+        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers);
         this.tabletsPerDose = tabletsPerDose;
     }
 
@@ -41,23 +37,4 @@ public class Tablet extends Antibiotic {
     public int getTabletsPerDose() {
         return this.tabletsPerDose;
     }
-
-
-    /**
-     * Returns dosage per day value
-     * @return int dosagePerDay
-     */
-    public int getDosagePerDay() {
-        return this.dosagePerDay;
-    }
-
-
-    /**
-     * Returns unit for dosage per day value
-     * @return String dosagePerDayUnit
-     */
-    public String getDosagePerDayUnit() {
-        return this.dosagePerDayUnit;
-    }
-
 }
