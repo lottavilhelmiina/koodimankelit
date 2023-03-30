@@ -550,6 +550,12 @@ aside {
     text-align: center;
 }
 
+.calculations-container {
+    margin-top: 15px;
+    font-size: 20px;
+    
+}
+
 .recipe-container h3 {
     margin-top: 6px;
     margin-left: 23px;

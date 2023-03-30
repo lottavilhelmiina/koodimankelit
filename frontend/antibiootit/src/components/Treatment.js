@@ -8,8 +8,8 @@ export default function Treatment(props) {
     const [activeChoice, setActiveChoice] = useState(props.treatments[0]);
     const [activeVariables, setActiveVariables] = useState({
         weight: `${props.weight}kg`,
-        doseInDay: `${props.treatments[0].dosageResult.dose.value * props.treatments[0].instructions.dosesPerDay} ml`,
-        dosesPerDay: `${props.treatments[0].instructions.dosesPerDay}`,
+        doseInDay: `${props.treatments[0].dosageFormula.dosage.value} ${props.treatments[0].dosageFormula.dosage.unit}`,
+        dosesPerDay: `${props.treatments[0].instructions.dosesPerDay} krt/vrk`,
         strength: `${props.treatments[0].dosageFormula.strength.text}`,
         result: `${props.treatments[0].dosageResult.dose.value} ${props.treatments[0].dosageResult.dose.unit}`,
         accResult: `${props.treatments[0].dosageResult.accurateDose.value} ${props.treatments[0].dosageResult.accurateDose.unit}`
@@ -26,8 +26,8 @@ export default function Treatment(props) {
 
                 setActiveVariables({
                     weight: `${props.weight}kg`,
-                    doseInDay: `${props.treatments[i].dosageResult.dose.value * props.treatments[i].instructions.dosesPerDay}ml`,
-                    dosesPerDay: `${props.treatments[i].instructions.dosesPerDay}`,
+                    doseInDay: `${props.treatments[i].dosageFormula.dosage.value} ${props.treatments[i].dosageFormula.dosage.unit}`,
+                    dosesPerDay: `${props.treatments[i].instructions.dosesPerDay} krt/vrk`,
                     strength: `${props.treatments[i].dosageFormula.strength.text}`,
                     result: `${props.treatments[i].dosageResult.dose.value} ${props.treatments[i].dosageResult.dose.unit}`,
                     accResult: `${props.treatments[i].dosageResult.accurateDose.value} ${props.treatments[i].dosageResult.accurateDose.unit}`
@@ -79,7 +79,7 @@ export default function Treatment(props) {
 
     function MathFormula(mathprops) {
         return (
-            <div>
+            <div className="calculations-container">
                 <InlineMath math={`\\frac{\\frac{${mathprops.weight} \\cdot 
                 ${mathprops.doseInDay}}{${mathprops.dosesPerDay}}}{${mathprops.strength}}
                 =${mathprops.accResult} \\approx ${mathprops.result}`}/>
