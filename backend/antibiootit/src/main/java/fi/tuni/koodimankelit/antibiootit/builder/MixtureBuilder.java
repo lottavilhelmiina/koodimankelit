@@ -45,6 +45,9 @@ public class MixtureBuilder extends AntibioticTreatmentBuilder {
      */
     private Double calculateDosageResult() {
         Double dosagePerDay = antibiotic.getDosagePerWeightPerDay() * weight;
+        if(dosagePerDay > antibiotic.getMaxDosePerDay()) {
+            dosagePerDay = (double) antibiotic.getMaxDosePerDay();
+        }
         Double totalDosageInDay = dosagePerDay / strength.getValue();
         Double accurateResult = totalDosageInDay / antibiotic.getDosesPerDay();
 
