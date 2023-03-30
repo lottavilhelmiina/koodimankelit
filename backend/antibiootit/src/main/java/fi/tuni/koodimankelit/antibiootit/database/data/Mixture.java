@@ -10,10 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Mixture extends Antibiotic {
     @Field("resultUnit")
     private final String resultUnit;
-    @Field("dosagePerWeightPerDay")
-    private final int dosagePerWeightPerDay;
-    @Field("dosagePerWeightPerDayUnit")
-    private final String dosagePerWeightPerDayUnit;
 
     /**
      * Default constructor
@@ -25,18 +21,16 @@ public class Mixture extends Antibiotic {
      * @param weightUnit used weight unit
      * @param days how many days antibiotic needs to be taken
      * @param dosesPerDay how many times a day antibiotic needs to be taken
-     * @param resultUnit mixtures result unit
-     * @param dosagePerWeightPerDay mixtures dosage per day per weight
-     * @param dosagePerWeightPerDayUnit mixtures unit dor dosage per day per weight
+     * @param resultUnit mixture's result unit
+     * @param dosagePerWeightPerDay antibiotic's dosage per day per weight
+     * @param dosagePerWeightPerDayUnit antibiotic's unit dor dosage per day per weight
      * @param doseMultipliers info if dose needs to be multiplied on some days
      */
     public Mixture(String antibiotic, String format, String info, 
     int maxDosePerDay, List<Strength> strength, String weightUnit, int days,
     int dosesPerDay, String resultUnit, int dosagePerWeightPerDay, String dosagePerWeightPerDayUnit, List<DoseMultiplier> doseMultipliers) {
-        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, doseMultipliers);
+        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers);
         this.resultUnit = resultUnit;
-        this.dosagePerWeightPerDay = dosagePerWeightPerDay;
-        this.dosagePerWeightPerDayUnit = dosagePerWeightPerDayUnit;
     }
 
     /**
@@ -45,21 +39,5 @@ public class Mixture extends Antibiotic {
      */
     public String getResultUnit() {
         return this.resultUnit;
-    }
-
-    /**
-     * Returns mixture's dosage per day per weight
-     * @return int dosagePerWeightPerDay
-     */
-    public int getDosagePerWeightPerDay() {
-        return this.dosagePerWeightPerDay;
-    }
-
-    /**
-     * Returns unit of mixture's dosage per day per weight
-     * @return String dosagePerWeightPerDayUnit
-     */
-    public String getDosagePerWeightPerDayUnit() {
-        return this.dosagePerWeightPerDayUnit;
     }
 }

@@ -21,7 +21,7 @@ public class TabletBuilder extends AntibioticTreatmentBuilder {
     protected DosageFormula buildFormula() {
         return new DosageFormula(
             new StrengthMeasurement(strength.getUnit(), strength.getValue(), strength.getText()),
-            new Measurement(antibiotic.getDosagePerDayUnit(), antibiotic.getDosagePerDay())
+            new Measurement(antibiotic.getDosagePerWeightPerDayUnit(), antibiotic.getTabletsPerDose() * strength.getValue())
         );
     }
 
