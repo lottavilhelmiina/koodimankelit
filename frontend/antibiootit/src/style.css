@@ -496,7 +496,7 @@ aside {
     color: #395174;
     background-color: #E9E9E9;
     font-size: 15px;
-    text-align: center;
+    /*text-align: center;*/
     cursor: pointer;
 }
 
@@ -507,8 +507,20 @@ aside {
 }
 
 .btn-calculate:hover:enabled {
-    background-color: #395174;
-    color: #E9E9E9;
+    background-color: #d6d5d5;
+    color: #395174;
+}
+
+.btn-elements {
+    display: flex;
+    align-items: center;
+    margin-top: -3px;
+    margin-left: 2px;
+}
+
+.func-icon-closed, .func-icon-open {
+    width: 40px;
+    height: 40px;
 }
 
 .strepto-info {
@@ -536,6 +548,12 @@ aside {
     border-radius: 20px;
     margin-bottom: 15px;
     text-align: center;
+}
+
+.calculations-container {
+    margin-top: 15px;
+    font-size: 20px;
+    
 }
 
 .recipe-container h3 {

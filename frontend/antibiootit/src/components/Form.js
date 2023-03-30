@@ -171,7 +171,8 @@ export default function Form(props) {
             const weightForCalculations = parseFloat(weight).toFixed(2).replace(",", ".");
             if (weightForCalculations >= MIN_WEIGHT && weightForCalculations <= MAX_WEIGHT) {
                 setIsWeightOk(true);
-                setWeight(formattedWeight)
+                setWeight(formattedWeight);
+                props.setChosenWeight(formattedWeight);
                 setFormatWeight(true);
 
                 const data = { 
