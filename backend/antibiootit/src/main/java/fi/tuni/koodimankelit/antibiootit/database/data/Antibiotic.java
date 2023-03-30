@@ -10,6 +10,8 @@ public class Antibiotic {
     private final String format;
     private final String info;
     private final int maxDosePerDay;
+    private final int dosagePerWeightPerDay;
+    private final String dosagePerWeightPerDayUnit;
     private final List<Strength> strength;
     private final String weightUnit;
     private final int days;
@@ -22,6 +24,8 @@ public class Antibiotic {
      * @param format antibiotic's format
      * @param info extra info about antibiotic
      * @param maxDosePerDay max dose per day
+     * @param dosagePerWeightPerDay antibiotic's dosage per day per weight
+     * @param dosagePerWeightPerDay unit for antibiotic's dosage per day per weight
      * @param strength list of different strengths of the antibiotic
      * @param weightUnit used weight unit
      * @param days how many days antibiotic needs to be taken
@@ -29,10 +33,13 @@ public class Antibiotic {
      * @param doseMultipliers info if dose needs to be multiplied on some days
      */
     public Antibiotic(String antibiotic, String format, String info, int maxDosePerDay, 
-        List<Strength> strength, String weightUnit, int days, int dosesPerDay, List<DoseMultiplier> doseMultipliers) {
+        List<Strength> strength, String weightUnit, int days, int dosesPerDay, int dosagePerWeightPerDay,
+        String dosagePerWeightPerDayUnit, List<DoseMultiplier> doseMultipliers) {
             this.antibiotic = antibiotic;
             this.format = format;
             this.info = info;
+            this.dosagePerWeightPerDay = dosagePerWeightPerDay;
+            this.dosagePerWeightPerDayUnit = dosagePerWeightPerDayUnit;
             this.maxDosePerDay = maxDosePerDay;
             this.strength = strength;
             this.days = days;
@@ -111,5 +118,21 @@ public class Antibiotic {
      */
     public List<DoseMultiplier> getDoseMultipliers() {
         return this.doseMultipliers;
+    }
+
+    /**
+     * Returns antibiotic's dosage per day per weight
+     * @return int dosagePerWeightPerDay
+     */
+    public int getDosagePerWeightPerDay() {
+        return this.dosagePerWeightPerDay;
+    }
+
+    /**
+     * Returns unit of antibiotic's dosage per day per weight
+     * @return String dosagePerWeightPerDayUnit
+     */
+    public String getDosagePerWeightPerDayUnit() {
+        return this.dosagePerWeightPerDayUnit;
     }
 }
