@@ -55,7 +55,7 @@ public abstract class AntibioticTreatmentBuilderTest {
     @Test
     public void testEmptyStrengthListThrowsException() {
         ArrayList<Strength> emptyStrengths = new ArrayList<>();
-        AntibioticTreatmentBuilder builder = getBuilderWithStrengths(emptyStrengths, 10);
+        AntibioticTreatmentBuilder builder = getBuilderWithStrengths(emptyStrengths, getValidWeight());
         assertThrows(RuntimeException.class, () -> builder.build());
     }
 
@@ -64,7 +64,7 @@ public abstract class AntibioticTreatmentBuilderTest {
      */
     @Test
     public void testCorrectLabels() {
-        AntibioticTreatment treatment = getTreatment(10);
+        AntibioticTreatment treatment = getTreatment(getValidWeight());
 
         assertEquals(antibiotic, treatment.getAntibiotic());
         assertEquals(format, treatment.getFormat());
@@ -76,7 +76,7 @@ public abstract class AntibioticTreatmentBuilderTest {
      */
     @Test
     public void testCorrectInstructions() {
-        AntibioticTreatment treatment = getTreatment(10);
+        AntibioticTreatment treatment = getTreatment(getValidWeight());
         Instructions instructions = treatment.getInstructions();
 
         assertEquals(10, instructions.getDays());
@@ -106,6 +106,8 @@ public abstract class AntibioticTreatmentBuilderTest {
     protected abstract AntibioticTreatment getTreatment(double weight);
 
     protected abstract AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight);
+
+    protected abstract int getValidWeight();
 
     protected double getTreatmentStrength(double weight) {
         return getTreatment(weight).getDosageFormula().getStrength().getValue();

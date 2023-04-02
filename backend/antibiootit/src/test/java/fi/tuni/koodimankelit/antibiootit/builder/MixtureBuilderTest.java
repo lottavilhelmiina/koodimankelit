@@ -210,4 +210,9 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
             weight);
     }
 
+    @Override
+    protected int getValidWeight() {
+        return 10;
+    }
+
 }
