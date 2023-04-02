@@ -21,11 +21,16 @@ import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
  */
 public class MixtureBuilderTest extends BuilderTest {
 
+
+    private int maxDosePerDay = 3000;
+    private String weightUnit = "weightUnit";
+    private String resultUnit = "resultUnit";
+    private int dosagePerWeightPerDay = 40;
+    private String dosagePerWeightPerDayString = "dosagePerWeightPerDayUnit";
+
     private Mixture mixture = new Mixture(
-        antibiotic, format, info, 3000,
-        strengths,
-        "weightUnit", days, dosesPerDay, "resultUnit", 40, "dosagePerWeightPerDayUnit",
-        multipliers
+        antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
+        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayString, doseMultipliers
     );
 
     /**
@@ -173,9 +178,11 @@ public class MixtureBuilderTest extends BuilderTest {
     }
 
     @Override
-    protected AntibioticTreatmentBuilder getEmptyBuilderWithStrengths(List<Strength> strengths, double weight) {
+    protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
         return new MixtureBuilder(
-            new Mixture(null, null, null, 0, strengths, null, 0, 0, null, 0, null, null), weight);
+            new Mixture(antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
+                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayString, doseMultipliers),
+            weight);
     }
 
 }

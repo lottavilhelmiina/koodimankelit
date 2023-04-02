@@ -25,7 +25,7 @@ public abstract class BuilderTest {
     protected int dosesPerDay = 3;
 
     protected List<Strength> strengths = new ArrayList<>();
-    protected List<DoseMultiplier> multipliers = new ArrayList<>();
+    protected List<DoseMultiplier> doseMultipliers = new ArrayList<>();
 
     @BeforeEach
     public void populateStrengths() {
@@ -38,9 +38,9 @@ public abstract class BuilderTest {
 
     @BeforeEach
     public void populateMultipliers() {
-        multipliers.clear();
-        multipliers.add(new DoseMultiplier(0, 1));
-        multipliers.add(new DoseMultiplier(1, 2));
+        doseMultipliers.clear();
+        doseMultipliers.add(new DoseMultiplier(0, 1));
+        doseMultipliers.add(new DoseMultiplier(1, 2));
     }
 
     /**
@@ -69,7 +69,7 @@ public abstract class BuilderTest {
     @Test
     public void testEmptyStrengthListThrowsException() {
         ArrayList<Strength> emptyStrengths = new ArrayList<>();
-        AntibioticTreatmentBuilder builder = getEmptyBuilderWithStrengths(emptyStrengths, 10);
+        AntibioticTreatmentBuilder builder = getBuilderWithStrengths(emptyStrengths, 10);
         assertThrows(RuntimeException.class, () -> builder.build());
     }
 
@@ -113,7 +113,7 @@ public abstract class BuilderTest {
      */
     protected abstract AntibioticTreatment getTreatment(double weight);
 
-    protected abstract AntibioticTreatmentBuilder getEmptyBuilderWithStrengths(List<Strength> strengths, double weight);
+    protected abstract AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight);
 
     protected double getTreatmentStrength(double weight) {
         return getTreatment(weight).getDosageFormula().getStrength().getValue();
