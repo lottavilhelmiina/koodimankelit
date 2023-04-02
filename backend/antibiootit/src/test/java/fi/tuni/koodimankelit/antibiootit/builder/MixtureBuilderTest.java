@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
@@ -23,11 +22,7 @@ import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 /**
  * Test class for MixtureBuilder
  */
-public class MixtureBuilderTest {
-    
-
-    private List<Strength> strengths = new ArrayList<>();
-    private List<DoseMultiplier> multipliers = new ArrayList<>();
+public class MixtureBuilderTest extends BuilderTest {
 
     private Mixture mixture = new Mixture(
         "antibiotic", "format", "info", 3000,
@@ -35,22 +30,6 @@ public class MixtureBuilderTest {
         "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit",
         multipliers
     );
-
-    @BeforeEach
-    public void populateStrengths() {
-        strengths.clear();
-        strengths.add(new Strength(100, 0, null, null));
-        strengths.add(new Strength(120, 10, "strengthUnit", "strengthText"));
-        strengths.add(new Strength(140, 20, null, null));
-        strengths.add(new Strength(160, 30, null, null));
-    }
-
-    @BeforeEach
-    public void populateMultipliers() {
-        multipliers.clear();
-        multipliers.add(new DoseMultiplier(0, 1));
-        multipliers.add(new DoseMultiplier(1, 2));
-    }
     
     /**
      * Test that correct strength is selected from populated list
@@ -241,14 +220,6 @@ public class MixtureBuilderTest {
         assertEquals(6.25, getAccurateResult(100000));
     }
 
-    private AntibioticTreatment getTreatment(double weight) {
-        return new MixtureBuilder(mixture, weight).build();
-    }
-
-    private double getTreatmentStrength(double weight) {
-        return getTreatment(weight).getDosageFormula().getStrength().getValue();
-    }
-
     private double getRoundedResult(double weight) {
         AntibioticTreatment treatment = getTreatment(weight);
         DosageResult result = treatment.getDosageResult();
@@ -261,6 +232,11 @@ public class MixtureBuilderTest {
         DosageResult result = treatment.getDosageResult();
 
         return result.getAccurateDose().getValue();
+    }
+
+    @Override
+    protected AntibioticTreatment getTreatment(double weight) {
+        return new MixtureBuilder(mixture, weight).build();
     }
 
 }
