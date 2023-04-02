@@ -33,10 +33,7 @@ public class MixtureBuilderTest extends BuilderTest {
         resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayString, doseMultipliers
     );
 
-    /**
-     * Test that formula is correct
-     */
-    @Test
+    @Override
     public void testCorrectFormula() {
 
         // 10 kg -> Strength{120, 10} should be chosen.

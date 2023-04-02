@@ -105,6 +105,12 @@ public abstract class BuilderTest {
         assertEquals(2, multipliers.get(1).getMultiplier());
     }
 
+    /**
+     * Test that formula is correct
+     */
+    @Test
+    public abstract void testCorrectFormula();
+
 
     /**
      * Return simple AntiobiticTreatment object with given weight
