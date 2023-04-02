@@ -20,6 +20,8 @@ public abstract class AntibioticTreatmentBuilderTest {
     protected String antibiotic =  "antibiotic";
     protected String format = "format";
     protected String info = "info";
+    protected String weightUnit = "kg";
+    protected String strengthText = "strengthText";
 
     protected int days = 10;
     protected int dosesPerDay = 3;
@@ -31,7 +33,7 @@ public abstract class AntibioticTreatmentBuilderTest {
     public void populateStrengths() {
         strengths.clear();
         strengths.add(new Strength(100, 0, null, null));
-        strengths.add(new Strength(120, 10, "strengthUnit", "strengthText"));
+        strengths.add(new Strength(120, 10, weightUnit, strengthText));
         strengths.add(new Strength(140, 20, null, null));
         strengths.add(new Strength(160, 30, null, null));
     }

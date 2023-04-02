@@ -23,7 +23,6 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
 
 
     private int maxDosePerDay = 3000;
-    private String weightUnit = "weightUnit";
     private String resultUnit = "resultUnit";
     private int dosagePerWeightPerDay = 40;
     private String dosagePerWeightPerDayString = "dosagePerWeightPerDayUnit";
@@ -45,7 +44,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         assertEquals("dosagePerWeightPerDayUnit", dosage.getUnit());
         assertEquals(40, dosage.getValue());
 
-        assertEquals("strengthUnit", strengthMeasurement.getUnit());
+        assertEquals("kg", strengthMeasurement.getUnit());
         assertEquals("strengthText", strengthMeasurement.getText());
         assertEquals(120, strengthMeasurement.getValue());
     }
