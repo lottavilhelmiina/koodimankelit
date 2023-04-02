@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
@@ -32,6 +33,33 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
         resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers
     );
+
+    @BeforeEach
+    @Override
+    public void populateStrengths() {
+        strengths.clear();
+        strengths.add(new Strength(100, 0, null, null));
+        strengths.add(new Strength(120, 10, weightUnit, strengthText));
+        strengths.add(new Strength(140, 20, null, null));
+        strengths.add(new Strength(160, 30, null, null));
+    }
+
+    @BeforeEach
+    @Override
+    public void populateMultipliers()  {
+        doseMultipliers.clear();
+        doseMultipliers.add(new DoseMultiplier(0, 1));
+        doseMultipliers.add(new DoseMultiplier(1, 2));
+    }
+
+    @Override
+    public void testCorrectStrengthIsSelected()  {
+        assertEquals(100, getTreatmentStrength(0));
+        assertEquals(100, getTreatmentStrength(9.999));
+        assertEquals(120, getTreatmentStrength(10));
+        assertEquals(120, getTreatmentStrength(19.999));
+        assertEquals(160, getTreatmentStrength(50));
+    }
 
     @Override
     public void testCorrectFormula() {
@@ -180,22 +208,6 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
             new Mixture(antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
                 resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers),
             weight);
-    }
-
-    @Override
-    public void populateStrengths() {
-        strengths.clear();
-        strengths.add(new Strength(100, 0, null, null));
-        strengths.add(new Strength(120, 10, weightUnit, strengthText));
-        strengths.add(new Strength(140, 20, null, null));
-        strengths.add(new Strength(160, 30, null, null));
-    }
-
-    @Override
-    public void populateMultipliers()  {
-        doseMultipliers.clear();
-        doseMultipliers.add(new DoseMultiplier(0, 1));
-        doseMultipliers.add(new DoseMultiplier(1, 2));
     }
 
 }

@@ -39,13 +39,7 @@ public abstract class AntibioticTreatmentBuilderTest {
      * Test that correct strength is selected from populated list
      */
     @Test
-    public void testCorrectStrengthIsSelected() {
-        assertEquals(100, getTreatmentStrength(0));
-        assertEquals(100, getTreatmentStrength(9.999));
-        assertEquals(120, getTreatmentStrength(10));
-        assertEquals(120, getTreatmentStrength(19.999));
-        assertEquals(160, getTreatmentStrength(50));
-    }
+    public abstract void testCorrectStrengthIsSelected();
 
     /**
      * Test that negative weight results to exception
