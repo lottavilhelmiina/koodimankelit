@@ -108,7 +108,7 @@ export default function Form(props) {
     const [weight, setWeight] = useState("");
     const [isWeightOk, setIsWeightOk] = useState(false);
     const [formatWeight, setFormatWeight] = useState(true);
-    const [inputErrorMessage, setInputErrorMessage] = useState("Tarkista paino");
+    const inputErrorMessage = "Tarkista paino";
     const MIN_WEIGHT = 4;
     const MAX_WEIGHT = 100;
     const VALID_WEIGHT_INPUT = /^\d*([.,])?\d*$/;
