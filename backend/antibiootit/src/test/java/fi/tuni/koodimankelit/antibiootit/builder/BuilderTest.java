@@ -16,6 +16,10 @@ import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 public abstract class BuilderTest {
     
 
+    protected String antibiotic =  "antibiotic";
+    protected String format = "format";
+    protected String info = "info";
+
     protected List<Strength> strengths = new ArrayList<>();
     protected List<DoseMultiplier> multipliers = new ArrayList<>();
 
@@ -63,6 +67,18 @@ public abstract class BuilderTest {
         ArrayList<Strength> emptyStrengths = new ArrayList<>();
         AntibioticTreatmentBuilder builder = getEmptyBuilderWithStrengths(emptyStrengths, 10);
         assertThrows(RuntimeException.class, () -> builder.build());
+    }
+
+    /**
+     * Test that result has correct fields which do not require calculation
+     */
+    @Test
+    public void testCorrectLabels() {
+        AntibioticTreatment treatment = getTreatment(10);
+
+        assertEquals("antibiotic", treatment.getAntibiotic());
+        assertEquals("format", treatment.getFormat());
+        assertEquals("info", treatment.getDescription());
     }
 
 

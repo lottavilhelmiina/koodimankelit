@@ -24,23 +24,11 @@ import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 public class MixtureBuilderTest extends BuilderTest {
 
     private Mixture mixture = new Mixture(
-        "antibiotic", "format", "info", 3000,
+        antibiotic, format, info, 3000,
         strengths,
         "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit",
         multipliers
     );
-
-    /**
-     * Test that result has correct fields which do not require calculation
-     */
-    @Test
-    public void testCorrectLabels() {
-        AntibioticTreatment treatment = getTreatment(10);
-
-        assertEquals("antibiotic", treatment.getAntibiotic());
-        assertEquals("format", treatment.getFormat());
-        assertEquals("info", treatment.getDescription());
-    }
 
     /**
      * Test that instructions are correct
