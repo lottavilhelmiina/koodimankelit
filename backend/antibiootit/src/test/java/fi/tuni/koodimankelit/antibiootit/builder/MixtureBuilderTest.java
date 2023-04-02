@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
@@ -45,6 +44,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     }
 
     @Override
+    @Test
     public void testCorrectStrengthIsSelected()  {
         assertEquals(100, getTreatmentStrength(0));
         assertEquals(100, getTreatmentStrength(9.999));
@@ -54,6 +54,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     }
 
     @Override
+    @Test
     public void testCorrectFormula() {
 
         // 10 kg -> Strength{120, 10} should be chosen.
