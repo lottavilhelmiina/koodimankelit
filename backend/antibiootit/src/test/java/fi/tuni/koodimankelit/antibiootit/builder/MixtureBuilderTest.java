@@ -26,11 +26,11 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     private int maxDosePerDay = 3000;
     private String resultUnit = "resultUnit";
     private int dosagePerWeightPerDay = 40;
-    private String dosagePerWeightPerDayString = "dosagePerWeightPerDayUnit";
+    private String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
 
     private Mixture mixture = new Mixture(
         antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayString, doseMultipliers
+        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers
     );
 
     @Override
@@ -42,11 +42,11 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         Measurement dosage = dosageFormula.getDosage();
         StrengthMeasurement strengthMeasurement = dosageFormula.getStrength();
 
-        assertEquals("dosagePerWeightPerDayUnit", dosage.getUnit());
+        assertEquals(dosagePerWeightPerDayUnit, dosage.getUnit());
         assertEquals(40, dosage.getValue());
 
-        assertEquals("kg", strengthMeasurement.getUnit());
-        assertEquals("strengthText", strengthMeasurement.getText());
+        assertEquals(weightUnit, strengthMeasurement.getUnit());
+        assertEquals(strengthText, strengthMeasurement.getText());
         assertEquals(120, strengthMeasurement.getValue());
     }
 
@@ -133,7 +133,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
      */
     @Test
     public void testCorrectResultUnit() {
-        assertEquals("resultUnit", getTreatment(20).getDosageResult().getDose().getUnit());
+        assertEquals(resultUnit, getTreatment(20).getDosageResult().getDose().getUnit());
     }
 
     /**
@@ -178,7 +178,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
         return new MixtureBuilder(
             new Mixture(antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayString, doseMultipliers),
+                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers),
             weight);
     }
 

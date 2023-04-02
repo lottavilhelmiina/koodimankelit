@@ -72,9 +72,9 @@ public abstract class AntibioticTreatmentBuilderTest {
     public void testCorrectLabels() {
         AntibioticTreatment treatment = getTreatment(10);
 
-        assertEquals("antibiotic", treatment.getAntibiotic());
-        assertEquals("format", treatment.getFormat());
-        assertEquals("info", treatment.getDescription());
+        assertEquals(antibiotic, treatment.getAntibiotic());
+        assertEquals(format, treatment.getFormat());
+        assertEquals(info, treatment.getDescription());
     }
 
     /**
