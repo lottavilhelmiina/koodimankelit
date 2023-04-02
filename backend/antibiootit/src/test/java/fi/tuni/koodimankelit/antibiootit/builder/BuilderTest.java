@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
+import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 
 public abstract class BuilderTest {
     
@@ -19,6 +20,9 @@ public abstract class BuilderTest {
     protected String antibiotic =  "antibiotic";
     protected String format = "format";
     protected String info = "info";
+
+    protected int days = 10;
+    protected int dosesPerDay = 3;
 
     protected List<Strength> strengths = new ArrayList<>();
     protected List<DoseMultiplier> multipliers = new ArrayList<>();
@@ -79,6 +83,26 @@ public abstract class BuilderTest {
         assertEquals("antibiotic", treatment.getAntibiotic());
         assertEquals("format", treatment.getFormat());
         assertEquals("info", treatment.getDescription());
+    }
+
+    /**
+     * Test that instructions are correct
+     */
+    @Test
+    public void testCorrectInstructions() {
+        AntibioticTreatment treatment = getTreatment(10);
+        Instructions instructions = treatment.getInstructions();
+
+        assertEquals(10, instructions.getDays());
+        assertEquals(3, instructions.getDosesPerDay());
+
+        List<DoseMultiplier> multipliers = instructions.getDoseMultipliers();
+        assertEquals(2, multipliers.size());
+
+        assertEquals(0, multipliers.get(0).getId());
+        assertEquals(1, multipliers.get(0).getMultiplier());
+        assertEquals(1, multipliers.get(1).getId());
+        assertEquals(2, multipliers.get(1).getMultiplier());
     }
 
 

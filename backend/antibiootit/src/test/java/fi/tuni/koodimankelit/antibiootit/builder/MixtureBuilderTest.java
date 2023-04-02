@@ -8,13 +8,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
-import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
 import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 
@@ -26,29 +24,9 @@ public class MixtureBuilderTest extends BuilderTest {
     private Mixture mixture = new Mixture(
         antibiotic, format, info, 3000,
         strengths,
-        "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit",
+        "weightUnit", days, dosesPerDay, "resultUnit", 40, "dosagePerWeightPerDayUnit",
         multipliers
     );
-
-    /**
-     * Test that instructions are correct
-     */
-    @Test
-    public void testCorrectInstructions() {
-        AntibioticTreatment treatment = getTreatment(10);
-        Instructions instructions = treatment.getInstructions();
-
-        assertEquals(10, instructions.getDays());
-        assertEquals(3, instructions.getDosesPerDay());
-
-        List<DoseMultiplier> multipliers = instructions.getDoseMultipliers();
-        assertEquals(2, multipliers.size());
-
-        assertEquals(0, multipliers.get(0).getId());
-        assertEquals(1, multipliers.get(0).getMultiplier());
-        assertEquals(1, multipliers.get(1).getId());
-        assertEquals(2, multipliers.get(1).getMultiplier());
-    }
 
     /**
      * Test that formula is correct
