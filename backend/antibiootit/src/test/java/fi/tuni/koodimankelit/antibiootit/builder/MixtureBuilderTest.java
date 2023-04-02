@@ -44,14 +44,6 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         strengths.add(new Strength(160, 30, null, null));
     }
 
-    @BeforeEach
-    @Override
-    public void populateMultipliers()  {
-        doseMultipliers.clear();
-        doseMultipliers.add(new DoseMultiplier(0, 1));
-        doseMultipliers.add(new DoseMultiplier(1, 2));
-    }
-
     @Override
     public void testCorrectStrengthIsSelected()  {
         assertEquals(100, getTreatmentStrength(0));
