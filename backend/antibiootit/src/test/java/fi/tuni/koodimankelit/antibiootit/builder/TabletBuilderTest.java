@@ -3,14 +3,17 @@ package fi.tuni.koodimankelit.antibiootit.builder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
+import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
+import fi.tuni.koodimankelit.antibiootit.models.Measurement;
+import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 
 /**
  * Test class for TabletBuilder
@@ -29,32 +32,49 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
 
     @Override
     public void testCorrectFormula() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'testCorrectFormula'");
+        // TODO implement this after tablet formula implementation has been decided
     }
 
     @Override
     protected AntibioticTreatment getTreatment(double weight) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTreatment'");
+        return new TabletBuilder(tablet, weight).build();
     }
 
     @Override
     protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getBuilderWithStrengths'");
+        return new TabletBuilder(
+            new Tablet(
+                antibiotic, format, info, dosagePerWeightPerDayUnit, dosagePerWeightPerDay, maxDosePerDay,
+                strengths, weightUnit, days, dosesPerDay, tabletsPerDose, doseMultipliers
+            ),
+            weight);
     }
 
     @Override
+    @BeforeEach
     public void populateStrengths() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'populateStrengths'");
+        strengths.clear();
+        strengths.add(new Strength(1000000, 30, null, null));
+        strengths.add(new Strength(1500000, 40, weightUnit, strengthText));
+        strengths.add(new Strength(2000000, 60, null, null));
     }
 
     @Override
-    public void populateMultipliers() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'populateMultipliers'");
+    @Test
+    public void testCorrectStrengthIsSelected() {
+        assertThrows(RuntimeException.class, () -> getTreatmentStrength(0));
+        assertThrows(RuntimeException.class, () -> getTreatmentStrength(29.99));
+        assertEquals(1000000, getTreatmentStrength(30));
+        assertEquals(1000000, getTreatmentStrength(39.99));
+        assertEquals(1500000, getTreatmentStrength(40));
+        assertEquals(1500000, getTreatmentStrength(59.99));
+        assertEquals(2000000, getTreatmentStrength(60));
+        assertEquals(2000000, getTreatmentStrength(1000));
+    }
+
+    @Override
+    protected int getValidWeight() {
+        return 60;
     }
 
 }
