@@ -181,4 +181,13 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
             weight);
     }
 
+    @Override
+    public void populateStrengths() {
+        strengths.clear();
+        strengths.add(new Strength(100, 0, null, null));
+        strengths.add(new Strength(120, 10, weightUnit, strengthText));
+        strengths.add(new Strength(140, 20, null, null));
+        strengths.add(new Strength(160, 30, null, null));
+    }
+
 }
