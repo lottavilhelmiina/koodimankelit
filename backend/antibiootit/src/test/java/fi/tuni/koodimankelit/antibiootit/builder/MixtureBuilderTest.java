@@ -23,12 +23,12 @@ import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
 
 
-    private int maxDosePerDay = 3000;
-    private String resultUnit = "resultUnit";
-    private int dosagePerWeightPerDay = 40;
-    private String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
+    private final int maxDosePerDay = 3000;
+    private final String resultUnit = "resultUnit";
+    private final int dosagePerWeightPerDay = 40;
+    private final String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
 
-    private Mixture mixture = new Mixture(
+    private final Mixture mixture = new Mixture(
         antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
         resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers
     );

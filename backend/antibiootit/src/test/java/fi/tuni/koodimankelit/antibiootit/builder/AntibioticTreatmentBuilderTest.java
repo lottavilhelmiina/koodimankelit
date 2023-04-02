@@ -17,17 +17,17 @@ import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 public abstract class AntibioticTreatmentBuilderTest {
     
 
-    protected String antibiotic =  "antibiotic";
-    protected String format = "format";
-    protected String info = "info";
-    protected String weightUnit = "kg";
-    protected String strengthText = "strengthText";
+    protected final String antibiotic =  "antibiotic";
+    protected final String format = "format";
+    protected final String info = "info";
+    protected final String weightUnit = "kg";
+    protected final String strengthText = "strengthText";
 
-    protected int days = 10;
-    protected int dosesPerDay = 3;
+    protected final int days = 10;
+    protected final int dosesPerDay = 3;
 
-    protected List<Strength> strengths = new ArrayList<>();
-    protected List<DoseMultiplier> doseMultipliers = new ArrayList<>();
+    protected final List<Strength> strengths = new ArrayList<>();
+    protected final List<DoseMultiplier> doseMultipliers = new ArrayList<>();
 
     @BeforeEach
     public abstract void populateStrengths();

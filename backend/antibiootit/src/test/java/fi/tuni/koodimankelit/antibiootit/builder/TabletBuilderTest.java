@@ -20,12 +20,12 @@ import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
  */
 public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
 
-    private String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
-    private int dosagePerWeightPerDay = 40;
-    private int maxDosePerDay = 3000;
-    private int tabletsPerDose = 1;
+    private final String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
+    private final int dosagePerWeightPerDay = 40;
+    private final int maxDosePerDay = 3000;
+    private final int tabletsPerDose = 1;
 
-    private Tablet tablet = new Tablet(
+    private final Tablet tablet = new Tablet(
         antibiotic, format, info, dosagePerWeightPerDayUnit, dosagePerWeightPerDay, maxDosePerDay,
         strengths, weightUnit, days, dosesPerDay, tabletsPerDose, doseMultipliers
     );
