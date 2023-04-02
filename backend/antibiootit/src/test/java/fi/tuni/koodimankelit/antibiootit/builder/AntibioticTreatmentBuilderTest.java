@@ -14,7 +14,7 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 
-public abstract class BuilderTest {
+public abstract class AntibioticTreatmentBuilderTest {
     
 
     protected String antibiotic =  "antibiotic";

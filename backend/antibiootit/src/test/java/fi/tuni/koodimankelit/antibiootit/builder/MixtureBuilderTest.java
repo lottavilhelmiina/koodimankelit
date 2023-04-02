@@ -19,7 +19,7 @@ import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 /**
  * Test class for MixtureBuilder
  */
-public class MixtureBuilderTest extends BuilderTest {
+public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
 
 
     private int maxDosePerDay = 3000;
