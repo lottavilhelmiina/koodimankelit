@@ -1,7 +1,6 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -30,38 +29,6 @@ public class MixtureBuilderTest extends BuilderTest {
         "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit",
         multipliers
     );
-    
-    /**
-     * Test that correct strength is selected from populated list
-     */
-    @Test
-    public void testCorrectStrengthIsSelected() {
-        assertEquals(100, getTreatmentStrength(0));
-        assertEquals(100, getTreatmentStrength(9.999));
-        assertEquals(120, getTreatmentStrength(10));
-        assertEquals(120, getTreatmentStrength(19.999));
-        assertEquals(160, getTreatmentStrength(50));
-    }
-
-    /**
-     * Test that negative weight results to exception
-     */
-    @Test
-    public void testNegativeWeightThrowsException() {
-        assertThrows(RuntimeException.class, () -> getTreatment(-1));
-    }
-
-    /**
-     * Test that empty strength list results to exception with valid weight
-     */
-    @Test
-    public void testEmptyStrengthListThrowsException() {
-        ArrayList<Strength> emptyStrengths = new ArrayList<>();
-        MixtureBuilder builder = new MixtureBuilder(
-            new Mixture(null, null, null, 0, emptyStrengths, null, 0, 0, null, 0, null, multipliers),
-            10);
-        assertThrows(RuntimeException.class, () -> builder.build());
-    }
 
     /**
      * Test that result has correct fields which do not require calculation
@@ -237,6 +204,12 @@ public class MixtureBuilderTest extends BuilderTest {
     @Override
     protected AntibioticTreatment getTreatment(double weight) {
         return new MixtureBuilder(mixture, weight).build();
+    }
+
+    @Override
+    protected AntibioticTreatmentBuilder getEmptyBuilderWithStrengths(List<Strength> strengths, double weight) {
+        return new MixtureBuilder(
+            new Mixture(null, null, null, 0, strengths, null, 0, 0, null, 0, null, null), weight);
     }
 
 }
