@@ -33,11 +33,7 @@ public abstract class AntibioticTreatmentBuilderTest {
     public abstract void populateStrengths();
 
     @BeforeEach
-    public void populateMultipliers() {
-        doseMultipliers.clear();
-        doseMultipliers.add(new DoseMultiplier(0, 1));
-        doseMultipliers.add(new DoseMultiplier(1, 2));
-    }
+    public abstract void populateMultipliers();
 
     /**
      * Test that correct strength is selected from populated list

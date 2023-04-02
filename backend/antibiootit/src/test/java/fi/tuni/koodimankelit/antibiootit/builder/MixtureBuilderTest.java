@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
@@ -188,6 +189,13 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         strengths.add(new Strength(120, 10, weightUnit, strengthText));
         strengths.add(new Strength(140, 20, null, null));
         strengths.add(new Strength(160, 30, null, null));
+    }
+
+    @Override
+    public void populateMultipliers()  {
+        doseMultipliers.clear();
+        doseMultipliers.add(new DoseMultiplier(0, 1));
+        doseMultipliers.add(new DoseMultiplier(1, 2));
     }
 
 }
