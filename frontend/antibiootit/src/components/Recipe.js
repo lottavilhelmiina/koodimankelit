@@ -4,32 +4,34 @@ export default function Recipe(props) {
 
     const treatments = props.treatments;
     const activeRecipe = props.activeRecipe;
-
-    console.log(activeRecipe)
+    const diagnosisData = props.diagnosisData;
+    const noTreatment = props.noTreatment;
 
     const [chosenAb, setChosenAb] = useState(null);
     const [dosageInstructions, setDosageInstructions] = useState("");
     const [showNotification, setShowNotification] = useState(false);
-    const diagnosisCode = props.treatments[0].id;
+    const diagnosisCode = diagnosisData.id;
 
     const TIMEOUT_DURATION = 1000;
 
-    if (!activeRecipe && !chosenAb) {
+
+    if (noTreatment === null && !!treatments && !activeRecipe && !chosenAb) {
         setChosenAb(treatments[0].antibiotic);
     }
 
     useEffect(() => {
         
-        setChosenAb(activeRecipe.antibioteName + " " + activeRecipe.antibioteStrength);
-        setDosageInstructions(activeRecipe.text);
-        
-        
-        // NB! This hardcoding is temporary!
-        if (props.diagnosis === "Bronkiitti") {
-            setDosageInstructions("Ei antibioottihoitoa")
-            setChosenAb("Ei antibioottisuositusta")
+        if (noTreatment === null) {
+            setChosenAb(activeRecipe.antibioteName + " " + activeRecipe.antibioteStrength);
+            setDosageInstructions(activeRecipe.text);
         }
-    }, [activeRecipe, chosenAb, treatments, props.diagnosis]);
+        else {
+            setChosenAb("");
+            setDosageInstructions(noTreatment.text);
+        }
+    }, [activeRecipe, chosenAb, treatments, props.diagnosis, noTreatment]);
+
+
 
 
     /**

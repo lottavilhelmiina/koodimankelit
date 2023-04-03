@@ -12,7 +12,9 @@ const STEP4 = 13;
 export default function Antibiotics() {
 
     const [chosenDiagnosis, setChosenDiagnosis] = useState("");
+    const [diagnosisData, setDiagnosisData] = useState("");
     const [chosenWeight, setChosenWeight] = useState(null);
+    const [noAntibioticTreatment, setNoAntibioticTreatment] = useState(null);
     
     const [diagnoses, setDiagnoses] = useState(null);
     const [infoTexts, setInfoTexts] = useState(null);
@@ -38,10 +40,6 @@ export default function Antibiotics() {
     //console.log(infoTexts);
 
     const [activeRecipe, setActiveRecipe] = useState(null);
-
-    useEffect(() => {
-        console.log("Active recipe toggled");
-    }, [activeRecipe])
 
     const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -80,6 +78,12 @@ export default function Antibiotics() {
             });
             
         }
+        else if (data.diagnosisID !== 'J21.9') {
+            console.log("Bronkiitti valittu")
+        }
+        else if (data.diagnosisID !== 'J20.9') {
+            console.log("Obs. bronkiitti valittu")
+        }
     }
     console.log(treatments);
 
@@ -88,7 +92,23 @@ export default function Antibiotics() {
     }
     console.log({chosenDiagnosis})
 
-    if(!diagnoses || !infoTexts) {
+    useEffect(() => {   
+        if (chosenDiagnosis !== null && diagnoses !== null) {
+            setDiagnosisData(diagnoses.filter(infection => infection.name === chosenDiagnosis)[0]);
+            if (chosenDiagnosis === 'Bronkiitti') {
+                setNoAntibioticTreatment({id: 'J21.9', text: infoTexts[14].text})
+            }
+            else if (chosenDiagnosis === 'Obstruktiivinen bronkiitti') {
+                setNoAntibioticTreatment({id: 'J20.9', text: infoTexts[15].text})
+            }
+            else {
+                setNoAntibioticTreatment(null);
+            }
+        }
+
+    }, [chosenDiagnosis, diagnoses, infoTexts])
+
+    if(!infoTexts) {
         return <p className="loading-text">Loading...</p>
     }
     
@@ -117,10 +137,11 @@ export default function Antibiotics() {
                 setActiveRecipe={setActiveRecipe}
                 format={treatments[0].format}
             />}
-            {formSubmitted && treatments && <Recipe 
+            {formSubmitted && (treatments || !!noAntibioticTreatment) && <Recipe 
                 treatments={treatments} 
                 activeRecipe={activeRecipe} 
-                diagnosis={chosenDiagnosis} />}
+                diagnosisData={diagnosisData}
+                noTreatment={noAntibioticTreatment} />}
         </div>
     );
 }

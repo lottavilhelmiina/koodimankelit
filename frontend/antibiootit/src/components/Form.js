@@ -108,28 +108,41 @@ export default function Form(props) {
     const [weight, setWeight] = useState("");
     const [isWeightOk, setIsWeightOk] = useState(false);
     const [formatWeight, setFormatWeight] = useState(true);
+    const inputErrorMessage = "Tarkista paino";
     const MIN_WEIGHT = 4;
     const MAX_WEIGHT = 100;
+    const VALID_WEIGHT_INPUT = /^\d*([.,])?\d*$/;
 
     const handleInput = (e) => {
         e.preventDefault();
         const input = e.target.value;
-        setWeight(input);
-        if(!props.formSubmitted) {
-            props.changeInstruction(STEP3);
-        }
-
-        const formattedWeight = input.replace(',', '.');
-        
-        if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
-            console.log("paino ok")
-            setIsWeightOk(true);
-            setFormatWeight(true);
+        if (!VALID_WEIGHT_INPUT.test(input)) {
+            console.log("Bad input")
+            setWeight(input);
+            setIsWeightOk(false);
+            setFormatWeight(false);
+            
         }
         else {
-            // User must be notified, notification not yet implemented
-            console.log("Tarkista paino")
-            setIsWeightOk(false);
+            setWeight(input);
+            if(!props.formSubmitted) {
+                props.changeInstruction(STEP3);
+            }
+
+            const formattedWeight = input.replace(',', '.');
+            
+            if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
+                console.log("paino ok")
+                setIsWeightOk(true);
+                setFormatWeight(true);
+            }
+            else {
+                setIsWeightOk(false);
+                if (input.length > 1) {
+                    setFormatWeight(false);
+                }
+                
+            }
         }
     }
 
@@ -142,7 +155,7 @@ export default function Form(props) {
             <button 
                 className="form--button" 
                 type="submit"
-                disabled={!weight || !needsAntibiotics}>
+                disabled={!formatWeight || !needsAntibiotics}>
                 Laske suositus
             </button>
         )
@@ -166,7 +179,8 @@ export default function Form(props) {
                 return diagnosis.checkBoxes.some(c => c.id === cb.id);
             });
 
-            const formattedWeight = parseFloat(weight).toFixed(2).replace(".", ",");
+            const roundedWeight = Math.round(parseFloat(weight.replace(",", ".")) * 100) / 100;
+            const formattedWeight = roundedWeight.toFixed(2).replace(".", ",");
             
             const weightForCalculations = parseFloat(weight).toFixed(2).replace(",", ".");
             if (weightForCalculations >= MIN_WEIGHT && weightForCalculations <= MAX_WEIGHT) {
@@ -197,6 +211,8 @@ export default function Form(props) {
         placeholder = "";
     }
 
+    
+
     return (
         <form 
             className="diagnosis-form" 
@@ -205,7 +221,6 @@ export default function Form(props) {
             <DiagnosisMenu />
             <div className="weight-input">
                 <span><img className="weight-icon" src="../icons/weight-icon.svg" alt="" />
-                
                     <input
                         id="weight-input"
                         className={formatWeight ? "form--input" : "form--input-notok" }
@@ -218,6 +233,7 @@ export default function Form(props) {
                         disabled={!needsAntibiotics || !diagnosis}
                         required={true}
                     /><span className="kg-text">kg</span></span>
+                    {!formatWeight && <div className="error" id="inputErr">{inputErrorMessage}</div>}
             </div>
             <div className="checkbox-container">
                 {diagnosis &&

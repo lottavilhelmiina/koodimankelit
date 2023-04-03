@@ -206,7 +206,7 @@ aside {
     margin-left: 30px;
     margin-top: 4px;
     z-index: 1;
-    width: 65px
+    width: 65px;
 }
 
 .kg-text {
@@ -671,8 +671,20 @@ aside {
     margin: auto;
     width: 60%;
 }
+
 .loading-text {
     margin-top: 50px;
+}
+
+.error {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    margin-top: -80px;
+    margin-left: 80px;
+    color: red;
+    width: 200px;
+    border-radius: 20px;
 }
 
 @media only screen and (max-width: 1120px) {
@@ -687,5 +699,4 @@ aside {
         text-align: end;
         color: black;
     }
-    
 }
