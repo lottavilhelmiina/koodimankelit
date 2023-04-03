@@ -91,20 +91,22 @@ export default function Treatment(props) {
         return <p>Haetaan hoitosuosituksia...</p>
     }
 
+    console.log(props.needsAntibiotics);
+
     return (
         <div className="treatment-container">
             <div className="treatment-header">
                 {<div className="treatment-icon"></div>}
-                <h2>{props.diagnosis==="Bronkiitti" ?
+                <h2>{!props.needsAntibiotics ?
                 `Ei antibioottisuositusta` :
                 `Hoitosuositus ${props.format.toLowerCase()}na`}</h2>
             </div>
             <div className="treatment-choises">
                 <div className="choise-container">
-                    {props.diagnosis !== "Bronkiitti" ? AntibioticElements : 
+                    {props.needsAntibiotics ? AntibioticElements : 
                     <div className="choise" style={style}>
                         <div className="choise-inner">
-                            <p>Bronkiitin hoitoon <strong>ei suositella antibioottia.</strong></p>
+                            <p>X hoitoon <strong>ei suositella antibioottia.</strong></p>
                         </div>
                     </div>}
                 </div>
