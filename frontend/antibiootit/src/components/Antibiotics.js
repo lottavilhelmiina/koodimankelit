@@ -131,6 +131,8 @@ export default function Antibiotics() {
                 formSubmitted={formSubmitted} 
             />
             {formSubmitted && treatments && <Treatment 
+                needsAntibiotics={diagnosisData.needsAntibiotics}
+                description={treatments[0].description}
                 diagnosis={chosenDiagnosis}
                 weight={chosenWeight}
                 treatments={treatments}
