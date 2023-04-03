@@ -106,7 +106,7 @@ export default function Treatment(props) {
                     {props.needsAntibiotics ? AntibioticElements : 
                     <div className="choise" style={style}>
                         <div className="choise-inner">
-                            <p>X hoitoon <strong>ei suositella antibioottia.</strong></p>
+                            <p>Tämän diagnoosin hoitoon <strong>ei suositella antibioottia.</strong></p>
                         </div>
                     </div>}
                 </div>
@@ -123,11 +123,11 @@ export default function Treatment(props) {
                         <p> Laskukaava</p>
                     </div>}
                 </button>
-                {!openCalculations && <div className="test2-container">
-                    {props.diagnose==="Välikorvatulehdus" &&
+                {!openCalculations && <div className="description-container">
+                    {props.description!=="" &&
                     <div className="strepto-info">
                         <p><ion-icon name="help-circle-outline"></ion-icon></p>
-                        <p>60% Välikorvatulehduksista paranee ilman antibioottia</p>
+                        <p>{props.description}</p>
                     </div>}
                 </div>}
             </div>
