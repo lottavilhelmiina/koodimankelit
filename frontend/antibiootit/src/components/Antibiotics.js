@@ -115,7 +115,7 @@ export default function Antibiotics() {
     return (
         <div className="antibiotics">
             <section>
-                <h1>Lapsen antibioottilaskuri --KEHITYKSESSÄ--</h1>
+                <h1>Lapsen antibioottilaskuri</h1>
                 <div className="antibiotic-instructions">
                     <h2>{instruction.header}</h2>
                     <hr className="line"></hr>

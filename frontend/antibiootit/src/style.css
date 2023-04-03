@@ -170,6 +170,13 @@ aside {
     margin-top: 86px;
 }
 
+.aside-text_temp {
+    color: red;
+    width: 80%;
+    margin-top: 86px;
+    font-weight: bold;
+}
+
 .aside-update {
     width: 80%;
     text-align: end;
@@ -664,6 +671,7 @@ aside {
     margin: auto;
     width: 60%;
 }
+
 .loading-text {
     margin-top: 50px;
 }
@@ -677,4 +685,18 @@ aside {
     color: red;
     width: 200px;
     border-radius: 20px;
+}
+
+@media only screen and (max-width: 1120px) {
+    aside {
+        grid-column-start: 1;
+        grid-row-start: 14;
+        margin-bottom: 40px;
+        background-color: white;
+    }
+    
+    .aside-update {
+        text-align: end;
+        color: black;
+    }
 }
