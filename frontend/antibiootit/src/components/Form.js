@@ -199,9 +199,8 @@ export default function Form(props) {
 
             }            
         }
-        else if (diagnosis && !isWeightOk) {
+        else if (diagnosis && !isWeightOk && needsAntibiotics) {
             setFormatWeight(false);
-            console.log("Painon pitää olla 4 - 100 kg")
         }
     }
 
