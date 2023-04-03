@@ -9,6 +9,11 @@ export default function Header() {
                 onClick={() => window.location.href = "/"}>
                     Antibiootit.fi</NavLink>
             <div className="header--links">
+                <NavLink to="/" 
+                    className={({ isActive }) => 
+                        (isActive ? "active-class" : "not-active-class")}>
+                    Laskuri
+                </NavLink>
                 <NavLink to="/tietoa" 
                     className={({ isActive }) => 
                         (isActive ? "active-class" : "not-active-class")}>
