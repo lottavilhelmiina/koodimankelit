@@ -1,5 +1,6 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -69,6 +70,29 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
         assertEquals(strengthText, strengthMeasurement.getText());
         assertEquals(1500000, strengthMeasurement.getValue());
 
+    }
+
+    @Test
+    public void testResult() {
+
+        // Result should be constant
+        assertEquals((double) tabletsPerDose, getTreatment(30).getDosageResult().getDose().getValue());
+        assertEquals((double) tabletsPerDose, getTreatment(50).getDosageResult().getDose().getValue());
+        assertEquals((double) tabletsPerDose, getTreatment(80).getDosageResult().getDose().getValue());
+
+    }
+
+    @Test
+    public void testTooSmallWeightResult() {
+        // Smallest strength has min 30 kg
+        assertThrows(RuntimeException.class, () -> getTreatment(0));
+        assertThrows(RuntimeException.class, () -> getTreatment(29.99));
+        assertDoesNotThrow(() -> getTreatment(30));
+    }
+
+    @Test
+    public void testCorrectResultUnit() {
+        assertEquals("kpl", getTreatment(getValidWeight()).getDosageResult().getDose().getUnit());
     }
 
     @Override
