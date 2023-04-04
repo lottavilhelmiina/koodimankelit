@@ -20,13 +20,14 @@ public class Tablet extends Antibiotic {
      * @param weightUnit used weight unit
      * @param days how many days antibiotic needs to be taken
      * @param dosesPerDay how many times a day antibiotic needs to be taken
+     * @param recipeText text of how many times antibiotic needs to be taken in a day
      * @param tabletsPerDose how many tablets needs to be taken per dose
      * @param doseMultipliers info if dose needs to be multiplied on some days
      */
     public Tablet(String antibiotic, String format, String info, String dosagePerWeightPerDayUnit,
         int dosagePerWeightPerDay, int maxDosePerDay, List<Strength> strength, String weightUnit,
-        int days, int dosesPerDay, int tabletsPerDose, List<DoseMultiplier> doseMultipliers) {
-        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers);
+        int days, int dosesPerDay, String recipeText, int tabletsPerDose, List<DoseMultiplier> doseMultipliers) {
+        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers);
         this.tabletsPerDose = tabletsPerDose;
     }
 

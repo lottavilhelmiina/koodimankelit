@@ -21,6 +21,7 @@ public class Mixture extends Antibiotic {
      * @param weightUnit used weight unit
      * @param days how many days antibiotic needs to be taken
      * @param dosesPerDay how many times a day antibiotic needs to be taken
+     * @param recipeText text of how many times antibiotic needs to be taken in a day
      * @param resultUnit mixture's result unit
      * @param dosagePerWeightPerDay antibiotic's dosage per day per weight
      * @param dosagePerWeightPerDayUnit antibiotic's unit dor dosage per day per weight
@@ -28,8 +29,8 @@ public class Mixture extends Antibiotic {
      */
     public Mixture(String antibiotic, String format, String info, 
     int maxDosePerDay, List<Strength> strength, String weightUnit, int days,
-    int dosesPerDay, String resultUnit, int dosagePerWeightPerDay, String dosagePerWeightPerDayUnit, List<DoseMultiplier> doseMultipliers) {
-        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers);
+    int dosesPerDay, String resultUnit, int dosagePerWeightPerDay, String dosagePerWeightPerDayUnit, String recipeText, List<DoseMultiplier> doseMultipliers) {
+        super(antibiotic, format, info, maxDosePerDay, strength, weightUnit, days, dosesPerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers);
         this.resultUnit = resultUnit;
     }
 

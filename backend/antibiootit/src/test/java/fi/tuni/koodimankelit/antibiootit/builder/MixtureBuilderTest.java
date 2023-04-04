@@ -32,7 +32,7 @@ public class MixtureBuilderTest {
     private Mixture mixture = new Mixture(
         "antibiotic", "format", "info", 3000,
         strengths,
-        "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit",
+        "weightUnit", 10, 3, "resultUnit", 40, "dosagePerWeightPerDayUnit", "recipeText",
         multipliers
     );
 
@@ -79,7 +79,7 @@ public class MixtureBuilderTest {
     public void testEmptyStrengthListThrowsException() {
         ArrayList<Strength> emptyStrengths = new ArrayList<>();
         MixtureBuilder builder = new MixtureBuilder(
-            new Mixture(null, null, null, 0, emptyStrengths, null, 0, 0, null, 0, null, multipliers),
+            new Mixture(null, null, null, 0, emptyStrengths, null, 0, 0, null, 0, null, null, multipliers),
             10);
         assertThrows(RuntimeException.class, () -> builder.build());
     }
@@ -180,7 +180,7 @@ public class MixtureBuilderTest {
         // ( x kg * 100 mg/kg/d ) / ( 100 mg/ml ) / ( 1 time each day ) = x ml
         List<Strength> s = new ArrayList<>();
         s.add(new Strength(100, 0, null, null));
-        Mixture m = new Mixture(null, null, null, 1000, s, null, 1, 1, null, 100, null, null);
+        Mixture m = new Mixture(null, null, null, 1000, s, null, 1, 1, null, 100, null, null, null);
 
         DosageResult result;
         // 1.000 is rounded to 1.0
