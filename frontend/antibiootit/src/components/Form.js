@@ -117,7 +117,6 @@ export default function Form(props) {
         e.preventDefault();
         const input = e.target.value;
         if (!VALID_WEIGHT_INPUT.test(input)) {
-            console.log("Bad input")
             setWeight(input);
             setIsWeightOk(false);
             setFormatWeight(false);
@@ -132,7 +131,6 @@ export default function Form(props) {
             const formattedWeight = input.replace(',', '.');
             
             if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
-                console.log("paino ok")
                 setIsWeightOk(true);
                 setFormatWeight(true);
             }
@@ -163,7 +161,6 @@ export default function Form(props) {
 
     const handleClick = (e) => {
         e.preventDefault();
-        //console.log(e.target)
         if (isWeightOk) {
             const checkBoxes = [
                 {
