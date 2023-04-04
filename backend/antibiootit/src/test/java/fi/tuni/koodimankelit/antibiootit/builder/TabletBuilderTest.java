@@ -30,9 +30,23 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
         strengths, weightUnit, days, dosesPerDay, recipeText, tabletsPerDose, doseMultipliers
     );
 
+    @Test
     @Override
     public void testCorrectFormula() {
-        // TODO implement this after tablet formula implementation has been decided
+
+        // 40 kg -> Strength {1500000, 40}
+        AntibioticTreatment treatment = getTreatment(40);
+        DosageFormula dosageFormula = treatment.getDosageFormula();
+        Measurement dosage = dosageFormula.getDosage();
+        StrengthMeasurement strengthMeasurement = dosageFormula.getStrength();
+
+        assertEquals(dosagePerWeightPerDayUnit, dosage.getUnit());
+        assertEquals(40, dosage.getValue());
+
+        assertEquals(weightUnit, strengthMeasurement.getUnit());
+        assertEquals(strengthText, strengthMeasurement.getText());
+        assertEquals(1500000, strengthMeasurement.getValue());
+
     }
 
     @Override
