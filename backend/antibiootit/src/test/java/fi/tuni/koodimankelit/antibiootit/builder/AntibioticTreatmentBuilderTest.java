@@ -22,6 +22,7 @@ public abstract class AntibioticTreatmentBuilderTest {
     protected final String info = "info";
     protected final String weightUnit = "kg";
     protected final String strengthText = "strengthText";
+    protected final String recipeText = "recipeText";
 
     protected final int days = 10;
     protected final int dosesPerDay = 3;

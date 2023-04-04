@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class Instructions {
     private final int days;
     private final int dosesPerDay;
+    private final String dosesPerDayText;
     private final List<DoseMultiplier> doseMultipliers;
 
 
@@ -20,9 +21,10 @@ public class Instructions {
      * @param days amount how many days the treatment lasts
      * @param dosesPerDay amount how many times the antibiotic needs to be taken in a day
      */
-    public Instructions(int days, int dosesPerDay, List<DoseMultiplier> doseMultipliers) {
+    public Instructions(int days, int dosesPerDay, String dosesPerDayText, List<DoseMultiplier> doseMultipliers) {
         this.days = days;
         this.dosesPerDay = dosesPerDay;
+        this.dosesPerDayText = dosesPerDayText;
         this.doseMultipliers = doseMultipliers;
     }
 
@@ -44,6 +46,14 @@ public class Instructions {
      */
     public int getDosesPerDay() {
         return this.dosesPerDay;
+    }
+
+    /**
+     * Returns text of how many times a day antibiotic needs to be taken
+     * @return String text of how many times in a day
+     */
+    public String getDosesPerDayText() {
+        return this.dosesPerDayText;
     }
 
 

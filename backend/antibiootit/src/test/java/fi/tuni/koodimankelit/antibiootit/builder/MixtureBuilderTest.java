@@ -30,7 +30,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
 
     private final Mixture mixture = new Mixture(
         antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers
+        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers
     );
 
     @BeforeEach
@@ -115,7 +115,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         // ( x kg * 100 mg/kg/d ) / ( 100 mg/ml ) / ( 1 time each day ) = x ml
         List<Strength> s = new ArrayList<>();
         s.add(new Strength(100, 0, null, null));
-        Mixture m = new Mixture(null, null, null, 1000, s, null, 1, 1, null, 100, null, null);
+        Mixture m = new Mixture(null, null, null, 1000, s, null, 1, 1, null, 100, null, null, null);
 
         DosageResult result;
         // 1.000 is rounded to 1.0
@@ -199,7 +199,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
         return new MixtureBuilder(
             new Mixture(antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers),
+                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers),
             weight);
     }
 

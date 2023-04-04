@@ -27,7 +27,7 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
 
     private final Tablet tablet = new Tablet(
         antibiotic, format, info, dosagePerWeightPerDayUnit, dosagePerWeightPerDay, maxDosePerDay,
-        strengths, weightUnit, days, dosesPerDay, tabletsPerDose, doseMultipliers
+        strengths, weightUnit, days, dosesPerDay, recipeText, tabletsPerDose, doseMultipliers
     );
 
     @Override
@@ -45,7 +45,7 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
         return new TabletBuilder(
             new Tablet(
                 antibiotic, format, info, dosagePerWeightPerDayUnit, dosagePerWeightPerDay, maxDosePerDay,
-                strengths, weightUnit, days, dosesPerDay, tabletsPerDose, doseMultipliers
+                strengths, weightUnit, days, dosesPerDay, recipeText, tabletsPerDose, doseMultipliers
             ),
             weight);
     }
