@@ -86,6 +86,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
         assertEquals(10, instructions.getDays());
         assertEquals(3, instructions.getDosesPerDay());
+        assertEquals(recipeText, instructions.getDosesPerDayText());
 
         List<DoseMultiplier> multipliers = instructions.getDoseMultipliers();
         assertEquals(2, multipliers.size());
