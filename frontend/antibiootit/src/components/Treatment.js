@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import Choise from "./Choise"
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
@@ -14,6 +14,10 @@ export default function Treatment(props) {
         result: `${props.treatments[0].dosageResult.dose.value} ${props.treatments[0].dosageResult.dose.unit}`,
         accResult: `${props.treatments[0].dosageResult.accurateDose.value} ${props.treatments[0].dosageResult.accurateDose.unit}`
     });
+
+    useEffect(() => {
+        setActiveChoice(props.treatments[0])
+    }, [props.treatments])
 
     const style = {
         backgroundColor: "white"
@@ -50,8 +54,8 @@ export default function Treatment(props) {
                 props.setActiveRecipe(treatment);
             }
         }
-        console.log(activeChoice);
-        console.log(name);
+        //console.log(activeChoice);
+        //console.log(name);
 
     }
 
@@ -91,20 +95,22 @@ export default function Treatment(props) {
         return <p>Haetaan hoitosuosituksia...</p>
     }
 
+    //console.log(props.needsAntibiotics);
+
     return (
         <div className="treatment-container">
             <div className="treatment-header">
                 {<div className="treatment-icon"></div>}
-                <h2>{props.diagnosis==="Bronkiitti" ?
+                <h2>{!props.needsAntibiotics ?
                 `Ei antibioottisuositusta` :
                 `Hoitosuositus ${props.format.toLowerCase()}na`}</h2>
             </div>
             <div className="treatment-choises">
                 <div className="choise-container">
-                    {props.diagnosis !== "Bronkiitti" ? AntibioticElements : 
+                    {props.needsAntibiotics ? AntibioticElements : 
                     <div className="choise" style={style}>
                         <div className="choise-inner">
-                            <p>Bronkiitin hoitoon <strong>ei suositella antibioottia.</strong></p>
+                            <p>Tämän diagnoosin hoitoon <strong>ei suositella antibioottia.</strong></p>
                         </div>
                     </div>}
                 </div>
@@ -121,11 +127,11 @@ export default function Treatment(props) {
                         <p> Laskukaava</p>
                     </div>}
                 </button>
-                {!openCalculations && <div className="test2-container">
-                    {props.diagnose==="Välikorvatulehdus" &&
+                {!openCalculations && <div className="description-container">
+                    {props.description!=="" &&
                     <div className="strepto-info">
                         <p><ion-icon name="help-circle-outline"></ion-icon></p>
-                        <p>60% Välikorvatulehduksista paranee ilman antibioottia</p>
+                        <p>{props.description}</p>
                     </div>}
                 </div>}
             </div>
