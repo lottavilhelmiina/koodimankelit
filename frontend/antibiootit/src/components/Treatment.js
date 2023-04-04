@@ -115,7 +115,7 @@ export default function Treatment(props) {
                     </div>}
                 </div>
             </div>
-            <div className="treatment-extra">
+            {props.needsAntibiotics && <div className="treatment-extra">
                 <button className="btn-calculate" onClick={calculate} disabled={props.diagnose==="Bronkiitti"}>
                     {openCalculations ?
                     <div className="btn-elements">
@@ -134,8 +134,8 @@ export default function Treatment(props) {
                         <p>{props.description}</p>
                     </div>}
                 </div>}
-            </div>
-            {openCalculations && <div className="treatment-calculations">
+            </div>}
+            {openCalculations && props.needsAntibiotics && <div className="treatment-calculations">
                 <MathFormula
                     weight={activeVariables.weight}
                     doseInDay={activeVariables.doseInDay}
