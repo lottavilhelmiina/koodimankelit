@@ -102,9 +102,9 @@ export default function Antibiotics() {
 
     }, [chosenDiagnosis, diagnoses, infoTexts])
 
-    if(!infoTexts) {
-        return <p className="loading-text">Loading...</p>
-    }
+    // if(!infoTexts) {
+    //     return <p className="loading-text">Loading...</p>
+    // }
     
     return (
         <div className="antibiotics">
