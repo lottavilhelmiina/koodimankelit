@@ -5,8 +5,13 @@ const STEP3 = 9;
 
 export default function Form(props) {
     
-    const fullInfo = props.diagnoses;
-    const diagnosisNames = fullInfo.map(diagnosisInfo => diagnosisInfo.name);
+    let fullInfo = null;
+    let diagnosisNames = null;
+    if (!!props.diagnoses) {
+        fullInfo = props.diagnoses;
+        diagnosisNames = fullInfo.map(diagnosisInfo => diagnosisInfo.name);
+    }
+    
 
     // Store the entire diagnosis data here, not just the name!
     const [diagnosis, setDiagnosis] = useState("");
@@ -44,29 +49,51 @@ export default function Form(props) {
     }
 
     const DiagnosisMenu = () => {
-        return (
-            <div 
-                className="diagnosis-menu dropdown" >
-                <button 
-                    className="dropdown-btn"
-                    data-testid="diagnosis-menu-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
-                </button>
-                <div className="dropdown-content">
-                    <ul className="menu--items" data-testid="diagnosis-menu">
-                        {diagnosisNames
-                            .filter((item) => item !== diagnosis.name)
-                            .map((item) => (
+        if (!diagnosisNames) {
+            return (
+                <div 
+                    className="diagnosis-menu dropdown" >
+                    <button 
+                        className="dropdown-btn"
+                        data-testid="diagnosis-menu-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
+                    </button>
+                    <div className="dropdown-content">
+                        <ul className="menu--items" data-testid="diagnosis-menu">
                             <li 
-                                key={item} 
+                                key="1" 
                                 onClick={handleMenuSelection}>
-                                {item}
+                                Ladataan diagnooseja...
                             </li>
-                        ))}
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-                
-            </div>
-        )
+            )
+        }
+        else {
+            return (
+                <div 
+                    className="diagnosis-menu dropdown" >
+                    <button 
+                        className="dropdown-btn"
+                        data-testid="diagnosis-menu-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
+                    </button>
+                    <div className="dropdown-content">
+                        <ul className="menu--items" data-testid="diagnosis-menu">
+                            {diagnosisNames
+                                .filter((item) => item !== diagnosis.name)
+                                .map((item) => (
+                                <li 
+                                    key={item} 
+                                    onClick={handleMenuSelection}>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            )
+        }
+
     }
 
     const handleMenuSelection = (e) => {
