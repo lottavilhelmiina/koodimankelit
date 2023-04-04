@@ -685,6 +685,10 @@ aside {
     border-radius: 20px;
 }
 
+.feedback-form {
+    border: none;
+}
+
 @media only screen and (max-width: 1120px) {
     aside {
         grid-column-start: 1;
