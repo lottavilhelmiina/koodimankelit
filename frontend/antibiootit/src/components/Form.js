@@ -206,7 +206,7 @@ export default function Form(props) {
             const roundedWeight = Math.round(parseFloat(weight.replace(",", ".")) * 100) / 100;
             const formattedWeight = roundedWeight.toFixed(2).replace(".", ",");
             
-            const weightForCalculations = parseFloat(weight).toFixed(2).replace(",", ".");
+            const weightForCalculations = roundedWeight.toFixed(2).replace(",", ".");
             if (weightForCalculations >= MIN_WEIGHT && weightForCalculations <= MAX_WEIGHT) {
                 setIsWeightOk(true);
                 setWeight(formattedWeight);
@@ -219,6 +219,7 @@ export default function Form(props) {
                                 penicillinAllergic: penicillinAllergy,
                                 checkBoxes: matchingCheckBoxes
                             }
+                console.log(data)
                 props.handleSubmit(data);
 
             }            
@@ -246,6 +247,7 @@ export default function Form(props) {
                 <span><img className="weight-icon" src="../icons/weight-icon.svg" alt="" />
                     <input
                         id="weight-input"
+                        data-testid="weight-input"
                         className={formatWeight ? "form--input" : "form--input-notok" }
                         placeholder={placeholder}
                         onFocus={emptyPlaceholder}
