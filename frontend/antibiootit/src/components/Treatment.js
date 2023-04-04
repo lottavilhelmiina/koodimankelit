@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import Choise from "./Choise"
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
@@ -14,6 +14,10 @@ export default function Treatment(props) {
         result: `${props.treatments[0].dosageResult.dose.value} ${props.treatments[0].dosageResult.dose.unit}`,
         accResult: `${props.treatments[0].dosageResult.accurateDose.value} ${props.treatments[0].dosageResult.accurateDose.unit}`
     });
+
+    useEffect(() => {
+        setActiveChoice(props.treatments[0])
+    }, [props.treatments])
 
     const style = {
         backgroundColor: "white"
@@ -50,8 +54,8 @@ export default function Treatment(props) {
                 props.setActiveRecipe(treatment);
             }
         }
-        console.log(activeChoice);
-        console.log(name);
+        //console.log(activeChoice);
+        //console.log(name);
 
     }
 
@@ -91,7 +95,7 @@ export default function Treatment(props) {
         return <p>Haetaan hoitosuosituksia...</p>
     }
 
-    console.log(props.needsAntibiotics);
+    //console.log(props.needsAntibiotics);
 
     return (
         <div className="treatment-container">

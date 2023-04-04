@@ -37,20 +37,19 @@ export default function Antibiotics() {
         fetchData();
     }, []);
 
-    //console.log(infoTexts);
-
     const [activeRecipe, setActiveRecipe] = useState(null);
 
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const receiveInput = (data) => {
-        if (data.diagnosis !== "") {
+        if (data.diagnosisId !== "") {
             setFormSubmitted(true);
             setInstruction(infoTexts[STEP4]);
         }
 
-        // Case bronchitis not yet implemented
-        if (data.diagnosisID !== 'J20.9' && data.diagnosisID !== 'J21.9') {
+        const selected = diagnoses.filter(infection => infection.id === data.diagnosisID)[0];
+
+        if (selected.needsAntibiotics) {
             GetRecommendedTreatment(data)
             .then(response => {
                 setTreatments(response.treatments);
@@ -68,10 +67,7 @@ export default function Antibiotics() {
                     antibioteName: antibiote,
                     antibioteStrength: strength
                 }
-
                 setActiveRecipe(treatment);
-                
-                console.log(treatments.length);
             })
             .catch(error => {
                 console.log(error)
@@ -85,12 +81,10 @@ export default function Antibiotics() {
             console.log("Obs. bronkiitti valittu")
         }
     }
-    console.log(treatments);
 
     function changeInstruction(index) {
         setInstruction(infoTexts[index]);
     }
-    console.log({chosenDiagnosis})
 
     useEffect(() => {   
         if (chosenDiagnosis !== null && diagnoses !== null) {
