@@ -30,8 +30,30 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
         strengths, weightUnit, days, dosesPerDay, recipeText, tabletsPerDose, doseMultipliers
     );
 
-    @Test
     @Override
+    @BeforeEach
+    public void populateStrengths() {
+        strengths.clear();
+        strengths.add(new Strength(1000000, 30, null, null));
+        strengths.add(new Strength(1500000, 40, weightUnit, strengthText));
+        strengths.add(new Strength(2000000, 60, null, null));
+    }
+
+    @Override
+    @Test
+    public void testCorrectStrengthIsSelected() {
+        assertThrows(RuntimeException.class, () -> getTreatmentStrength(0));
+        assertThrows(RuntimeException.class, () -> getTreatmentStrength(29.99));
+        assertEquals(1000000, getTreatmentStrength(30));
+        assertEquals(1000000, getTreatmentStrength(39.99));
+        assertEquals(1500000, getTreatmentStrength(40));
+        assertEquals(1500000, getTreatmentStrength(59.99));
+        assertEquals(2000000, getTreatmentStrength(60));
+        assertEquals(2000000, getTreatmentStrength(1000));
+    }
+
+    @Override
+    @Test
     public void testCorrectFormula() {
 
         // 40 kg -> Strength {1500000, 40}
@@ -62,28 +84,6 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
                 strengths, weightUnit, days, dosesPerDay, recipeText, tabletsPerDose, doseMultipliers
             ),
             weight);
-    }
-
-    @Override
-    @BeforeEach
-    public void populateStrengths() {
-        strengths.clear();
-        strengths.add(new Strength(1000000, 30, null, null));
-        strengths.add(new Strength(1500000, 40, weightUnit, strengthText));
-        strengths.add(new Strength(2000000, 60, null, null));
-    }
-
-    @Override
-    @Test
-    public void testCorrectStrengthIsSelected() {
-        assertThrows(RuntimeException.class, () -> getTreatmentStrength(0));
-        assertThrows(RuntimeException.class, () -> getTreatmentStrength(29.99));
-        assertEquals(1000000, getTreatmentStrength(30));
-        assertEquals(1000000, getTreatmentStrength(39.99));
-        assertEquals(1500000, getTreatmentStrength(40));
-        assertEquals(1500000, getTreatmentStrength(59.99));
-        assertEquals(2000000, getTreatmentStrength(60));
-        assertEquals(2000000, getTreatmentStrength(1000));
     }
 
     @Override
