@@ -21,7 +21,7 @@ button, a, li, input {
     padding: 10px;
     top: 0;
     left: 0;
-    position: fixed;
+    position: static;
     background-color: #5D769A;
     width: 100%;
     align-items: center;
@@ -72,7 +72,7 @@ button, a, li, input {
 
 footer {
     display: flex;
-    position: fixed;
+    position: static;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -80,7 +80,6 @@ footer {
     background-color: #5D769A;
     color: white;
     gap: 23px;
-    margin-top: 50px;
 }
 
 .footer--lauseke, .footer--tekijat {
@@ -100,8 +99,8 @@ footer {
 
 main {
     font-family: Inter, sans-serif;
-    margin-top: 30px;
     width: 100%;
+    min-height: calc(100vh - 87px);
     position: relative;
     display: grid;
     grid-template-columns: 4fr 2fr;
