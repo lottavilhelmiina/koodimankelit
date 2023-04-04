@@ -12,7 +12,6 @@ import fi.tuni.koodimankelit.antibiootit.models.Diagnoses;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -46,7 +45,7 @@ public class AuthorizationTest extends AntibioticsControllerTest {
         mockMvc.perform(
             get(ADDRESS)
             .header("X-API-KEY", "false-apikey")
-        ).andDo(print())
+        )
         .andExpect(status().isUnauthorized());
     }
 
@@ -55,7 +54,7 @@ public class AuthorizationTest extends AntibioticsControllerTest {
 
         mockMvc.perform(
             get(ADDRESS)
-        ).andDo(print())
+        )
         .andExpect(status().isUnauthorized());
     }
 
@@ -65,7 +64,7 @@ public class AuthorizationTest extends AntibioticsControllerTest {
         mockMvc.perform(
             get(ADDRESS)
             .header("Authorization", "Basic someValue")
-        ).andDo(print())
+        )
         .andExpect(status().isUnauthorized());
     }
 

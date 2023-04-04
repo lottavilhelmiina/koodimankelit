@@ -8,7 +8,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -45,7 +44,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
 
         // Actual test
         request(mockParameters)
-        .andDo(print()).andExpect(status().isOk())
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$._id").value("diagnosisResponseID"))
         .andExpect(jsonPath("$.etiology").value("etiology"))
         .andReturn();
@@ -99,7 +98,6 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         Mockito.doThrow(new InvalidParameterException(null)).when(validator).validate(any(), any());
 
         request(mockParameters)
-        .andDo(print())
         .andExpect(status().isBadRequest())
         .andReturn();
     }
@@ -110,7 +108,6 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         when(service.getDiagnosisInfoByID(any())).thenThrow(RuntimeException.class);
 
         request(mockParameters)
-        .andDo(print())
         .andExpect(status().isInternalServerError())
         .andReturn();
     }
