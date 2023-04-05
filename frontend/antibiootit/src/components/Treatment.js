@@ -2,8 +2,10 @@ import React, {useEffect, useState} from "react"
 import Choise from "./Choise"
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function Treatment(props) {
+    console.log(props.loading);
 
     const [activeChoice, setActiveChoice] = useState(props.treatments[0]);
     const [activeVariables, setActiveVariables] = useState({
@@ -16,7 +18,7 @@ export default function Treatment(props) {
     });
 
     useEffect(() => {
-        setActiveChoice(props.treatments[0])
+        setActiveChoice(props.treatments[0]);
     }, [props.treatments])
 
     const style = {
@@ -105,6 +107,7 @@ export default function Treatment(props) {
                 `Ei antibioottisuositusta` :
                 `Hoitosuositus ${props.format.toLowerCase()}na`}</h2>
             </div>
+            {props.loading ? <LoadingIndicator /> :
             <div className="treatment-choises">
                 <div className="choise-container">
                     {props.needsAntibiotics ? AntibioticElements : 
@@ -114,7 +117,7 @@ export default function Treatment(props) {
                         </div>
                     </div>}
                 </div>
-            </div>
+            </div>}
             <div className="treatment-extra">
                 <button className="btn-calculate" onClick={calculate} disabled={props.diagnose==="Bronkiitti"}>
                     {openCalculations ?

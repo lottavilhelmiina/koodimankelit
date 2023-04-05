@@ -24,6 +24,7 @@ export default function Antibiotics() {
 
     const [instruction, setInstruction] = useState([]);
 
+    const [loading, setLoading] = useState(true);
 
     async function fetchData() {
         const diagnosesList = await GetDiagnoses();
@@ -48,12 +49,14 @@ export default function Antibiotics() {
             setInstruction(infoTexts[STEP4]);
         }
 
-        const selected = diagnoses.filter(infection => infection.id === data.diagnosisID)[0];
+    const selected = diagnoses.filter(infection => infection.id === data.diagnosisID)[0];
 
         if (selected.needsAntibiotics) {
+            setLoading(true);
             GetRecommendedTreatment(data)
             .then(response => {
                 setTreatments(response.treatments);
+                setLoading(false);
                 // Also set the first active recipe 
                 const dosageValue = response.treatments[0].dosageResult.dose.value;
                 const dosageUnit = response.treatments[0].dosageResult.dose.unit;
@@ -73,7 +76,7 @@ export default function Antibiotics() {
             .catch(error => {
                 console.log(error)
             });
-            
+                
         }
         else if (data.diagnosisID !== 'J21.9') {
             console.log("Bronkiitti valittu")
@@ -103,9 +106,6 @@ export default function Antibiotics() {
 
     }, [chosenDiagnosis, diagnoses, infoTexts])
 
-    // if(!infoTexts) {
-    //     return <p className="loading-text">Loading...</p>
-    // }
     
     return (
         <div className="antibiotics">
@@ -127,6 +127,7 @@ export default function Antibiotics() {
             />
             {formSubmitted && !!noAntibioticTreatment && <NoTreatment />}
             {formSubmitted && treatments && <Treatment 
+                loading={loading}
                 needsAntibiotics={diagnosisData.needsAntibiotics}
                 description={treatments[0].description}
                 diagnosis={chosenDiagnosis}
