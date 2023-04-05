@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Form from "./Form";
 import Treatment from "./Treatment";
+import NoTreatment from "./NoTreatment";
 import Recipe from "./Recipe";
 import GetDiagnoses from "./GetDiagnoses";
 import GetInfoTexts from "./GetInfoTexts";
@@ -124,6 +125,7 @@ export default function Antibiotics() {
                 setChosenWeight={setChosenWeight}
                 formSubmitted={formSubmitted} 
             />
+            {formSubmitted && !!noAntibioticTreatment && <NoTreatment />}
             {formSubmitted && treatments && <Treatment 
                 needsAntibiotics={diagnosisData.needsAntibiotics}
                 description={treatments[0].description}

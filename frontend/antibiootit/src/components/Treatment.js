@@ -100,7 +100,7 @@ export default function Treatment(props) {
     return (
         <div className="treatment-container">
             <div className="treatment-header">
-                {<div className="treatment-icon"></div>}
+                <div className="treatment-icon"></div>
                 <h2>{!props.needsAntibiotics ?
                 `Ei antibioottisuositusta` :
                 `Hoitosuositus ${props.format.toLowerCase()}na`}</h2>
