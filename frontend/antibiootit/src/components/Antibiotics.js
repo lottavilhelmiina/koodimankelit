@@ -126,7 +126,7 @@ export default function Antibiotics() {
                 formSubmitted={formSubmitted} 
             />
             {formSubmitted && !!noAntibioticTreatment && <NoTreatment />}
-            {formSubmitted && treatments && <Treatment 
+            {formSubmitted && (treatments && diagnosisData.needsAntibiotics)  && <Treatment 
                 loading={loading}
                 needsAntibiotics={diagnosisData.needsAntibiotics}
                 description={treatments[0].description}
