@@ -47,6 +47,12 @@ public abstract class AntibioticTreatmentBuilderTest {
     public abstract void testCorrectStrengthIsSelected();
 
     /**
+     * Test that formula is correct
+     */
+    @Test
+    public abstract void testCorrectFormula();
+
+    /**
      * Test that negative weight results to exception
      */
     @Test
@@ -86,6 +92,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
         assertEquals(10, instructions.getDays());
         assertEquals(3, instructions.getDosesPerDay());
+        assertEquals(recipeText, instructions.getDosesPerDayText());
 
         List<DoseMultiplier> multipliers = instructions.getDoseMultipliers();
         assertEquals(2, multipliers.size());
@@ -95,12 +102,6 @@ public abstract class AntibioticTreatmentBuilderTest {
         assertEquals(1, multipliers.get(1).getId());
         assertEquals(2, multipliers.get(1).getMultiplier());
     }
-
-    /**
-     * Test that formula is correct
-     */
-    @Test
-    public abstract void testCorrectFormula();
 
 
     /**
