@@ -219,6 +219,14 @@ export default function Form(props) {
                                 penicillinAllergic: penicillinAllergy,
                                 checkBoxes: matchingCheckBoxes
                             }
+
+                // Send data to Google Analytics            
+                ga('set', 'dimension1', diagnosis.name);
+                ga('set', 'dimension2', concurrentEBV);
+                ga('set', 'dimension3', concurrentMycoplasma);
+                ga('set', 'dimension4', weight);
+                ga('set', 'dimension5', penicillinAllergy);
+
                 console.log(data)
                 props.handleSubmit(data);
 
