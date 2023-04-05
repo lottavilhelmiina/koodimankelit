@@ -16,17 +16,19 @@ public class DiagnosisResponse {
     @JsonProperty("_id")
     private final String id;
     private final String etiology;
+    private final String info;
     private final ArrayList<AntibioticTreatment> treatments;
-
 
     /**
      * Default constructor
      * @param id ICD-10 identifier
      * @param etiology common cause for diagnosis
+     * @param info additional info about diagnosis
      */
-    public DiagnosisResponse(String id, String etiology) {
+    public DiagnosisResponse(String id, String etiology, String info) {
         this.id = id;
         this.etiology = etiology;
+        this.info = info;
         this.treatments = new ArrayList<>();
     }
 
@@ -59,7 +61,13 @@ public class DiagnosisResponse {
         return this.etiology;
     }
 
-
+    /**
+     * Returns additional info about diagnosis
+     * @return String info
+     */
+    public String getInfo() {
+        return this.info;
+    }
     
     /** 
      * Returns all treatments

@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * Represents the calculated antibiotic dosage result
  */
 @Schema(description = "Calculated antibiotic dosage result")
-public class DosageResult {
+public class MixtureDosageResult {
     private final Measurement dose;
     private final Measurement accurateDose;
 
@@ -15,7 +15,7 @@ public class DosageResult {
      * Default constructor
      * @param dose one-time dosage
      */
-    public DosageResult(Measurement dose, Measurement accurateDose) {
+    public MixtureDosageResult(Measurement dose, Measurement accurateDose) {
         this.dose = dose;
         this.accurateDose = accurateDose;
     }
