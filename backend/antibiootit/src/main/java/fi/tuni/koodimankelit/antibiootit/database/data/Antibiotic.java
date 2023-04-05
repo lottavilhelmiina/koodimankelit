@@ -16,6 +16,7 @@ public class Antibiotic {
     private final String weightUnit;
     private final int days;
     private final int dosesPerDay;
+    private final String recipeText;
     private final List<DoseMultiplier> doseMultipliers;
 
     /**
@@ -30,11 +31,12 @@ public class Antibiotic {
      * @param weightUnit used weight unit
      * @param days how many days antibiotic needs to be taken
      * @param dosesPerDay how many times a day antibiotic needs to be taken
+     * @param recipeText text of how many times antibiotic needs to be taken in a day
      * @param doseMultipliers info if dose needs to be multiplied on some days
      */
     public Antibiotic(String antibiotic, String format, String info, int maxDosePerDay, 
         List<Strength> strength, String weightUnit, int days, int dosesPerDay, int dosagePerWeightPerDay,
-        String dosagePerWeightPerDayUnit, List<DoseMultiplier> doseMultipliers) {
+        String dosagePerWeightPerDayUnit, String recipeText, List<DoseMultiplier> doseMultipliers) {
             this.antibiotic = antibiotic;
             this.format = format;
             this.info = info;
@@ -45,6 +47,7 @@ public class Antibiotic {
             this.days = days;
             this.dosesPerDay = dosesPerDay;
             this.weightUnit = weightUnit;
+            this.recipeText = recipeText;
             this.doseMultipliers = doseMultipliers;
     }
 
@@ -134,5 +137,13 @@ public class Antibiotic {
      */
     public String getDosagePerWeightPerDayUnit() {
         return this.dosagePerWeightPerDayUnit;
+    }
+
+    /**
+     * Returns text of how many times antibiotic needs to be taken in a day
+     * @return String recipeText
+     */
+    public String getRecipeText() {
+        return this.recipeText;
     }
 }

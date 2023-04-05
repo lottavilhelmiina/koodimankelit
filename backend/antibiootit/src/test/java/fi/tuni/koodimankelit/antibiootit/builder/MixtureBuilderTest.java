@@ -30,11 +30,11 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
 
     private final Mixture mixture = new Mixture(
         antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers
+        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers
     );
 
-    @BeforeEach
     @Override
+    @BeforeEach
     public void populateStrengths() {
         strengths.clear();
         strengths.add(new Strength(100, 0, null, null));
@@ -115,7 +115,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         // ( x kg * 100 mg/kg/d ) / ( 100 mg/ml ) / ( 1 time each day ) = x ml
         List<Strength> s = new ArrayList<>();
         s.add(new Strength(100, 0, null, null));
-        Mixture m = new Mixture(null, null, null, 1000, s, null, 1, 1, null, 100, null, null);
+        Mixture m = new Mixture(null, null, null, 1000, s, null, 1, 1, null, 100, null, null, null);
 
         DosageResult result;
         // 1.000 is rounded to 1.0
@@ -176,6 +176,24 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         assertEquals(6.25, getAccurateResult(100000));
     }
 
+    @Override
+    protected AntibioticTreatment getTreatment(double weight) {
+        return new MixtureBuilder(mixture, weight).build();
+    }
+
+    @Override
+    protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
+        return new MixtureBuilder(
+            new Mixture(antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
+                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers),
+            weight);
+    }
+
+    @Override
+    protected int getValidWeight() {
+        return 10;
+    }
+
     private double getRoundedResult(double weight) {
         AntibioticTreatment treatment = getTreatment(weight);
         DosageResult result = treatment.getDosageResult();
@@ -188,24 +206,6 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         DosageResult result = treatment.getDosageResult();
 
         return result.getAccurateDose().getValue();
-    }
-
-    @Override
-    protected AntibioticTreatment getTreatment(double weight) {
-        return new MixtureBuilder(mixture, weight).build();
-    }
-
-    @Override
-    protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
-        return new MixtureBuilder(
-            new Mixture(antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, doseMultipliers),
-            weight);
-    }
-
-    @Override
-    protected int getValidWeight() {
-        return 10;
     }
 
 }

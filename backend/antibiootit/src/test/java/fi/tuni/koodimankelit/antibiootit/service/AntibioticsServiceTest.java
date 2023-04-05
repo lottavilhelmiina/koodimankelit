@@ -1,4 +1,4 @@
-package fi.tuni.koodimankelit.antibiootit;
+package fi.tuni.koodimankelit.antibiootit.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

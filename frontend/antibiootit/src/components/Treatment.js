@@ -138,7 +138,7 @@ export default function Treatment(props) {
                     </div>}
                 </div>}
             </div>
-            {openCalculations && <div className="treatment-calculations">
+            {openCalculations && props.needsAntibiotics && <div className="treatment-calculations">
                 <MathFormula
                     weight={activeVariables.weight}
                     doseInDay={activeVariables.doseInDay}

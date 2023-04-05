@@ -47,7 +47,7 @@ public abstract class AntibioticTreatmentBuilder {
 
         Instructions instructions = 
             new Instructions(antibiotic.getDays(), antibiotic.getDosesPerDay(), 
-                antibiotic.getDoseMultipliers());
+                antibiotic.getRecipeText(), antibiotic.getDoseMultipliers());
 
         return new AntibioticTreatment(
             antibiotic.getFormat(),

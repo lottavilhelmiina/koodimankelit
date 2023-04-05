@@ -8,32 +8,33 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import fi.tuni.koodimankelit.antibiootit.database.DiagnosisRepository;
 import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
-import fi.tuni.koodimankelit.antibiootit.services.DataHandler;
+import fi.tuni.koodimankelit.antibiootit.services.DataHandlerImpl;
 
 
 /**
  * Tests for DataHandler service
  */
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class DataHandlerTest {
-    
-    @Autowired
-    private DataHandler dataHandler;
 
-    @MockBean
+    @Mock
     private DiagnosisRepository repository;
+    
+    @InjectMocks
+    private DataHandlerImpl dataHandler;
 
     /**
      * Test getDiagnosisById when searched object is found
