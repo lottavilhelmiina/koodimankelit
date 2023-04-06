@@ -1,11 +1,11 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Antibiotic;
+import fi.tuni.koodimankelit.antibiootit.database.data.Instructions;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Formula;
-import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 
 
 /**

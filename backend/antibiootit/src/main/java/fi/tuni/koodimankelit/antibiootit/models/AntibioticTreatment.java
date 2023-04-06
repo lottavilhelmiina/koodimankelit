@@ -1,5 +1,6 @@
 package fi.tuni.koodimankelit.antibiootit.models;
 
+import fi.tuni.koodimankelit.antibiootit.database.data.Instructions;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**

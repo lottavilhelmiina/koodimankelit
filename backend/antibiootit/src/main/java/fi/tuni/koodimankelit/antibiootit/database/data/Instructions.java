@@ -2,9 +2,12 @@ package fi.tuni.koodimankelit.antibiootit.database.data;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * Database representation of instructions on how to use antibiotic
  */
+@Schema(description = "Instructions for antibiotic use")
 public class Instructions {
     private final int days;
     private final int dosesPerDay;
