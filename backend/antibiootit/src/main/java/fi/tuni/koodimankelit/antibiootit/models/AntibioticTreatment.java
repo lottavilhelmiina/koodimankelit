@@ -10,7 +10,7 @@ public class AntibioticTreatment {
     private final String format;
     private final String antibiotic;
     private final Instructions instructions;
-    private final DosageFormula dosageFormula;
+    private final Formula formula;
     private final DosageResult dosageResult;
 
 
@@ -22,15 +22,13 @@ public class AntibioticTreatment {
      * @param formula how the result was calculated
      * @param result calculated dosage result
      */
-    public AntibioticTreatment(String format, String antibiotic, Instructions instructions, DosageFormula formula, DosageResult result) {
+    public AntibioticTreatment(String format, String antibiotic, Instructions instructions, Formula formula, DosageResult result) {
         this.format = format;
         this.antibiotic = antibiotic;
         this.instructions = instructions;
-        this.dosageFormula = formula;
+        this.formula = formula;
         this.dosageResult = result;
     }
-
-
     
     /** 
      * Returns format
@@ -63,10 +61,10 @@ public class AntibioticTreatment {
     
     /** 
      * Returns formula how the result were calculated
-     * @return DosageFormula
+     * @return Formula
      */
-    public DosageFormula getDosageFormula() {
-        return this.dosageFormula;
+    public Formula getFormula() {
+        return this.formula;
     }
 
 
