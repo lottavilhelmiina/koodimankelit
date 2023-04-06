@@ -28,7 +28,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
     protected final List<Strength> strengths = new ArrayList<>();
     protected final List<DoseMultiplier> doseMultipliers = new ArrayList<>();
-    protected final Instructions instructions = new Instructions(days, dosesPerDay, antibiotic, doseMultipliers);
+    protected final Instructions instructions = new Instructions(days, dosesPerDay, recipeText, doseMultipliers);
 
     @BeforeEach
     public abstract void populateStrengths();
