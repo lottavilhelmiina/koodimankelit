@@ -7,10 +7,10 @@ export default function Main(props) {
     let path = props.path;
     return (
         <>
-            <div className="main-centered">
+            {path !== "/" && <div className="main-centered">
                 {path === "/tietoa" && <Info />}
                 {path === "/palaute" && <Feedback />}
-            </div>
+            </div>}
 
             {path === "/" &&
             <main>    
