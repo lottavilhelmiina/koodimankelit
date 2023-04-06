@@ -93,9 +93,11 @@ export default function Antibiotics() {
             setDiagnosisData(diagnoses.filter(infection => infection.name === chosenDiagnosis)[0]);
             if (chosenDiagnosis === 'Bronkiitti') {
                 setNoAntibioticTreatment({id: 'J21.9', text: infoTexts[14].text})
+                setFormSubmitted(true);
             }
             else if (chosenDiagnosis === 'Obstruktiivinen bronkiitti') {
                 setNoAntibioticTreatment({id: 'J20.9', text: infoTexts[15].text})
+                setFormSubmitted(true);
             }
             else {
                 setNoAntibioticTreatment(null);
