@@ -106,16 +106,8 @@ export default function Form(props) {
         if(!props.formSubmitted) {
             props.changeInstruction(STEP2);
         }
-        
-        if (selectedInfo.needsAntibiotics === false) {
-            setNeedsAntibiotics(false);
-            const data = {
-                diagnosisID: selectedInfo.id
-            }
-            props.handleSubmit(data);
-            
-        }
-        else if (selectedInfo.needsAntibiotics === true) {
+
+        if (selectedInfo.needsAntibiotics === true) {
             setNeedsAntibiotics(true);
         }
         if (selected !== "Streptokokki-tonsilliitti") {
@@ -227,7 +219,6 @@ export default function Form(props) {
                 window.gtag('set', 'dimension4', weight);
                 window.gtag('set', 'dimension5', penicillinAllergy);
 
-                console.log(data)
                 props.handleSubmit(data);
 
             }            

@@ -49,7 +49,7 @@ export default function Antibiotics() {
             setInstruction(infoTexts[STEP4]);
         }
 
-    const selected = diagnoses.filter(infection => infection.id === data.diagnosisID)[0];
+        const selected = diagnoses.filter(infection => infection.id === data.diagnosisID)[0];
 
         if (selected.needsAntibiotics) {
             setLoading(true);
@@ -78,11 +78,8 @@ export default function Antibiotics() {
             });
                 
         }
-        else if (data.diagnosisID !== 'J21.9') {
-            console.log("Bronkiitti valittu")
-        }
-        else if (data.diagnosisID !== 'J20.9') {
-            console.log("Obs. bronkiitti valittu")
+        else {
+            console.log("No need for antibiotic treatment")
         }
     }
 
@@ -101,6 +98,7 @@ export default function Antibiotics() {
             }
             else {
                 setNoAntibioticTreatment(null);
+                setFormSubmitted(false);
             }
         }
 
