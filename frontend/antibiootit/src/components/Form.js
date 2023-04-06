@@ -221,12 +221,14 @@ export default function Form(props) {
                                 checkBoxes: matchingCheckBoxes
                             }
 
-                // Send data to Google Analytics            
-                window.gtag('set', 'dimension1', diagnosis.name);
-                window.gtag('set', 'dimension2', concurrentEBV);
-                window.gtag('set', 'dimension3', concurrentMycoplasma);
-                window.gtag('set', 'dimension4', weight);
-                window.gtag('set', 'dimension5', penicillinAllergy);
+                // Send data to Google Analytics
+                window.gtag('send', 'event', 'Form Submission', 'Submit', {
+                    'Diagnoosi': diagnosis.name,
+                    'Paino': weight,
+                    'Penisiliiniallergia': penicillinAllergy,
+                    'EBV': concurrentEBV,
+                    'Mykoplasma': concurrentMycoplasma
+                });
 
                 props.handleSubmit(data);
 
