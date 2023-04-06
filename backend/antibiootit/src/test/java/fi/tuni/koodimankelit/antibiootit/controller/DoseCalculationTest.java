@@ -36,7 +36,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         // Mock needed methods
         when(service.calculateTreatments(any()))
         .thenReturn(
-            new DiagnosisResponse("diagnosisResponseID", "etiology")
+            new DiagnosisResponse("diagnosisResponseID", "etiology", "description")
         );
 
         when(service.getDiagnosisInfoByID(any()))

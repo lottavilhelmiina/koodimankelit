@@ -10,9 +10,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
+import fi.tuni.koodimankelit.antibiootit.database.data.Instructions;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
-import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 
 public abstract class AntibioticTreatmentBuilderTest {
     
@@ -28,6 +28,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
     protected final List<Strength> strengths = new ArrayList<>();
     protected final List<DoseMultiplier> doseMultipliers = new ArrayList<>();
+    protected final Instructions instructions = new Instructions(days, dosesPerDay, antibiotic, doseMultipliers);
 
     @BeforeEach
     public abstract void populateStrengths();
@@ -90,7 +91,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
         assertEquals(10, instructions.getDays());
         assertEquals(3, instructions.getDosesPerDay());
-        assertEquals(recipeText, instructions.getDosesPerDayText());
+        assertEquals(recipeText, instructions.getRecipeText());
 
         List<DoseMultiplier> multipliers = instructions.getDoseMultipliers();
         assertEquals(2, multipliers.size());

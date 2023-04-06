@@ -17,7 +17,6 @@ import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
-import fi.tuni.koodimankelit.antibiootit.models.Formula;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
 import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 
@@ -31,11 +30,9 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     private final String resultUnit = "resultUnit";
     private final int dosagePerWeightPerDay = 40;
     private final String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
+    private final Dosage dosage = new Dosage(maxDosePerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit);
 
-    private final Mixture mixture = new Mixture(
-        antibiotic, format, strengths, weightUnit, new Instructions(maxDosePerDay, dosagePerWeightPerDay, recipeText, doseMultipliers),
-        resultUnit, new Dosage(maxDosePerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit)
-    );
+    private final Mixture mixture = new Mixture(antibiotic, format, strengths, weightUnit, instructions, resultUnit, dosage);
 
     @Override
     @BeforeEach
