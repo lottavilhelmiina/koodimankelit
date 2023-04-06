@@ -17,6 +17,18 @@ export default function Treatment(props) {
         accResult: `${props.treatments[0].dosageResult.accurateDose.value} ${props.treatments[0].dosageResult.accurateDose.unit}`
     });
 
+    // This updates the variables when the diagnosis is changed
+    useEffect(() => {
+        setActiveVariables({
+            weight: `${props.weight}kg`,
+            doseInDay: `${props.treatments[0].dosageFormula.dosage.value} ${props.treatments[0].dosageFormula.dosage.unit}`,
+            dosesPerDay: `${props.treatments[0].instructions.dosesPerDay} krt/vrk`,
+            strength: `${props.treatments[0].dosageFormula.strength.text}`,
+            result: `${props.treatments[0].dosageResult.dose.value} ${props.treatments[0].dosageResult.dose.unit}`,
+            accResult: `${props.treatments[0].dosageResult.accurateDose.value} ${props.treatments[0].dosageResult.accurateDose.unit}`
+        });
+    }, [props.weight, props.treatments]);
+
     useEffect(() => {
         setActiveChoice(props.treatments[0]);
     }, [props.treatments])
@@ -30,6 +42,7 @@ export default function Treatment(props) {
             if(props.treatments[i].antibiotic === name) {
                 setActiveChoice(props.treatments[i]);
 
+                // Updates the variables when the second choice is clicked
                 setActiveVariables({
                     weight: `${props.weight}kg`,
                     doseInDay: `${props.treatments[i].dosageFormula.dosage.value} ${props.treatments[i].dosageFormula.dosage.unit}`,
@@ -56,9 +69,6 @@ export default function Treatment(props) {
                 props.setActiveRecipe(treatment);
             }
         }
-        //console.log(activeChoice);
-        //console.log(name);
-
     }
 
     let AntibioticElements = props.treatments.map((antibiote, index) => 
@@ -93,11 +103,6 @@ export default function Treatment(props) {
         )
     }
 
-    if(!props.treatments) {
-        return <p>Haetaan hoitosuosituksia...</p>
-    }
-
-    //console.log(props.needsAntibiotics);
 
     return (
         <div className="treatment-container">
@@ -107,7 +112,10 @@ export default function Treatment(props) {
                 `Ei antibioottisuositusta` :
                 `Hoitosuositus ${props.format.toLowerCase()}na`}</h2>
             </div>
-            {props.loading ? <LoadingIndicator /> :
+            {props.loading ? 
+            <LoadingIndicator 
+                loading={"treatments"}
+            /> :
             <div className="treatment-choises">
                 <div className="choise-container">
                     {props.needsAntibiotics ? AntibioticElements : 
@@ -119,7 +127,7 @@ export default function Treatment(props) {
                 </div>
             </div>}
             <div className="treatment-extra">
-                <button className="btn-calculate" onClick={calculate} disabled={props.diagnose==="Bronkiitti"}>
+                <button className="btn-calculate" onClick={calculate} disabled={!props.needsAntibiotics}>
                     {openCalculations ?
                     <div className="btn-elements">
                         <img className="func-icon-closed" src="./icons/function-icon-closed.svg" alt="icon-closed"/>
@@ -138,7 +146,11 @@ export default function Treatment(props) {
                     </div>}
                 </div>}
             </div>
-            {openCalculations && props.needsAntibiotics && <div className="treatment-calculations">
+            {props.loading? 
+            <LoadingIndicator 
+                loading={"calculations"}
+            /> : 
+            openCalculations && props.needsAntibiotics && <div className="treatment-calculations">
                 <MathFormula
                     weight={activeVariables.weight}
                     doseInDay={activeVariables.doseInDay}
