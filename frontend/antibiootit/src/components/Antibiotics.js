@@ -75,6 +75,7 @@ export default function Antibiotics() {
             })
             .catch(error => {
                 console.log(error)
+                console.log("Tarkista lomakkeen arvot")
             });
                 
         }
