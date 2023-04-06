@@ -80,7 +80,7 @@ public class DiagnosisResponseBuilder {
      */
     public DiagnosisResponse build() {
 
-        DiagnosisResponse diagnosisResponse = new DiagnosisResponse(diagnosis.getId(), diagnosis.getEtiology());
+        DiagnosisResponse diagnosisResponse = new DiagnosisResponse(diagnosis.getId(), diagnosis.getEtiology(), diagnosis.getInfo());
         List<Treatment> treatments = getTreatments();
 
         for(Treatment treatment : treatments) {
