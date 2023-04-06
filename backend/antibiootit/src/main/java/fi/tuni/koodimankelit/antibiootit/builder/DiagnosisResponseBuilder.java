@@ -80,21 +80,21 @@ public class DiagnosisResponseBuilder {
      */
     public DiagnosisResponse build() {
 
-        DiagnosisResponse diagnosisResponse = new DiagnosisResponse(diagnosis.getId(), diagnosis.getEtiology(), diagnosis.getInfo());
+        DiagnosisResponse diagnosisResponse = new DiagnosisResponse(diagnosis.getId(), diagnosis.getEtiology());
         List<Treatment> treatments = getTreatments();
 
         for(Treatment treatment : treatments) {
             Antibiotic antibiotic = getSuitableAntibiotic(treatment);
 
-            AntibioticTreatment antibioticTreatment;
+            AntibioticTreatmentBuilder builder;
             if(antibiotic instanceof Mixture) {
-                MixtureBuilder builder = new MixtureBuilder((Mixture) antibiotic, weight);
-                antibioticTreatment = builder.buildMixture();
+                builder = new MixtureBuilder((Mixture) antibiotic, weight);
+
             } else {
-                TabletBuilder builder = new TabletBuilder((Tablet) antibiotic, weight);
-                antibioticTreatment = builder.buildTablet();
+                builder = new TabletBuilder((Tablet) antibiotic, weight);
             }
-            
+
+            AntibioticTreatment antibioticTreatment = builder.build();
             diagnosisResponse.addTreatment(antibioticTreatment);
         }
 

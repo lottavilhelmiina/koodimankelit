@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * Represents how antibiotic dosage result was calculated
  */
 @Schema(description = "Antibiotic dosage result calculation formula")
-public class MixtureDosageFormula {
+public class DosageFormula {
 
     private final StrengthMeasurement strength;
     private final Measurement dosage;
@@ -17,7 +17,7 @@ public class MixtureDosageFormula {
      * @param strength strength of the antibiotic
      * @param dosage How much needs to be given according to weight
      */
-    public MixtureDosageFormula(StrengthMeasurement strength, Measurement dosage) {
+    public DosageFormula(StrengthMeasurement strength, Measurement dosage) {
         this.strength = strength;
         this.dosage = dosage;
     }
