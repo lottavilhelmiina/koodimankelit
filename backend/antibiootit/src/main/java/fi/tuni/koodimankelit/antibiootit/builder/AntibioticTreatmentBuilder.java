@@ -1,13 +1,10 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import fi.tuni.koodimankelit.antibiootit.database.data.Antibiotic;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
-import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
+import fi.tuni.koodimankelit.antibiootit.models.Formula;
 import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 
 
@@ -58,28 +55,9 @@ public abstract class AntibioticTreatmentBuilder {
         );
     }
 
-    protected abstract DosageFormula buildFormula();
+    protected abstract Formula buildFormula();
 
     protected abstract DosageResult buildResult();
-
-    /** 
-     * Calculates one-time antibiotic dosage based on weight. Rounds the result to three decimals
-     * @return Double one-time dosage. Unit depends on antibiotic
-     */
-    protected Double calculateDosageResult() {
-        Double dosagePerDay = antibiotic.getDosagePerWeightPerDay() * weight;
-        if(dosagePerDay > antibiotic.getMaxDosePerDay()) {
-            dosagePerDay = (double) antibiotic.getMaxDosePerDay();
-        }
-        Double totalDosageInDay = dosagePerDay / strength.getValue();
-        Double accurateResult = totalDosageInDay / antibiotic.getDosesPerDay();
-
-        BigDecimal bd = BigDecimal.valueOf(accurateResult);
-        bd = bd.setScale(3, RoundingMode.HALF_UP);
-        double roundedResult = bd.doubleValue();
-
-        return roundedResult;
-    }
     
     /** 
      * Return antibiotic's strength

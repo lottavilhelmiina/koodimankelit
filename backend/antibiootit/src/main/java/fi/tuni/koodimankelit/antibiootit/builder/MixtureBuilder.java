@@ -1,5 +1,9 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import fi.tuni.koodimankelit.antibiootit.database.data.Dosage;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
@@ -20,7 +24,7 @@ public class MixtureBuilder extends AntibioticTreatmentBuilder {
     protected DosageFormula buildFormula() {
         return new DosageFormula(
             new StrengthMeasurement(strength.getUnit(), strength.getValue(), strength.getText()),
-            new Measurement(antibiotic.getDosagePerWeightPerDayUnit(), antibiotic.getDosagePerWeightPerDay())
+            new Measurement(antibiotic.getDosage().getDosagePerWeightPerDayUnit(), antibiotic.getDosage().getDosagePerWeightPerDay())
         );
     }
 
@@ -34,6 +38,26 @@ public class MixtureBuilder extends AntibioticTreatmentBuilder {
             new Measurement(resultUnit, roundedResult),
             new Measurement(resultUnit, dosageResult)
         );
+    }
+
+    /** 
+     * Calculates one-time antibiotic dosage based on weight. Rounds the result to three decimals
+     * @return Double one-time dosage. Unit depends on antibiotic
+     */
+    private Double calculateDosageResult() {
+        Dosage dosage = antibiotic.getDosage();
+        Double dosagePerDay = dosage.getDosagePerWeightPerDay() * weight;
+        if(dosagePerDay > dosage.getMaxDosePerDay()) {
+            dosagePerDay = (double) dosage.getMaxDosePerDay();
+        }
+        Double totalDosageInDay = dosagePerDay / strength.getValue();
+        Double accurateResult = totalDosageInDay / antibiotic.getInstructions().getDosesPerDay();
+
+        BigDecimal bd = BigDecimal.valueOf(accurateResult);
+        bd = bd.setScale(3, RoundingMode.HALF_UP);
+        double roundedResult = bd.doubleValue();
+
+        return roundedResult;
     }
 
     /**
