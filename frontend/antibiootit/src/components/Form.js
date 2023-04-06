@@ -42,7 +42,9 @@ export default function Form(props) {
     const ShowDiagnosisName = () => {
         const name = diagnosis.name;
         return (
-            <span className="diagnosis-menu-name">
+            <span 
+                className="diagnosis-menu-name"
+                >
                 {name}
             </span>
         )
@@ -55,7 +57,8 @@ export default function Form(props) {
                     className="diagnosis-menu dropdown" >
                     <button 
                         className="dropdown-btn"
-                        data-testid="diagnosis-menu-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
+                        data-testid="diagnosis-menu-btn"
+                        onClick={handleMenuClick}>{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
                     </button>
                     <div className="dropdown-content">
                         <ul className="menu--items" data-testid="diagnosis-menu">
@@ -75,7 +78,8 @@ export default function Form(props) {
                     className="diagnosis-menu dropdown" >
                     <button 
                         className="dropdown-btn"
-                        data-testid="diagnosis-menu-btn">{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
+                        data-testid="diagnosis-menu-btn"
+                        onClick={handleMenuClick}>{diagnosis ? <ShowDiagnosisName  /> : <Choose />}
                     </button>
                     <div className="dropdown-content">
                         <ul className="menu--items" data-testid="diagnosis-menu">
@@ -96,8 +100,13 @@ export default function Form(props) {
 
     }
 
+    const handleMenuClick = (e) => {
+        e.preventDefault();
+    }
+
     const handleMenuSelection = (e) => {
         e.preventDefault();
+        
         setFormatWeight(true);
         const selected = e.target.textContent;
         const selectedInfo = fullInfo.filter(d => d.name === selected)[0]
