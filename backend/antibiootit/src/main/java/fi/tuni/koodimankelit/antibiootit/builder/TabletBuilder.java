@@ -2,7 +2,6 @@ package fi.tuni.koodimankelit.antibiootit.builder;
 
 
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
-import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Formula;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
@@ -31,8 +30,7 @@ public class TabletBuilder extends AntibioticTreatmentBuilder {
         int dosageResult = antibiotic.getTabletsPerDose();
         
         return new DosageResult(
-            new Measurement(resultUnit, dosageResult),
-            new Measurement(resultUnit, calculateDosageResult())
+            new Measurement(resultUnit, dosageResult)
         );
     }
     
