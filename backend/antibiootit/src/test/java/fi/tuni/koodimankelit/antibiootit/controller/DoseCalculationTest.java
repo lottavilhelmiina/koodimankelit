@@ -20,6 +20,7 @@ import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
+import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.Formula;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
 import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
@@ -215,6 +216,26 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .andExpect(jsonPath("$.treatments[0].formula.strength.value").value(100))
         .andExpect(jsonPath("$.treatments[0].formula.strength.text").value("100 mg/ml"))
         .andExpect(jsonPath("$.treatments[0].formula.dosage").doesNotExist());
+    }
+
+    @Test
+    public void dosageResultDoesNotHaveExtraFields() throws Exception {
+        DiagnosisResponse response = new DiagnosisResponse(null, null, null);
+        response.addTreatment(
+            new AntibioticTreatment(null, null, null,
+                null,
+                new DosageResult(new Measurement("kpl", 1))
+            )
+        );
+        when(service.getDiagnosisInfoByID(any())).thenReturn(new DiagnosisInfo(null, null, null, null, false));
+        when(service.calculateTreatments(any())).thenReturn(response);
+
+        request(mockParameters)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.treatments[0].dosageResult.dose").exists())
+        .andExpect(jsonPath("$.treatments[0].dosageResult.dose.unit").value("kpl"))
+        .andExpect(jsonPath("$.treatments[0].dosageResult.dose.value").value(1))
+        .andExpect(jsonPath("$.treatments[0].dosageResult.accurateDose").doesNotExist());
     }
 
 
