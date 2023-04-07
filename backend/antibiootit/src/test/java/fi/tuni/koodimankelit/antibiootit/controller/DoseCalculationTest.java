@@ -170,10 +170,7 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         DiagnosisResponse response = new DiagnosisResponse(null, null, null);
         response.addTreatment(
             new AntibioticTreatment(null, null, null,
-                new DosageFormula(
-                    new StrengthMeasurement("mg/ml", 100, "100 mg/ml"),
-                    new Measurement("mg/kg/vrk", 80.0)
-                ),
+                null,
                 new AccurateDosageResult(
                     new Measurement("ml", 3.5),
                     new Measurement("ml", 3.457)
