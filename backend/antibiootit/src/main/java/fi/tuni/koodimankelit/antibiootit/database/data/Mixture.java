@@ -14,14 +14,13 @@ public class Mixture extends Antibiotic {
      * @param antibiotic antibiotic's name
      * @param format antibiotic's format
      * @param strength list of different strengths of the antibiotic
-     * @param weightUnit used weight unit
      * @param instructions instructions on how to use antibiotic
      * @param resultUnit mixture's result unit
      * @param dosage mixture's dosage information
      */
-    public Mixture(String antibiotic, String format, List<Strength> strength, String weightUnit, Instructions instructions, 
+    public Mixture(String antibiotic, String format, List<Strength> strength, Instructions instructions, 
                 String resultUnit, Dosage dosage) {
-        super(antibiotic, format, strength, weightUnit, instructions);
+        super(antibiotic, format, strength, instructions);
         this.resultUnit = resultUnit;
         this.dosage = dosage;
     }
