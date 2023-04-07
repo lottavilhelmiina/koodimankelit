@@ -16,6 +16,7 @@ public class Diagnosis {
 
     private final String name;
     private final String etiology;
+    private final String info;
     private final String infectionType;
     private final List<Treatment> treatments;
     private final List<CheckBoxInfo> checkBoxes;
@@ -26,18 +27,19 @@ public class Diagnosis {
      * @param id ICD-10 identifier
      * @param name diagnosis name
      * @param etiology diagnosis etiology (common cause)
+     * @param info additional information about treatment
      * @param infectionType infection type of the diagnosis
      * @param checkBoxes list of possibly needed checkboxes for diagnosis
      * @param treatments List of all treatment options 
      * @param needsAntibiotics tells if diagnosis needs antibiotics
      */
-    public Diagnosis(String id, String name, String etiology, String infectionType, 
-        List<CheckBoxInfo> checkBoxes, List<Treatment> treatments, boolean needsAntibiotics) {
-
+    public Diagnosis(String id, String name, String etiology, String info, String infectionType, 
+                List<CheckBoxInfo> checkBoxes, List<Treatment> treatments, boolean needsAntibiotics) {
         super();
         this.id = id;
         this.name = name;
         this.etiology = etiology;
+        this.info = info;
         this.infectionType = infectionType;
         this.treatments = treatments;
         this.checkBoxes = checkBoxes;
@@ -66,6 +68,14 @@ public class Diagnosis {
      */
     public String getEtiology() {
         return this.etiology;
+    }
+
+    /**
+     * Returns additional info about treatment
+     * @return String additional info
+     */
+    public String getInfo() {
+        return this.info;
     }
 
     /**

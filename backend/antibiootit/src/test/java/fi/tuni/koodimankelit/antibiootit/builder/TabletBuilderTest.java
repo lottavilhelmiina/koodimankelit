@@ -9,11 +9,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fi.tuni.koodimankelit.antibiootit.database.data.Instructions;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
-import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
-import fi.tuni.koodimankelit.antibiootit.models.Measurement;
+import fi.tuni.koodimankelit.antibiootit.models.Formula;
 import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 
 /**
@@ -21,15 +21,9 @@ import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
  */
 public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
 
-    private final String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
-    private final int dosagePerWeightPerDay = 40;
-    private final int maxDosePerDay = 3000;
     private final int tabletsPerDose = 1;
 
-    private final Tablet tablet = new Tablet(
-        antibiotic, format, info, dosagePerWeightPerDayUnit, dosagePerWeightPerDay, maxDosePerDay,
-        strengths, weightUnit, days, dosesPerDay, recipeText, tabletsPerDose, doseMultipliers
-    );
+    private final Tablet tablet = new Tablet(antibiotic, format, strengths, weightUnit, instructions, tabletsPerDose);
 
     @Override
     @BeforeEach
@@ -59,12 +53,8 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
 
         // 40 kg -> Strength {1500000, 40}
         AntibioticTreatment treatment = getTreatment(40);
-        DosageFormula dosageFormula = treatment.getDosageFormula();
-        Measurement dosage = dosageFormula.getDosage();
+        Formula dosageFormula = treatment.getFormula();
         StrengthMeasurement strengthMeasurement = dosageFormula.getStrength();
-
-        assertEquals(dosagePerWeightPerDayUnit, dosage.getUnit());
-        assertEquals(40, dosage.getValue());
 
         assertEquals(weightUnit, strengthMeasurement.getUnit());
         assertEquals(strengthText, strengthMeasurement.getText());
@@ -103,10 +93,7 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
     @Override
     protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
         return new TabletBuilder(
-            new Tablet(
-                antibiotic, format, info, dosagePerWeightPerDayUnit, dosagePerWeightPerDay, maxDosePerDay,
-                strengths, weightUnit, days, dosesPerDay, recipeText, tabletsPerDose, doseMultipliers
-            ),
+            new Tablet(antibiotic, format, strengths, weightUnit, new Instructions(days, dosesPerDay, recipeText, doseMultipliers), tabletsPerDose),
             weight);
     }
 

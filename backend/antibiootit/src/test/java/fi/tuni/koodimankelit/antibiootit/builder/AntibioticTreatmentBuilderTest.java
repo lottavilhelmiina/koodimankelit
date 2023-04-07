@@ -10,16 +10,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import fi.tuni.koodimankelit.antibiootit.database.data.DoseMultiplier;
+import fi.tuni.koodimankelit.antibiootit.database.data.Instructions;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
-import fi.tuni.koodimankelit.antibiootit.models.Instructions;
 
 public abstract class AntibioticTreatmentBuilderTest {
     
 
     protected final String antibiotic =  "antibiotic";
     protected final String format = "format";
-    protected final String info = "info";
     protected final String weightUnit = "kg";
     protected final String strengthText = "strengthText";
     protected final String recipeText = "recipeText";
@@ -29,6 +28,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
     protected final List<Strength> strengths = new ArrayList<>();
     protected final List<DoseMultiplier> doseMultipliers = new ArrayList<>();
+    protected final Instructions instructions = new Instructions(days, dosesPerDay, recipeText, doseMultipliers);
 
     @BeforeEach
     public abstract void populateStrengths();
@@ -79,7 +79,6 @@ public abstract class AntibioticTreatmentBuilderTest {
 
         assertEquals(antibiotic, treatment.getAntibiotic());
         assertEquals(format, treatment.getFormat());
-        assertEquals(info, treatment.getDescription());
     }
 
     /**
@@ -92,7 +91,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
         assertEquals(10, instructions.getDays());
         assertEquals(3, instructions.getDosesPerDay());
-        assertEquals(recipeText, instructions.getDosesPerDayText());
+        assertEquals(recipeText, instructions.getRecipeText());
 
         List<DoseMultiplier> multipliers = instructions.getDoseMultipliers();
         assertEquals(2, multipliers.size());
@@ -116,6 +115,6 @@ public abstract class AntibioticTreatmentBuilderTest {
     protected abstract int getValidWeight();
 
     protected double getTreatmentStrength(double weight) {
-        return getTreatment(weight).getDosageFormula().getStrength().getValue();
+        return getTreatment(weight).getFormula().getStrength().getValue();
     }
 }

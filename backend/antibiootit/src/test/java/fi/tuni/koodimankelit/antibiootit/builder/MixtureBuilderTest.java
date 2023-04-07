@@ -9,8 +9,11 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fi.tuni.koodimankelit.antibiootit.database.data.Dosage;
+import fi.tuni.koodimankelit.antibiootit.database.data.Instructions;
 import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
+import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
 import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
@@ -27,11 +30,9 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     private final String resultUnit = "resultUnit";
     private final int dosagePerWeightPerDay = 40;
     private final String dosagePerWeightPerDayUnit = "dosagePerWeightPerDayUnit";
+    private final Dosage dosage = new Dosage(maxDosePerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit);
 
-    private final Mixture mixture = new Mixture(
-        antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-        resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers
-    );
+    private final Mixture mixture = new Mixture(antibiotic, format, strengths, weightUnit, instructions, resultUnit, dosage);
 
     @Override
     @BeforeEach
@@ -59,9 +60,9 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
 
         // 10 kg -> Strength{120, 10} should be chosen.
         AntibioticTreatment treatment = getTreatment(10); 
-        DosageFormula dosageFormula = treatment.getDosageFormula();
-        Measurement dosage = dosageFormula.getDosage();
-        StrengthMeasurement strengthMeasurement = dosageFormula.getStrength();
+        DosageFormula formula = (DosageFormula) treatment.getFormula();
+        Measurement dosage = formula.getDosage();
+        StrengthMeasurement strengthMeasurement = formula.getStrength();
 
         assertEquals(dosagePerWeightPerDayUnit, dosage.getUnit());
         assertEquals(40, dosage.getValue());
@@ -115,36 +116,36 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
         // ( x kg * 100 mg/kg/d ) / ( 100 mg/ml ) / ( 1 time each day ) = x ml
         List<Strength> s = new ArrayList<>();
         s.add(new Strength(100, 0, null, null));
-        Mixture m = new Mixture(null, null, null, 1000, s, null, 1, 1, null, 100, null, null, null);
+        Mixture m = new Mixture(null, null, s, null, new Instructions(1, 1, null, null), null, new Dosage(3000, 100, null));
 
-        DosageResult result;
+        AccurateDosageResult result;
         // 1.000 is rounded to 1.0
-        result = new MixtureBuilder(m, 1).build().getDosageResult();
+        result = (AccurateDosageResult) new MixtureBuilder(m, 1).build().getDosageResult();
         assertEquals(1.000, result.getAccurateDose().getValue());
         assertEquals(1.0, result.getDose().getValue());
 
         // 1.001 is rounded to 1.0
-        result = new MixtureBuilder(m, 1.001).build().getDosageResult();
+        result = (AccurateDosageResult) new MixtureBuilder(m, 1.001).build().getDosageResult();
         assertEquals(1.001, result.getAccurateDose().getValue());
         assertEquals(1.0, result.getDose().getValue());
 
         // 1.249 is rounded to 1.0
-        result = new MixtureBuilder(m, 1.249).build().getDosageResult();
+        result = (AccurateDosageResult) new MixtureBuilder(m, 1.249).build().getDosageResult();
         assertEquals(1.249, result.getAccurateDose().getValue());
         assertEquals(1.0, result.getDose().getValue());
 
         // 1.250 is rounded to 1.5
-        result = new MixtureBuilder(m, 1.250).build().getDosageResult();
+        result = (AccurateDosageResult) new MixtureBuilder(m, 1.250).build().getDosageResult();
         assertEquals(1.250, result.getAccurateDose().getValue());
         assertEquals(1.5, result.getDose().getValue());
 
         // 1.500 is rounded to 1.5
-        result = new MixtureBuilder(m, 1.5).build().getDosageResult();
+        result = (AccurateDosageResult) new MixtureBuilder(m, 1.5).build().getDosageResult();
         assertEquals(1.500, result.getAccurateDose().getValue());
         assertEquals(1.5, result.getDose().getValue());
 
         // 1.750 is rounded to 2.0
-        result = new MixtureBuilder(m, 1.750).build().getDosageResult();
+        result = (AccurateDosageResult) new MixtureBuilder(m, 1.750).build().getDosageResult();
         assertEquals(1.750, result.getAccurateDose().getValue());
         assertEquals(2.0, result.getDose().getValue());
     }
@@ -184,8 +185,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
     @Override
     protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
         return new MixtureBuilder(
-            new Mixture(antibiotic, format, info, maxDosePerDay, strengths, weightUnit, days, dosesPerDay,
-                resultUnit, dosagePerWeightPerDay, dosagePerWeightPerDayUnit, recipeText, doseMultipliers),
+            new Mixture(antibiotic, format, strengths, weightUnit, new Instructions(days, dosesPerDay, recipeText, doseMultipliers), resultUnit, new Dosage(maxDosePerDay, dosagePerWeightPerDay, dosagePerWeightPerDayUnit)),
             weight);
     }
 
@@ -203,7 +203,7 @@ public class MixtureBuilderTest extends AntibioticTreatmentBuilderTest {
 
     private double getAccurateResult(double weight) {
         AntibioticTreatment treatment = getTreatment(weight);
-        DosageResult result = treatment.getDosageResult();
+        AccurateDosageResult result = (AccurateDosageResult) treatment.getDosageResult();
 
         return result.getAccurateDose().getValue();
     }
