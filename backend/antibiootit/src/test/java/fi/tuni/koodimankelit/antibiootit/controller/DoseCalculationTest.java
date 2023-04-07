@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import fi.tuni.koodimankelit.antibiootit.database.data.DiagnosisInfo;
 import fi.tuni.koodimankelit.antibiootit.exceptions.DiagnosisNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.exceptions.InvalidParameterException;
+import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
@@ -160,6 +161,36 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .andExpect(jsonPath("$.treatments[0].formula.dosage").exists())
         .andExpect(jsonPath("$.treatments[0].formula.dosage.unit").value("mg/kg/vrk"))
         .andExpect(jsonPath("$.treatments[0].formula.dosage.value").value(80.0));
+    }
+
+    @Test
+    public void accurateDosageHasAllFields() throws Exception {
+        DiagnosisResponse response = new DiagnosisResponse(null, null, null);
+        response.addTreatment(
+            new AntibioticTreatment(null, null, null,
+                new DosageFormula(
+                    new StrengthMeasurement("mg/ml", 100, "100 mg/ml"),
+                    new Measurement("mg/kg/vrk", 80.0)
+                ),
+                new AccurateDosageResult(
+                    new Measurement("ml", 3.5),
+                    new Measurement("ml", 3.457)
+                )
+            )
+        );
+
+        when(service.getDiagnosisInfoByID(any())).thenReturn(new DiagnosisInfo(null, null, null, null, false));
+        when(service.calculateTreatments(any())).thenReturn(response);
+
+        request(mockParameters)
+        .andExpect(status().isOk())
+
+        .andExpect(jsonPath("$.treatments[0].dosageResult.dose").exists())
+        .andExpect(jsonPath("$.treatments[0].dosageResult.dose.unit").value("ml"))
+        .andExpect(jsonPath("$.treatments[0].dosageResult.dose.value").value(3.5))
+        .andExpect(jsonPath("$.treatments[0].dosageResult.accurateDose").exists())
+        .andExpect(jsonPath("$.treatments[0].dosageResult.accurateDose.unit").value("ml"))
+        .andExpect(jsonPath("$.treatments[0].dosageResult.accurateDose.value").value(3.457));
     }
 
     private ResultActions request(Parameters parameters) throws Exception {
