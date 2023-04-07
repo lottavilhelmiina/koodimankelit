@@ -20,6 +20,7 @@ import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
+import fi.tuni.koodimankelit.antibiootit.models.Formula;
 import fi.tuni.koodimankelit.antibiootit.models.Measurement;
 import fi.tuni.koodimankelit.antibiootit.models.StrengthMeasurement;
 import fi.tuni.koodimankelit.antibiootit.models.request.InfectionSelection;
@@ -192,6 +193,30 @@ public class DoseCalculationTest extends AntibioticsControllerTest {
         .andExpect(jsonPath("$.treatments[0].dosageResult.accurateDose.unit").value("ml"))
         .andExpect(jsonPath("$.treatments[0].dosageResult.accurateDose.value").value(3.457));
     }
+
+    @Test
+    public void formulaDoesNotHaveExtraFields() throws Exception {
+        DiagnosisResponse response = new DiagnosisResponse(null, null, null);
+        response.addTreatment(
+            new AntibioticTreatment(null, null, null,
+                new Formula(
+                    new StrengthMeasurement("mg/ml", 100, "100 mg/ml")
+                ),
+                null
+            )
+        );
+        when(service.getDiagnosisInfoByID(any())).thenReturn(new DiagnosisInfo(null, null, null, null, false));
+        when(service.calculateTreatments(any())).thenReturn(response);
+
+        request(mockParameters)
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.treatments[0].formula.strength").exists())
+        .andExpect(jsonPath("$.treatments[0].formula.strength.unit").value("mg/ml"))
+        .andExpect(jsonPath("$.treatments[0].formula.strength.value").value(100))
+        .andExpect(jsonPath("$.treatments[0].formula.strength.text").value("100 mg/ml"))
+        .andExpect(jsonPath("$.treatments[0].formula.dosage").doesNotExist());
+    }
+
 
     private ResultActions request(Parameters parameters) throws Exception {
 
