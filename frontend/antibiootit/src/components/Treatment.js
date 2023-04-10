@@ -184,7 +184,7 @@ export default function Treatment(props) {
             <LoadingIndicator 
                 loading={"calculations"}
             /> : 
-            openCalculations && props.needsAntibiotics && <div className="treatment-calculations">
+            openCalculations && props.needsAntibiotics && props.format === 'mikstuura' && <div className="treatment-calculations">
                 <MathFormula
                     weight={activeVariables.weight}
                     doseInDay={activeVariables.doseInDay}
