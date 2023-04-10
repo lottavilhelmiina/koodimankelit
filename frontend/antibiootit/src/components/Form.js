@@ -221,15 +221,6 @@ export default function Form(props) {
                                 checkBoxes: matchingCheckBoxes
                             }
 
-                // Send data to Google Analytics
-                window.gtag('send', 'event', 'Form Submission', 'Submit', {
-                    'Diagnoosi': diagnosis.name,
-                    'Paino': weight,
-                    'Penisiliiniallergia': penicillinAllergy,
-                    'EBV': concurrentEBV,
-                    'Mykoplasma': concurrentMycoplasma
-                });
-
                 props.handleSubmit(data);
 
             }            
