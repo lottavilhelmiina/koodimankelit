@@ -8,7 +8,11 @@ import GetInfoTexts from "./GetInfoTexts";
 import GetRecommendedTreatment from "./GetRecommendedTreatment";
 
 const STEP1 = 7;
+const STEP3 = 9;
 const STEP4 = 13;
+const CHECKPENISILLIN = 10;
+const CHECKEBV = 11;
+const CHECKMYKO = 12;
 
 export default function Antibiotics() {
 
@@ -31,7 +35,7 @@ export default function Antibiotics() {
         const diagnosesList = await GetDiagnoses();
         setDiagnoses(diagnosesList);
     }
-    
+    console.log(diagnosisData);
     useEffect(() => {
         const infoTextsList = GetInfoTexts();
         setInfoTexts(infoTextsList);
@@ -86,7 +90,35 @@ export default function Antibiotics() {
     }
 
     function changeInstruction(index) {
-        setInstruction(infoTexts[index]);
+        if(index === STEP3) {
+            if (diagnosisData.checkBoxes.length > 0) {
+                let checkText;
+                if (diagnosisData.checkBoxes[0].id === "EBV-001") {
+                    checkText = infoTexts[CHECKEBV].text;
+                }
+                if (diagnosisData.checkBoxes[0].id === "MYK-001") {
+                    checkText = infoTexts[CHECKMYKO].text;
+                }
+                const instruction = infoTexts[index].text;
+                const resultText = `${checkText}\n${instruction}`
+                const result = {
+                    header: infoTexts[index].header,
+                    text: resultText
+                }
+                setInstruction(result);
+            } else {
+                const checkPenisillin = infoTexts[CHECKPENISILLIN].text;
+                const instruction = infoTexts[index].text;
+                const resultText = `${checkPenisillin}\n${instruction}`;
+                const result = {
+                    header: infoTexts[index].header,
+                    text: resultText
+                }
+                setInstruction(result);
+            }
+        } else {
+            setInstruction(infoTexts[index]);
+        }
     }
 
     useEffect(() => {   
