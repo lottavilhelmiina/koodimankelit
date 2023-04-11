@@ -145,7 +145,6 @@ export default function Form(props) {
         e.preventDefault();
         const input = e.target.value;
         if (!VALID_WEIGHT_INPUT.test(input)) {
-            setWeight(input);
             setIsWeightOk(false);
             setFormatWeight(false);
             
