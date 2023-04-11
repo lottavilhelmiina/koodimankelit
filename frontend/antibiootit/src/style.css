@@ -695,7 +695,16 @@ aside {
     color: #5D769A;
 }
 
+.info-active {
+    color: #556b8b;
+    text-decoration: underline;
+    text-decoration-color: #5D769A;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 6px;
+}
+
 .info-line {
+    margin-top: 4px;
     margin-bottom: 60px;
 }
 
