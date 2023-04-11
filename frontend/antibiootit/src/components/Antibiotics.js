@@ -21,7 +21,8 @@ export default function Antibiotics() {
     const [infoTexts, setInfoTexts] = useState(null);
 
     const [treatments, setTreatments] = useState(null);
-
+    const [description, setDescription] = useState(null);
+ 
     const [instruction, setInstruction] = useState([]);
 
     const [loading, setLoading] = useState(true);
@@ -56,15 +57,16 @@ export default function Antibiotics() {
             GetRecommendedTreatment(data)
             .then(response => {
                 setTreatments(response.treatments);
+                setDescription(response.description);
                 setLoading(false);
                 // Also set the first active recipe 
                 const dosageValue = response.treatments[0].dosageResult.dose.value;
                 const dosageUnit = response.treatments[0].dosageResult.dose.unit;
-                const instructionDosesPerDay = response.treatments[0].instructions.dosesPerDay;
                 const instructionDays = response.treatments[0].instructions.days;
-                const recipe = `${dosageValue} ${dosageUnit} ${instructionDosesPerDay} kertaa/vrk ${instructionDays} vrk:n ajan`;
+                const dosesPerDayText = response.treatments[0].instructions.recipeText;
+                const recipe = `${dosageValue} ${dosageUnit} ${dosesPerDayText} ${instructionDays} vrk:n ajan`;
                 const antibiote = response.treatments[0].antibiotic;
-                const strength = response.treatments[0].dosageFormula.strength.text;
+                const strength = response.treatments[0].formula.strength.text;
 
                 const treatment = {
                     text: recipe,
@@ -130,7 +132,7 @@ export default function Antibiotics() {
             {formSubmitted && (treatments && diagnosisData.needsAntibiotics)  && <Treatment 
                 loading={loading}
                 needsAntibiotics={diagnosisData.needsAntibiotics}
-                description={treatments[0].description}
+                description={description}
                 diagnosis={chosenDiagnosis}
                 weight={chosenWeight}
                 treatments={treatments}
