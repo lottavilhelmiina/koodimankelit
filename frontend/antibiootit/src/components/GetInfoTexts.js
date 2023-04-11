@@ -1,6 +1,6 @@
 import infotexts from "../data/infotexts";
 
-export default async function GetInfoTexts() {
+export default function GetInfoTexts() {
     const infotextsList = infotexts.map(item => {
         return (item)
     })

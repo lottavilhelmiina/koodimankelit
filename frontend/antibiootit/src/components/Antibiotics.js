@@ -30,13 +30,12 @@ export default function Antibiotics() {
     async function fetchData() {
         const diagnosesList = await GetDiagnoses();
         setDiagnoses(diagnosesList);
-
-        const infoTextsList = await GetInfoTexts();
-        setInfoTexts(infoTextsList);
-
-        setInstruction(infoTextsList[STEP1]);
     }
+    
     useEffect(() => {
+        const infoTextsList = GetInfoTexts();
+        setInfoTexts(infoTextsList);
+        setInstruction(infoTextsList[STEP1]);
         fetchData();
     }, []);
 
