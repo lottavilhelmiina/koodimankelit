@@ -265,6 +265,7 @@ export default function Form(props) {
                         value={weight}
                         onChange={handleInput}
                         type="text"
+                        inputMode="numeric"
                         disabled={!needsAntibiotics || !diagnosis}
                         required={true}
                     /><span className="kg-text">kg</span></span>
