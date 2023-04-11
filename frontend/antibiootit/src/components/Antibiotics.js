@@ -91,31 +91,28 @@ export default function Antibiotics() {
 
     function changeInstruction(index) {
         if(index === STEP3) {
+            let checkText;
+            const instruction = infoTexts[index].text;
             if (diagnosisData.checkBoxes.length > 0) {
-                let checkText;
                 if (diagnosisData.checkBoxes[0].id === "EBV-001") {
                     checkText = infoTexts[CHECKEBV].text;
                 }
                 if (diagnosisData.checkBoxes[0].id === "MYK-001") {
                     checkText = infoTexts[CHECKMYKO].text;
                 }
-                const instruction = infoTexts[index].text;
-                const resultText = `${checkText}\n${instruction}`
-                const result = {
-                    header: infoTexts[index].header,
-                    text: resultText
-                }
-                setInstruction(result);
             } else {
-                const checkPenisillin = infoTexts[CHECKPENISILLIN].text;
-                const instruction = infoTexts[index].text;
-                const resultText = `${checkPenisillin}\n${instruction}`;
-                const result = {
-                    header: infoTexts[index].header,
-                    text: resultText
-                }
-                setInstruction(result);
+                checkText = infoTexts[CHECKPENISILLIN].text;
             }
+            const resultText = `${checkText}\n${instruction}`;
+            const result = {
+                header: infoTexts[index].header,
+                text: (
+                    <p style={{whiteSpace: 'pre-line'}}>
+                        {resultText}
+                    </p>
+                )
+            }
+            setInstruction(result);
         } else {
             setInstruction(infoTexts[index]);
         }
