@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fi.tuni.koodimankelit.antibiootit.database.data.Instructions;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
@@ -23,14 +22,14 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
 
     private final int tabletsPerDose = 1;
 
-    private final Tablet tablet = new Tablet(antibiotic, format, strengths, weightUnit, instructions, tabletsPerDose);
+    private final Tablet tablet = new Tablet(antibiotic, format, strengths, instructions, tabletsPerDose);
 
     @Override
     @BeforeEach
     public void populateStrengths() {
         strengths.clear();
         strengths.add(new Strength(1000000, 30, null, null));
-        strengths.add(new Strength(1500000, 40, weightUnit, strengthText));
+        strengths.add(new Strength(1500000, 40, strengthUnit, strengthText));
         strengths.add(new Strength(2000000, 60, null, null));
     }
 
@@ -56,7 +55,7 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
         Formula dosageFormula = treatment.getFormula();
         StrengthMeasurement strengthMeasurement = dosageFormula.getStrength();
 
-        assertEquals(weightUnit, strengthMeasurement.getUnit());
+        assertEquals(strengthUnit, strengthMeasurement.getUnit());
         assertEquals(strengthText, strengthMeasurement.getText());
         assertEquals(1500000, strengthMeasurement.getValue());
 
@@ -93,7 +92,7 @@ public class TabletBuilderTest extends AntibioticTreatmentBuilderTest {
     @Override
     protected AntibioticTreatmentBuilder getBuilderWithStrengths(List<Strength> strengths, double weight) {
         return new TabletBuilder(
-            new Tablet(antibiotic, format, strengths, weightUnit, new Instructions(days, dosesPerDay, recipeText, doseMultipliers), tabletsPerDose),
+            new Tablet(antibiotic, format, strengths, instructions, tabletsPerDose),
             weight);
     }
 

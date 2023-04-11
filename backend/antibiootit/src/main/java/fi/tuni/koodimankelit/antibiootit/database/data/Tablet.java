@@ -13,12 +13,11 @@ public class Tablet extends Antibiotic {
      * @param antibiotic antibiotic's name
      * @param format antibiotic's format
      * @param strength list of different strengths of the antibiotic
-     * @param weightUnit used weight unit
      * @param instructions instructions on how to use antibiotic
      * @param tabletsPerDose how many tablets needs to be taken per dose
      */
-    public Tablet(String antibiotic, String format, List<Strength> strength, String weightUnit, Instructions instructions, int tabletsPerDose) {
-        super(antibiotic, format, strength, weightUnit, instructions);
+    public Tablet(String antibiotic, String format, List<Strength> strength, Instructions instructions, int tabletsPerDose) {
+        super(antibiotic, format, strength, instructions);
         this.tabletsPerDose = tabletsPerDose;
     }
 

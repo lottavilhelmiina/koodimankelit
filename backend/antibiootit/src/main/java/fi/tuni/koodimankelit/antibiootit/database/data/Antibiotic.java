@@ -9,7 +9,6 @@ public class Antibiotic {
     private final String antibiotic;
     private final String format;
     private final List<Strength> strength;
-    private final String weightUnit;
     private final Instructions instructions;
 
     /**
@@ -17,14 +16,12 @@ public class Antibiotic {
      * @param antibiotic antibiotic's name
      * @param format antibiotic's format
      * @param strength list of different strengths of the antibiotic
-     * @param weightUnit used weight unit
      * @param instructions instructions on how to use antibiotic
      */
-    public Antibiotic(String antibiotic, String format, List<Strength> strength, String weightUnit, Instructions instructions) {
+    public Antibiotic(String antibiotic, String format, List<Strength> strength, Instructions instructions) {
         this.antibiotic = antibiotic;
         this.format = format;
         this.strength = strength;
-        this.weightUnit = weightUnit;
         this.instructions = instructions;
     }
 
@@ -50,14 +47,6 @@ public class Antibiotic {
      */
     public List<Strength> getStrength() {
         return this.strength;
-    }
-
-    /**
-     * Returns used weight unit
-     * @return String weightUnit
-     */
-    public String getWeightUnit() {
-        return this.weightUnit;
     }
 
     /**
