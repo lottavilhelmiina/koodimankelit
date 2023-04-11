@@ -22,7 +22,7 @@ export default function Header() {
                 <NavLink to="/palaute" 
                     className={({ isActive }) => 
                         (isActive ? "active-class" : "not-active-class")}>
-                    Palautekysely
+                    Palaute
                 </NavLink>          
             </div>
         </header>
