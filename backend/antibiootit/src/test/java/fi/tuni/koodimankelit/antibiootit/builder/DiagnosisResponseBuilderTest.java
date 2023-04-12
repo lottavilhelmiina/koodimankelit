@@ -201,6 +201,83 @@ public class DiagnosisResponseBuilderTest {
         assertEquals(DosageResult.class, treatment2.getDosageResult().getClass());
     }
 
+    @Test
+    public void correctStrengthIsChosen() {
+
+        DiagnosisResponseBuilder builder;
+        DiagnosisResponse response;
+
+        // Mixture
+
+        // 5kg -> 1: strength 100, 2: strength 50
+        builder = new DiagnosisResponseBuilder(diagnosis, 5, false);
+        response = builder.build();
+        assertEquals("antibiotic1-1", response.getTreatments().get(0).getAntibiotic());
+        assertEquals("antibiotic2-1", response.getTreatments().get(1).getAntibiotic());
+        assertEquals(100, response.getTreatments().get(0).getFormula().getStrength().getValue());
+        assertEquals(50, response.getTreatments().get(1).getFormula().getStrength().getValue());
+
+        // 10kg -> 1: strenght 100, 2: strength 100
+        builder = new DiagnosisResponseBuilder(diagnosis, 10, false);
+        response = builder.build();
+        assertEquals("antibiotic1-1", response.getTreatments().get(0).getAntibiotic());
+        assertEquals("antibiotic2-1", response.getTreatments().get(1).getAntibiotic());
+        assertEquals(100, response.getTreatments().get(0).getFormula().getStrength().getValue());
+        assertEquals(100, response.getTreatments().get(1).getFormula().getStrength().getValue());
+
+        // 20kg -> 1: strenght 200, 2: strength 100
+        builder = new DiagnosisResponseBuilder(diagnosis, 20, false);
+        response = builder.build();
+        assertEquals("antibiotic1-1", response.getTreatments().get(0).getAntibiotic());
+        assertEquals("antibiotic2-1", response.getTreatments().get(1).getAntibiotic());
+        assertEquals(200, response.getTreatments().get(0).getFormula().getStrength().getValue());
+        assertEquals(100, response.getTreatments().get(1).getFormula().getStrength().getValue());
+
+        // 39.99kg -> same as previous
+        builder = new DiagnosisResponseBuilder(diagnosis, 39.99, false);
+        response = builder.build();
+        assertEquals("antibiotic1-1", response.getTreatments().get(0).getAntibiotic());
+        assertEquals("antibiotic2-1", response.getTreatments().get(1).getAntibiotic());
+        assertEquals(200, response.getTreatments().get(0).getFormula().getStrength().getValue());
+        assertEquals(100, response.getTreatments().get(1).getFormula().getStrength().getValue());
+
+        // Tablet
+
+        // 40kg -> 1: strenght 1000000, 2: strength 500
+        builder = new DiagnosisResponseBuilder(diagnosis, 40, false);
+        response = builder.build();
+        assertEquals("antibiotic1-2", response.getTreatments().get(0).getAntibiotic());
+        assertEquals("antibiotic2-2", response.getTreatments().get(1).getAntibiotic());
+        assertEquals(1000000, response.getTreatments().get(0).getFormula().getStrength().getValue());
+        assertEquals(500, response.getTreatments().get(1).getFormula().getStrength().getValue());
+
+        // 50kg -> 1: strenght 1500000, 2: strength 500
+        builder = new DiagnosisResponseBuilder(diagnosis, 50, false);
+        response = builder.build();
+        assertEquals("antibiotic1-2", response.getTreatments().get(0).getAntibiotic());
+        assertEquals("antibiotic2-2", response.getTreatments().get(1).getAntibiotic());
+        assertEquals(1500000, response.getTreatments().get(0).getFormula().getStrength().getValue());
+        assertEquals(500, response.getTreatments().get(1).getFormula().getStrength().getValue());
+
+        // 60kg -> 1: strenght 2000000, 2: strength 750
+        builder = new DiagnosisResponseBuilder(diagnosis, 60, false);
+        response = builder.build();
+        assertEquals("antibiotic1-2", response.getTreatments().get(0).getAntibiotic());
+        assertEquals("antibiotic2-2", response.getTreatments().get(1).getAntibiotic());
+        assertEquals(2000000, response.getTreatments().get(0).getFormula().getStrength().getValue());
+        assertEquals(750, response.getTreatments().get(1).getFormula().getStrength().getValue());
+    }
+
+    @Test
+    public void testNegativeWeight() {
+        // TODO implement exception handling first
+    }
+
+    @Test
+    public void testZeroWeight() {
+        // TODO implement exception handling first
+    }
+
     private Antibiotic generateMixture(String id, List<Strength> strengths) {
         Instructions instructions = new Instructions(10, 2, null, null);
         Dosage dosage = new Dosage(3000, 40, null);
