@@ -18,7 +18,12 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
+import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
+import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
+import fi.tuni.koodimankelit.antibiootit.models.DosageFormula;
+import fi.tuni.koodimankelit.antibiootit.models.DosageResult;
+import fi.tuni.koodimankelit.antibiootit.models.Formula;
 
 public class DiagnosisResponseBuilderTest {
     
@@ -124,6 +129,76 @@ public class DiagnosisResponseBuilderTest {
         // Mixture (antibiotic3-1) because weight 10 kg
         assertEquals(1, response.getTreatments().size());
         assertEquals("antibiotic3-1", response.getTreatments().get(0).getAntibiotic());
+    }
+
+    @Test
+    public void testNoTreatment() {
+        // TODO implement this only after choice = 0 has been changed to treatments: []
+    }
+
+    @Test
+    public void testLabels() {
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(diagnosis, 10, false);
+        DiagnosisResponse response = builder.build();
+
+        assertEquals(id, response.getId());
+        assertEquals(etiology, response.getEtiology());
+        assertEquals(info, response.getDescription());
+    }
+
+    @Test
+    public void testCorrectAmountOfTreatments() {
+        
+        DiagnosisResponseBuilder builder;
+        DiagnosisResponse response;
+        
+        // normal: should be 2 treatments
+        builder = new DiagnosisResponseBuilder(diagnosis, 10, false);
+        response = builder.build();
+        assertEquals(2, response.getTreatments().size());
+
+        // allergic: should be 1 treatment
+        builder = new DiagnosisResponseBuilder(diagnosis, 10, true);
+        response = builder.build();
+        assertEquals(1, response.getTreatments().size());
+
+    }
+
+    @Test
+    public void testMixtures() {
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(diagnosis, 10, false);
+        DiagnosisResponse response = builder.build();
+
+        // 10 kg -> Mixtures for both treatments
+        AntibioticTreatment treatment1 = response.getTreatments().get(0);
+        AntibioticTreatment treatment2 = response.getTreatments().get(1);
+        assertEquals("antibiotic1-1", treatment1.getAntibiotic());
+        assertEquals("antibiotic2-1", treatment2.getAntibiotic());
+
+        // Mixture's AntibioticTreatment has DosageFormula and AccurateDosageResult
+        assertEquals(DosageFormula.class, treatment1.getFormula().getClass());
+        assertEquals(DosageFormula.class, treatment2.getFormula().getClass());
+        assertEquals(AccurateDosageResult.class, treatment1.getDosageResult().getClass());
+        assertEquals(AccurateDosageResult.class, treatment2.getDosageResult().getClass());
+        
+    }
+
+    @Test
+    public void testTablets() {
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(diagnosis, 50, false);
+        DiagnosisResponse response = builder.build();
+
+        // 50 kg -> Tablets for both treatments
+        AntibioticTreatment treatment1 = response.getTreatments().get(0);
+        AntibioticTreatment treatment2 = response.getTreatments().get(1);
+        assertEquals("antibiotic1-2", treatment1.getAntibiotic());
+        assertEquals("antibiotic2-2", treatment2.getAntibiotic());
+
+        // Mixture's AntibioticTreatment has DosageFormula and AccurateDosageResult
+        assertEquals(Formula.class, treatment1.getFormula().getClass());
+        assertEquals(Formula.class, treatment2.getFormula().getClass());
+        assertEquals(DosageResult.class, treatment1.getDosageResult().getClass());
+        assertEquals(DosageResult.class, treatment2.getDosageResult().getClass());
     }
 
     private Antibiotic generateMixture(String id, List<Strength> strengths) {
