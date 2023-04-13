@@ -162,6 +162,7 @@ public class DiagnosisResponseBuilder {
                 }
             }
         }
+        // TODO throw exception
         return null;
         
     }
