@@ -76,6 +76,7 @@ public class DiagnosisResponseBuilder {
     /** 
      * Build diagnosis response object
      * @return DiagnoisResponse generated instance
+     * @throws NoAntibioticTreatmentException is thrown if diagnosis has no antibiotics as treatment
      */
     public DiagnosisResponse build() {
 
