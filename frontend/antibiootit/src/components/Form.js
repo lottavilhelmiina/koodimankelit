@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { logUserInputData } from "./logUserInputData";
 
 const STEP2 = 8;
 const STEP3 = 9;
@@ -220,6 +221,14 @@ export default function Form(props) {
                                 penicillinAllergic: penicillinAllergy,
                                 checkBoxes: matchingCheckBoxes
                             }
+
+                logUserInputData(
+                    diagnosis.name, 
+                    weight, 
+                    penicillinAllergy, 
+                    concurrentEBV, 
+                    concurrentMycoplasma
+                    );
 
                 props.handleSubmit(data);
 
