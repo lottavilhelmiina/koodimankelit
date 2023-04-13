@@ -4,15 +4,21 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Diagnosis;
 
 public class NoAntibioticTreatment {
 
-    private final String test = "No implementation";
+    private final String text;
+    private final String id;
     
     public NoAntibioticTreatment(Diagnosis diagnosis) {
-        // TODO implement constructor
+        this.text = "No antibiotic treatment for diagnosis: " + diagnosis.getId();
+        this.id = diagnosis.getId();
     }
 
 
-    public String getTest() {
-        return this.test;
+    public String getText() {
+        return this.text;
+    }
+
+    public String getId() {
+        return this.id;
     }
 
 }

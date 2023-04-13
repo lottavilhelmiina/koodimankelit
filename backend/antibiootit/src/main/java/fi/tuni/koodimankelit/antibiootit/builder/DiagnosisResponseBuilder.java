@@ -80,6 +80,12 @@ public class DiagnosisResponseBuilder {
     public DiagnosisResponse build() {
 
         DiagnosisResponse diagnosisResponse = new DiagnosisResponse(diagnosis.getId(), diagnosis.getEtiology(), diagnosis.getInfo());
+
+        // Check if diagnosis has antibiotics as treatment
+        if (this.diagnosis.getTreatments().isEmpty()) {
+            throw new NoAntibioticTreatmentException(diagnosis);
+        }
+
         List<Treatment> treatments = getTreatments();
 
         for(Treatment treatment : treatments) {
@@ -110,10 +116,6 @@ public class DiagnosisResponseBuilder {
 
         List<Treatment> treatments = new ArrayList<>();
 
-        if (this.diagnosis.getTreatments().isEmpty()) {
-            throw new NoAntibioticTreatmentException(this.diagnosis);
-        }
-
         for(Treatment treatment : this.diagnosis.getTreatments()) {
             if(isSuitableTreatment(treatment)) {
                 treatments.add(treatment);
@@ -131,7 +133,6 @@ public class DiagnosisResponseBuilder {
      * Return True if treatment is suitable based on penicillin allergy
      * @param treatment specific treatment
      * @return boolean True, if treatment is suitable
-     * @throws NoAntibioticTreatmentException if diagnosis has no antibiotic treatment
      */
     private boolean isSuitableTreatment(Treatment treatment) {
         if(this.usePenicillinAllergic) {
@@ -163,6 +164,7 @@ public class DiagnosisResponseBuilder {
             }
         }
         // TODO throw exception
+
         return null;
         
     }
