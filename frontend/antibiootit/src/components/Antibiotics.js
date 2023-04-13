@@ -146,7 +146,7 @@ export default function Antibiotics() {
                     data-testid="instructions">
                     <h2 data-testid="instructions-header">{instruction.header}</h2>
                     <hr className="line"></hr>
-                    <p>{instruction.text}</p>
+                    <div>{instruction.text}</div>
                 </div>
             </section>
             <Form 
