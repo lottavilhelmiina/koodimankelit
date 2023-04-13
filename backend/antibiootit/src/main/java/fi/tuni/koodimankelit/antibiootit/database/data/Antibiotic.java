@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Database representation of antibiotic
  */
-public class Antibiotic {
+public abstract class Antibiotic {
     private final String antibiotic;
     private final String format;
     private final List<Strength> strength;
