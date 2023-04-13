@@ -146,7 +146,6 @@ export default function Form(props) {
         e.preventDefault();
         const input = e.target.value;
         if (!VALID_WEIGHT_INPUT.test(input)) {
-            setWeight(input);
             setIsWeightOk(false);
             setFormatWeight(false);
             
@@ -265,6 +264,7 @@ export default function Form(props) {
                         value={weight}
                         onChange={handleInput}
                         type="text"
+                        inputMode="numeric"
                         disabled={!needsAntibiotics || !diagnosis}
                         required={true}
                     /><span className="kg-text">kg</span></span>

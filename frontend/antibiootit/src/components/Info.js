@@ -5,6 +5,7 @@ import getReferences from "./GetReferences";
 export default function Info() {
 
     const [content, setContent] = useState("background");
+    const [activeButton, setActiveButton] = useState("background");
     const [infoTexts, setInfoTexts] = useState(null);
     const [references, setReferences] = useState(null)
 
@@ -17,10 +18,6 @@ export default function Info() {
     useEffect(() => {
         fetchData();
     }, []);
-
-    if (!!references) {
-        console.log(references)
-    }
 
     const Background = () => {
         if (!!infoTexts && !!references) {
@@ -88,9 +85,9 @@ export default function Info() {
             const paragraphs = disclaimerInfo.split("\n\n");
             return (
                 <>
-                    <p>{paragraphs.map((paragraph, index) => (
+                    <div>{paragraphs.map((paragraph, index) => (
                         <p className="info-paragraph" key={index}>{paragraph.split("\n").join("<br>")}</p>
-                    ))}</p>
+                    ))}</div>
                 </>
                 
             )
@@ -108,18 +105,36 @@ export default function Info() {
     }
 
 
+
     return (
         <div className="info-container">
             <h2>Tietoa sivustosta</h2>
             <div className="info-links">
                 <button
-                    onClick={() => setContent("background")}>Tausta ja tavoitteet</button>
+                    className={activeButton === "background" ? 'info-active' : ''}
+                    onClick={() => {
+                        setContent("background")
+                        setActiveButton("background")
+                    }} >Tausta ja tavoitteet</button>
                 <button
-                    onClick={() => setContent("makers")}>Tekijät</button>
+                    className={activeButton === "makers" ? 'info-active' : ''}
+                    onClick={() => {
+                        setContent("makers")
+                        setActiveButton("makers")
+                    }}
+                    >Tekijät</button>
                 <button
-                    onClick={() => setContent("disclaimer")}>Vastuuvapauslauseke</button>
+                    className={activeButton === "disclaimer" ? 'info-active' : ''}
+                    onClick={() => {
+                        setContent("disclaimer")
+                        setActiveButton("disclaimer")
+                    }}>Vastuuvapauslauseke</button>
                 <button
-                    onClick={() => setContent("privacy")}>Tietosuojaseloste</button>
+                    className={activeButton === "privacy" ? 'info-active' : ''}
+                    onClick={() => {
+                        setContent("privacy")
+                        setActiveButton("privacy")
+                    }}>Tietosuojaseloste</button>
             </div>
             <hr className="info-line" />
             {content === "background" && <Background />}

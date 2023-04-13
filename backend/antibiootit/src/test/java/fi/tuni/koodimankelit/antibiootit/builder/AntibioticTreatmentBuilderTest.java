@@ -19,7 +19,7 @@ public abstract class AntibioticTreatmentBuilderTest {
 
     protected final String antibiotic =  "antibiotic";
     protected final String format = "format";
-    protected final String weightUnit = "kg";
+    protected final String strengthUnit = "strengthUnit";
     protected final String strengthText = "strengthText";
     protected final String recipeText = "recipeText";
 
