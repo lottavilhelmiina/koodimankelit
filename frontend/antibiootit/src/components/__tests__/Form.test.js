@@ -103,3 +103,36 @@ test('Should render the correct checkbox for bronkiitti', async () => {
         expect(screen.queryByText('Samanaikainen mykoplasma')).toBeNull();
       });
 })
+
+test('Should not render submit button initially', async () => {
+    render(<Form diagnoses={diagnoses} />);
+    expect(screen.queryByText('Laske suositus')).toBeNull();
+})
+
+test('Should render submit button after a diagnosis is selected', async () => {
+    render(<Form 
+        diagnoses={diagnoses} 
+        setChosenDiagnosis={setChosenDiagnosis} 
+        changeInstruction={changeInstruction}/>);
+
+fireEvent.click(screen.getByText('Valitse diagnoosi'))
+await waitFor(() => screen.getAllByTestId('diagnosis-menu'))
+
+const diagnosisMenu = screen.getByTestId('diagnosis-menu');
+fireEvent.click(screen.getByText('Streptokokkitonsilliitti'))
+    expect(screen.queryByText('Laske suositus')).toBeInTheDocument();
+})
+
+test('Should render submit button after a diagnosis is selected even if it needs no antibiotic treatment', async () => {
+    render(<Form 
+        diagnoses={diagnoses} 
+        setChosenDiagnosis={setChosenDiagnosis} 
+        changeInstruction={changeInstruction}/>);
+
+fireEvent.click(screen.getByText('Valitse diagnoosi'))
+await waitFor(() => screen.getAllByTestId('diagnosis-menu'))
+
+const diagnosisMenu = screen.getByTestId('diagnosis-menu');
+fireEvent.click(screen.getByText('Bronkiitti'))
+    expect(screen.queryByText('Laske suositus')).toBeInTheDocument();
+})
