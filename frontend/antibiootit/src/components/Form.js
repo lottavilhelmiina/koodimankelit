@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { logUserInputData } from "./logUserInputData";
 
 const STEP2 = 8;
 const STEP3 = 9;
@@ -220,14 +221,13 @@ export default function Form(props) {
                                 checkBoxes: matchingCheckBoxes
                             }
 
-                // Send data to Google Analytics
-                window.gtag('send', 'event', 'Form Submission', 'Submit', {
-                    'Diagnoosi': diagnosis.name,
-                    'Paino': weight,
-                    'Penisiliiniallergia': penicillinAllergy,
-                    'EBV': concurrentEBV,
-                    'Mykoplasma': concurrentMycoplasma
-                });
+                logUserInputData(
+                    diagnosis.name, 
+                    weight, 
+                    penicillinAllergy, 
+                    concurrentEBV, 
+                    concurrentMycoplasma
+                    );
 
                 props.handleSubmit(data);
 
