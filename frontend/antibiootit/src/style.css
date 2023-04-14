@@ -356,11 +356,11 @@ aside {
     padding: 0;
     padding-top: 10px;
     padding-bottom: 15px;
-    margin: 10px;
+    margin: 9px;
     text-indent: 30px;
     border: 1.5px solid #395174;
     border-radius: 20px;
-    background-color: #D7E2F2;
+    background-color:#D7E2F2;
 }
 
 .dropdown-content {
@@ -369,7 +369,6 @@ aside {
     z-index: 1;
     width: 250px;
     padding: 0;
-    margin-top: -1.5px;
     margin-left: -1px;
     padding-bottom: 15px;
     padding-top: 15px;
@@ -378,7 +377,6 @@ aside {
     border-left: 1.5px solid #395174;
     border-right: 1.5px solid #395174;
     border-radius: 0px 0px 20px 20px;
-
 }
 
 .dropdown:hover .dropdown-content {
