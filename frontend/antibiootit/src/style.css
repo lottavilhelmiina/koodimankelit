@@ -708,6 +708,7 @@ aside {
     margin-top: 60px;
     list-style-type: none;
     font-size: small;
+    line-height: 1.4;
 }
 
 .info-container h3 {
