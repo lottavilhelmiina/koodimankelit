@@ -148,7 +148,6 @@ export default function Form(props) {
         if (!VALID_WEIGHT_INPUT.test(input)) {
             setIsWeightOk(false);
             setFormatWeight(false);
-            
         }
         else {
             setWeight(input);
@@ -253,7 +252,6 @@ export default function Form(props) {
             onSubmit={handleClick}>
             <DiagnosisMenu />
             <div className="weight-input">
-                <span><img className="weight-icon" src="../icons/weight-icon.svg" alt="" />
                     <input
                         id="weight-input"
                         data-testid="weight-input"
@@ -267,7 +265,7 @@ export default function Form(props) {
                         inputMode="numeric"
                         disabled={!needsAntibiotics || !diagnosis}
                         required={true}
-                    /><span className="kg-text">kg</span></span>
+                    /><span className="kg-text">kg</span>
                     {!formatWeight && <div className="error" id="inputErr">{inputErrorMessage}</div>}
             </div>
             <div className="checkbox-container">
