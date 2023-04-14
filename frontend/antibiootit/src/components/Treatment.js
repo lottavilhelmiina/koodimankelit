@@ -62,6 +62,19 @@ export default function Treatment(props) {
         }
     }
 
+    let dose;
+    let doseInDay;
+    if(activeChoice.instructions.doseMultipliers.length > 1) {
+        const multiplier = activeChoice.instructions.doseMultipliers[1].multiplier;
+        const multipliedDose = activeChoice.dosageResult.dose.value * multiplier;
+        dose = `1. päivä ${multipliedDose} ${activeChoice.dosageResult.dose.unit}, sitten ${activeChoice.dosageResult.dose.value} ${activeChoice.dosageResult.dose.unit}`;
+        doseInDay = `1. päivä ${multipliedDose * activeChoice.instructions.dosesPerDay} ${activeChoice.dosageResult.dose.unit}, sitten ${activeChoice.dosageResult.dose.value * activeChoice.instructions.dosesPerDay} ${activeChoice.dosageResult.dose.unit}`;
+
+    } else {
+        dose = `${activeChoice.dosageResult.dose.value} ${activeChoice.dosageResult.dose.unit}`;
+        doseInDay = `${activeChoice.dosageResult.dose.value * activeChoice.instructions.dosesPerDay} ${activeChoice.dosageResult.dose.unit}`;
+    }
+
     function toggleChoise(name) {
         for(let i = 0; i < props.treatments.length; i++ ) {
             if(props.treatments[i].antibiotic === name) {
@@ -111,8 +124,8 @@ export default function Treatment(props) {
             index={index}
             name={antibiote.antibiotic}
             dosage={`${antibiote.formula.strength.text}`}
-            dose={`${antibiote.dosageResult.dose.value} ${antibiote.dosageResult.dose.unit}`}
-            doseInDay={`${antibiote.dosageResult.dose.value * antibiote.instructions.dosesPerDay} ${antibiote.dosageResult.dose.unit}`}
+            dose={dose}
+            doseInDay={doseInDay}
             instruction={`${antibiote.instructions.dosesPerDay} krt/vrk, yht ${antibiote.instructions.days} vrk ajan`}
             toggleChoise={toggleChoise}
             choise={antibiote.antibiotic === activeChoice.antibiotic ? true : false}
