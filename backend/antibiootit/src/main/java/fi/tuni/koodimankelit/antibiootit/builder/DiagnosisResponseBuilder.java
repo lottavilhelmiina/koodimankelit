@@ -25,7 +25,6 @@ public class DiagnosisResponseBuilder {
     private static int PRIMARY_CHOICE = 1;
     private static int SECONDARY_CHOICE = 2;
     private static int PENICILLIN_ALLERGIC_CHOICE = 3;
-    private static int NO_ANTIBIOTIC_CHOICE = 0;
 
     private Comparator<Strength> highestStrengthComparator = new Comparator<Strength>() {
 
@@ -77,10 +76,17 @@ public class DiagnosisResponseBuilder {
     /** 
      * Build diagnosis response object
      * @return DiagnoisResponse generated instance
+     * @throws NoAntibioticTreatmentException is thrown if diagnosis has no antibiotics as treatment
      */
     public DiagnosisResponse build() {
 
         DiagnosisResponse diagnosisResponse = new DiagnosisResponse(diagnosis.getId(), diagnosis.getEtiology(), diagnosis.getInfo());
+
+        // Check if diagnosis has antibiotics as treatment
+        if (this.diagnosis.getTreatments().isEmpty()) {
+            throw new NoAntibioticTreatmentException(diagnosis);
+        }
+
         List<Treatment> treatments = getTreatments();
 
         for(Treatment treatment : treatments) {
@@ -110,6 +116,7 @@ public class DiagnosisResponseBuilder {
     private List<Treatment> getTreatments() {
 
         List<Treatment> treatments = new ArrayList<>();
+
         for(Treatment treatment : this.diagnosis.getTreatments()) {
             if(isSuitableTreatment(treatment)) {
                 treatments.add(treatment);
@@ -127,16 +134,11 @@ public class DiagnosisResponseBuilder {
      * Return True if treatment is suitable based on penicillin allergy
      * @param treatment specific treatment
      * @return boolean True, if treatment is suitable
-     * @throws NoAntibioticTreatmentException if diagnosis has no antibiotic treatment
      */
     private boolean isSuitableTreatment(Treatment treatment) {
         if(this.usePenicillinAllergic) {
             return PENICILLIN_ALLERGIC_CHOICE == treatment.getChoice();
-        }
-        else if (NO_ANTIBIOTIC_CHOICE == treatment.getChoice()) {
-            throw new NoAntibioticTreatmentException(this.diagnosis);
-        }
-        else {
+        } else {
             return PRIMARY_CHOICE == treatment.getChoice() || SECONDARY_CHOICE == treatment.getChoice();
         }
     }
@@ -163,6 +165,7 @@ public class DiagnosisResponseBuilder {
             }
         }
         // TODO throw exception
+
         return null;
         
     }

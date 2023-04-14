@@ -1,6 +1,7 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Mixture;
 import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
+import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
 import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
@@ -133,7 +135,13 @@ public class DiagnosisResponseBuilderTest {
 
     @Test
     public void testNoTreatment() {
-        // TODO implement this only after choice = 0 has been changed to treatments: []
+        Diagnosis noAntibioticDiagnosis = diagnosis;
+        noAntibioticDiagnosis.getTreatments().clear();
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(noAntibioticDiagnosis, 10, false);
+
+        assertThrows(NoAntibioticTreatmentException.class, () -> {
+            DiagnosisResponse response = builder.build();
+        });
     }
 
     @Test
