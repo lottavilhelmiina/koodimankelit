@@ -49,8 +49,6 @@ export default function Recipe(props) {
         }
     }, [activeRecipe, chosenAb, treatments, diagnosisData, noTreatment]);
 
-    console.log(activeRecipe)
-
     /**
      * Copies the dosage instructions to clipboard when user clicks the copy button.
      * Activates notification.

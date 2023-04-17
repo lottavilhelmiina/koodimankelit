@@ -12,13 +12,11 @@ export default function Form(props) {
         fullInfo = props.diagnoses;
         diagnosisNames = fullInfo.map(diagnosisInfo => diagnosisInfo.name);
     }
-    
 
-    // Store the entire diagnosis data here, not just the name!
+    console.log(props.formData)
+
     const [diagnosis, setDiagnosis] = useState("");
-    
     const [needsAntibiotics, setNeedsAntibiotics] = useState(false);
-
     const [additionalCheckboxes, setAdditionalCheckboxes] = useState();
 
     useEffect(() =>{
@@ -30,7 +28,7 @@ export default function Form(props) {
             }
         }
     }, [diagnosis, fullInfo])
-    
+
     const Choose = () => {
         return (
             <span className="diagnosis-menu-choose">
@@ -98,7 +96,6 @@ export default function Form(props) {
                 </div>
             )
         }
-
     }
 
     const handleMenuClick = (e) => {
@@ -116,7 +113,6 @@ export default function Form(props) {
         if(!props.formSubmitted) {
             props.changeInstruction(STEP2);
         }
-
         if (selectedInfo.needsAntibiotics === true) {
             setNeedsAntibiotics(true);
         }
@@ -160,6 +156,9 @@ export default function Form(props) {
             if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
                 setIsWeightOk(true);
                 setFormatWeight(true);
+                if (props.formSubmitted) {
+                    props.handleSubmit({diagnosisId: ""});
+                }
             }
             else {
                 setIsWeightOk(false);
@@ -243,8 +242,6 @@ export default function Form(props) {
         placeholder = "";
     }
 
-    
-
     return (
         <form 
             className="diagnosis-form" 
@@ -274,21 +271,34 @@ export default function Form(props) {
                         <input 
                             type="checkbox"
                             disabled={!needsAntibiotics}
-                            onClick={() => setPenicillinAllergy(!penicillinAllergy)}
+                            onClick={() => {
+                                const newData = {
+                                    ...props.formData,
+                                    penicillinAllergic: !penicillinAllergy
+                                }
+                                if (props.formSubmitted) {
+                                    props.handleSubmit(newData);}
+                                setPenicillinAllergy(!penicillinAllergy)}}
                         /> <span className={!needsAntibiotics ? "disabled" : "enabled"}>Penisilliiniallergia</span>
                     </label>} 
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'EBV-001').length > 0 &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
-                            onClick={() => setConcurrentEBV(!concurrentEBV)}
+                            onClick={() => {
+                                if (props.formSubmitted) {
+                                    props.handleSubmit({diagnosisId: ""});}
+                                    setConcurrentEBV(!concurrentEBV)}}
                         /> Samanaikainen EBV-infektio
                     </label>}
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'MYK-001').length > 0 &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
-                            onClick={() => setConcurrentMycoplasma(!concurrentMycoplasma)}
+                            onClick={() => {
+                                if (props.formSubmitted) {
+                                    props.handleSubmit({diagnosisId: ""});}
+                                    setConcurrentMycoplasma(!concurrentMycoplasma)}}
                         /> Samanaikainen mykoplasma
                     </label>}
             </div>
