@@ -12,6 +12,8 @@ export default function Recipe(props) {
     const [showNotification, setShowNotification] = useState(false);
     const diagnosisCode = diagnosisData.id;
 
+
+
     const TIMEOUT_DURATION = 1000;
 
 
@@ -20,19 +22,34 @@ export default function Recipe(props) {
     }
 
     useEffect(() => {
+        const diagnosisForRecipe = new Map([
+            ["J03.0", "Streptokokkinielutulehduksen hoitoon."],
+            ["H66.0", "Äkillisen välikorvatulehduksen hoitoon."],
+            ["J01.9", "Äkillisen sivuontelotulehduksen hoitoon."],
+            ["J18.9", "Bakteeriperäisen keuhkokuumeen hoitoon."]
+        ]);
         
+        const recipeTextEnding = diagnosisForRecipe.get(diagnosisData.id);
+
         if (noTreatment === null) {
             setChosenAb(activeRecipe.antibioteName + " " + activeRecipe.antibioteStrength);
-            setDosageInstructions(activeRecipe.text);
+            if (activeRecipe.dosage.doseMultipliers.length === 1) {
+                setDosageInstructions(`${activeRecipe.text}. ${recipeTextEnding}`)
+            }
+            else {
+                
+                const firstDayDose = activeRecipe.dosage.doseMultipliers[1].multiplier * activeRecipe.dose.value;
+                const dosage = `Ensimmäisenä päivänä annetaan kerran ${firstDayDose} ${activeRecipe.dose.unit} ja tämän jälkeen ${activeRecipe.dose.value} ${activeRecipe.dose.unit} ${activeRecipe.dosage.recipeText}. Hoidon kokonaispituus on yhteensä ${activeRecipe.dosage.days} vuorokautta. ${recipeTextEnding}`
+                setDosageInstructions(dosage)
+            }
         }
         else {
             setChosenAb("");
             setDosageInstructions(noTreatment.text);
         }
-    }, [activeRecipe, chosenAb, treatments, props.diagnosis, noTreatment]);
+    }, [activeRecipe, chosenAb, treatments, diagnosisData, noTreatment]);
 
-
-
+    console.log(activeRecipe)
 
     /**
      * Copies the dosage instructions to clipboard when user clicks the copy button.

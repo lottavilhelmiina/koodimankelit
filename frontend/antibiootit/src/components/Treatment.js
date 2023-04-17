@@ -110,7 +110,9 @@ export default function Treatment(props) {
                 const treatment = {
                     text: recipe,
                     antibioteName: antibiote,
-                    antibioteStrength: strength
+                    antibioteStrength: strength,
+                    dose: props.treatments[i].dosageResult.dose,
+                    dosage: props.treatments[i].instructions
                 }
 
                 props.setActiveRecipe(treatment);

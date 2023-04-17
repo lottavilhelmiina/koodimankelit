@@ -70,11 +70,15 @@ export default function Antibiotics() {
                 const recipe = `${dosageValue} ${dosageUnit} ${dosesPerDayText} ${instructionDays} vrk:n ajan`;
                 const antibiote = response.treatments[0].antibiotic;
                 const strength = response.treatments[0].formula.strength.text;
+                const dose = response.treatments[0].dosageResult.dose;
+                const dosage = response.treatments[0].instructions;
 
                 const treatment = {
                     text: recipe,
                     antibioteName: antibiote,
-                    antibioteStrength: strength
+                    antibioteStrength: strength,
+                    dose: dose,
+                    dosage: dosage
                 }
                 setActiveRecipe(treatment);
             })
