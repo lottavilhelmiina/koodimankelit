@@ -37,9 +37,6 @@ export default function Treatment(props) {
         setActiveChoice(props.treatments[0]);
     }, [props.treatments])
 
-    /*const style = {
-        backgroundColor: "white"
-    }*/
 
     function giveValues() {
         if (props.treatments[0].format === 'mikstuura') {
