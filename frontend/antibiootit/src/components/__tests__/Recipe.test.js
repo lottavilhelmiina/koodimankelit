@@ -16,7 +16,10 @@ const treatments = [
 const activeRecipe = {
     text: '3 ml kahdesti päivässä 10 vrk ajan',
     antibioteName: 'Amoksisilliini jauhe',
-    antibioteStrength: '100 mg/ml'
+    antibioteStrength: '100 mg/ml',
+    dosage: 
+        {days: 10, dosesPerDay: 2, recipeText: 'kahdesti päivässä', doseMultipliers: 
+        [{id: 0, multiplier: 1}]}
 }
 
 test('Should render Recipe', async () => {
@@ -44,7 +47,7 @@ test('Should show dosage instructions', async () => {
                 diagnosisData={diagnosisData} 
                 noTreatment={null}/>);
 
-    expect(screen.queryByText('3 ml kahdesti päivässä 10 vrk ajan')).toBeInTheDocument();
+    expect(screen.queryByText('3 ml kahdesti päivässä 10 vrk ajan. Äkillisen välikorvatulehduksen hoitoon.')).toBeInTheDocument();
 });
 
 test('Should show the ICD-10 code', async () => {
