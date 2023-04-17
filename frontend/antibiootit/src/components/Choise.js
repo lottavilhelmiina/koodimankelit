@@ -28,7 +28,7 @@ export default function Choise(props) {
     }
 
     return (
-        <div className="choise" style={styles} onClick={() => props.toggleChoise(props.name)}>
+        <div className="choise" data-testid="choise-element" style={styles} onClick={() => props.toggleChoise(props.name)}>
             <ChoiseTxt />
         </div>
     );
