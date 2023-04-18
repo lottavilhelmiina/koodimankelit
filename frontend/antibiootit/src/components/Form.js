@@ -183,6 +183,7 @@ export default function Form(props) {
                         ...props.formData,
                         weight: weightForCalculations
                     }
+                    props.setChosenWeight(weightForCalculations)
                     props.handleSubmit(newData);
                 }
             }
