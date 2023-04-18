@@ -27,4 +27,15 @@ export default function LoadingIndicator(props) {
             </div>
         )
     }
+
+    if(props.loading === "recipe") {
+        return (
+            <div className="recipe-text-container">
+                    <div className="loading-container">
+                        <div className="loading-animation-calculations"></div>
+                        <p>Päivitetään reseptiä...</p>
+                    </div>
+                </div>
+        )
+    }
 }

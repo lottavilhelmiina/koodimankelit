@@ -12,13 +12,9 @@ export default function Form(props) {
         fullInfo = props.diagnoses;
         diagnosisNames = fullInfo.map(diagnosisInfo => diagnosisInfo.name);
     }
-    
 
-    // Store the entire diagnosis data here, not just the name!
     const [diagnosis, setDiagnosis] = useState("");
-    
     const [needsAntibiotics, setNeedsAntibiotics] = useState(false);
-
     const [additionalCheckboxes, setAdditionalCheckboxes] = useState();
 
     useEffect(() =>{
@@ -30,13 +26,12 @@ export default function Form(props) {
             }
         }
     }, [diagnosis, fullInfo])
-    
+
     const Choose = () => {
         return (
             <span className="diagnosis-menu-choose">
                 Valitse diagnoosi
              </span>
-
         )
     }
 
@@ -100,7 +95,6 @@ export default function Form(props) {
                 </div>
             )
         }
-
     }
 
     const handleMenuClick = (e) => {
@@ -115,8 +109,32 @@ export default function Form(props) {
         const selectedInfo = fullInfo.filter(d => d.name === selected)[0]
         setDiagnosis(selectedInfo);
         props.setChosenDiagnosis(selected);
+        console.log(selectedInfo)
         if(!props.formSubmitted) {
             props.changeInstruction(STEP2);
+        }
+        else if (props.formSubmitted && selectedInfo.id !== "J20.9" && selectedInfo.id !== "J21.9") {
+            const checkBoxes = [
+                {
+                    id: 'EBV-001',
+                    value: concurrentEBV
+                },
+                {
+                    id: 'MYK-001',
+                    value: concurrentMycoplasma
+                  }
+            ];
+            const matchingCheckBoxes = checkBoxes.filter(cb => {
+                return selectedInfo.checkBoxes.some(c => c.id === cb.id);
+            });
+
+            const newData = {
+                ...props.formData,
+               diagnosisID: selectedInfo.id,
+               checkBoxes: matchingCheckBoxes
+            }
+
+            props.handleSubmit(newData);
         }
 
         if (selectedInfo.needsAntibiotics === true) {
@@ -157,11 +175,19 @@ export default function Form(props) {
                 props.changeInstruction(STEP3);
             }
 
-            const formattedWeight = input.replace(',', '.');
-            
-            if (formattedWeight >= MIN_WEIGHT && formattedWeight <= MAX_WEIGHT) {
+            const roundedWeight = Math.round(parseFloat(input.replace(",", ".")) * 100) / 100;
+            const weightForCalculations = roundedWeight.toFixed(2).replace(",", ".");
+            if (weightForCalculations >= MIN_WEIGHT && weightForCalculations <= MAX_WEIGHT) {
                 setIsWeightOk(true);
                 setFormatWeight(true);
+                if (props.formSubmitted) {
+                    const newData = {
+                        ...props.formData,
+                        weight: weightForCalculations
+                    }
+                    props.setChosenWeight(weightForCalculations)
+                    props.handleSubmit(newData);
+                }
             }
             else {
                 setIsWeightOk(false);
@@ -245,7 +271,50 @@ export default function Form(props) {
         placeholder = "";
     }
 
-    
+    const handlePenicillinAllergy = () => {
+        const newData = {
+            ...props.formData,
+            penicillinAllergic: !penicillinAllergy
+        }
+        if (props.formSubmitted) {
+            props.handleSubmit(newData);
+        }
+        setPenicillinAllergy(!penicillinAllergy)
+    }
+
+    const handleEBV = () => {
+        if (props.formSubmitted) {
+            const checkBoxes = [
+                {
+                    id: 'EBV-001',
+                    value: !concurrentEBV
+                }
+            ];
+            const newData = {
+                ...props.formData,
+                checkBoxes: checkBoxes
+            }
+            props.handleSubmit(newData);
+        }
+        setConcurrentEBV(!concurrentEBV)
+    }
+
+    const handleMycoplasma = () => {
+        if (props.formSubmitted) {
+            const checkBoxes = [
+                {
+                    id: 'MYK-001',
+                    value: !concurrentMycoplasma
+                }
+            ];
+            const newData = {
+                ...props.formData,
+                checkBoxes: checkBoxes
+            }
+            props.handleSubmit(newData);
+        }
+        setConcurrentMycoplasma(!concurrentMycoplasma)
+    }
 
     return (
         <form 
@@ -276,21 +345,21 @@ export default function Form(props) {
                         <input 
                             type="checkbox"
                             disabled={!needsAntibiotics}
-                            onClick={() => setPenicillinAllergy(!penicillinAllergy)}
+                            onClick={handlePenicillinAllergy}
                         /> <span className={!needsAntibiotics ? "disabled" : "enabled"}>Penisilliiniallergia</span>
                     </label>} 
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'EBV-001').length > 0 &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
-                            onClick={() => setConcurrentEBV(!concurrentEBV)}
+                            onClick={handleEBV}
                         /> Samanaikainen EBV-infektio
                     </label>}
                 {additionalCheckboxes && additionalCheckboxes.filter(obj => obj.id === 'MYK-001').length > 0 &&
                     <label className="form--checkbox">
                         <input 
                             type="checkbox"
-                            onClick={() => setConcurrentMycoplasma(!concurrentMycoplasma)}
+                            onClick={handleMycoplasma}
                         /> Samanaikainen mykoplasma
                     </label>}
             </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function Recipe(props) {
 
@@ -49,8 +50,6 @@ export default function Recipe(props) {
         }
     }, [activeRecipe, chosenAb, treatments, diagnosisData, noTreatment]);
 
-    console.log(activeRecipe)
-
     /**
      * Copies the dosage instructions to clipboard when user clicks the copy button.
      * Activates notification.
@@ -100,15 +99,18 @@ export default function Recipe(props) {
     return (
         <div className="recipe-container">
             <h3>Reseptin kirjoittaminen:</h3>
-            <h4>{chosenAb}</h4>
-            <div className="recipe-text-container">
+            {props.loading ? <></> : <h4>{chosenAb}</h4>}
+            {props.loading ? 
+            <LoadingIndicator 
+                loading={"recipe"}
+            /> : <div className="recipe-text-container">
                 <p className="recipe-text">{dosageInstructions}
                 </p>
                 <div className="recipe-container-bottom">
                     <span>ICD-10 koodi: <span className="bold">{diagnosisCode}</span></span>
                     <CopyButton />
                 </div>
-            </div>
+            </div>}
         </div>
     );
 

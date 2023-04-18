@@ -20,6 +20,7 @@ export default function Antibiotics() {
     const [diagnosisData, setDiagnosisData] = useState("");
     const [chosenWeight, setChosenWeight] = useState(null);
     const [noAntibioticTreatment, setNoAntibioticTreatment] = useState(null);
+    const [formData, setFormData] = useState(null);
     
     const [diagnoses, setDiagnoses] = useState(null);
     const [infoTexts, setInfoTexts] = useState(null);
@@ -35,7 +36,7 @@ export default function Antibiotics() {
         const diagnosesList = await GetDiagnoses();
         setDiagnoses(diagnosesList);
     }
-    console.log(diagnosisData);
+
     useEffect(() => {
         const infoTextsList = GetInfoTexts();
         setInfoTexts(infoTextsList);
@@ -48,9 +49,14 @@ export default function Antibiotics() {
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const receiveInput = (data) => {
-        if (data.diagnosisId !== "") {
+        if (data.diagnosisID !== "") {
             setFormSubmitted(true);
             setInstruction(infoTexts[STEP4]);
+            setFormData(data);
+        }
+        else {
+            setFormSubmitted(false);
+            return;
         }
 
         const selected = diagnoses.filter(infection => infection.id === data.diagnosisID)[0];
@@ -135,10 +141,8 @@ export default function Antibiotics() {
             }
             else {
                 setNoAntibioticTreatment(null);
-                setFormSubmitted(false);
             }
         }
-
     }, [chosenDiagnosis, diagnoses, infoTexts])
     
     return (
@@ -159,6 +163,7 @@ export default function Antibiotics() {
                 setChosenDiagnosis={setChosenDiagnosis}
                 setChosenWeight={setChosenWeight}
                 formSubmitted={formSubmitted} 
+                formData={formData}
             />
             {formSubmitted && !!noAntibioticTreatment && <NoTreatment />}
             {formSubmitted && (treatments && diagnosisData.needsAntibiotics)  && <Treatment 
@@ -171,6 +176,7 @@ export default function Antibiotics() {
                 format={treatments[0].format}
             />}
             {formSubmitted && (treatments || !!noAntibioticTreatment) && <Recipe 
+                loading={loading}
                 treatments={treatments} 
                 activeRecipe={activeRecipe} 
                 diagnosisData={diagnosisData}
