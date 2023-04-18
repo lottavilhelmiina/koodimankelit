@@ -273,7 +273,7 @@ aside {
 
 .diagnosis-menu-name {
     z-index: 2;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     margin-left: 15px;
 }
 
@@ -287,6 +287,7 @@ aside {
     border: none;
     font-size: 16px;
     margin-top: 5px;
+    margin-left: 8px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -613,7 +614,7 @@ aside {
     font-size: 16px;
     padding: 10px;
     margin: 0;
-    margin-left: 10px;
+    margin-left: 14px;
     margin-bottom: 10px;
     width: 90%;
 }
@@ -624,7 +625,7 @@ aside {
     justify-content: space-between;
     background-color: white;
     padding-bottom: 5px;
-    padding-left: 4px;
+    margin-left: 0;
 }
 
 .copy-button {
