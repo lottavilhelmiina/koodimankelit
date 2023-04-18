@@ -33,6 +33,10 @@ test('Header includes all the correct links', () => {
 
 
 test('Should render Footer', async () => {
-  render(<Footer />);
+  render(<BrowserRouter>
+    <App>
+      <Footer />
+    </App>
+  </BrowserRouter>);
 });
 

@@ -84,18 +84,22 @@ footer {
 }
 
 .footer--lauseke, .footer--tekijat {
-    font-weight: 500;
-    font-size: 16px;
+    font-family: Inter, sans-serif;
     background: none!important;
+    text-decoration: none;
     border: none;
-    padding: 0!important;
-    color: white;
-    cursor: pointer;
+    padding-top: 5px;
+    color:white;
+    font-size: 16px;
 
 }
 
 .footer--lauseke {
     margin-left: 8%;
+}
+
+.footer--tekijat {
+    padding-left: 40px;
 }
 
 main {
