@@ -10,7 +10,6 @@ export default function Treatment(props) {
     const [activeChoice, setActiveChoice] = useState(props.treatments[0]);
 
     const [activeVariables, setActiveVariables] = useState(giveValues());
-    
 
     // This updates the variables when the diagnosis is changed
     useEffect(() => {
@@ -38,9 +37,6 @@ export default function Treatment(props) {
         setActiveChoice(props.treatments[0]);
     }, [props.treatments])
 
-    const style = {
-        backgroundColor: "white"
-    }
 
     function giveValues() {
         if (props.treatments[0].format === 'mikstuura') {
@@ -167,12 +163,7 @@ export default function Treatment(props) {
             /> :
             <div className="treatment-choises">
                 <div className="choise-container">
-                    {props.needsAntibiotics ? AntibioticElements : 
-                    <div className="choise" style={style}>
-                        <div className="choise-inner">
-                            <p>Tämän diagnoosin hoitoon <strong>ei suositella antibioottia.</strong></p>
-                        </div>
-                    </div>}
+                    {AntibioticElements}
                 </div>
             </div>}
             <div className="treatment-extra">
@@ -199,7 +190,7 @@ export default function Treatment(props) {
             <LoadingIndicator 
                 loading={"calculations"}
             /> : 
-            openCalculations && props.needsAntibiotics && props.format === 'mikstuura' && <div className="treatment-calculations">
+            openCalculations && props.needsAntibiotics && props.format === 'mikstuura' && <div className="treatment-calculations" data-testid="calculations">
                 <MathFormula
                     weight={activeVariables.weight}
                     doseInDay={activeVariables.doseInDay}

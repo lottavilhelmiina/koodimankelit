@@ -140,7 +140,6 @@ export default function Antibiotics() {
         }
 
     }, [chosenDiagnosis, diagnoses, infoTexts])
-
     
     return (
         <div className="antibiotics">
@@ -166,7 +165,6 @@ export default function Antibiotics() {
                 loading={loading}
                 needsAntibiotics={diagnosisData.needsAntibiotics}
                 description={description}
-                diagnosis={chosenDiagnosis}
                 weight={chosenWeight}
                 treatments={treatments}
                 setActiveRecipe={setActiveRecipe}
