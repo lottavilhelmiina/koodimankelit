@@ -178,6 +178,7 @@ export default function Antibiotics() {
                 format={treatments[0].format}
             />}
             {formSubmitted && (treatments || !!noAntibioticTreatment) && <Recipe 
+                loading={loading}
                 treatments={treatments} 
                 activeRecipe={activeRecipe} 
                 diagnosisData={diagnosisData}
