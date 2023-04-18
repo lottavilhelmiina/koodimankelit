@@ -49,7 +49,7 @@ export default function Antibiotics() {
     const [formSubmitted, setFormSubmitted] = useState(false);
 
     const receiveInput = (data) => {
-        if (data.diagnosisId !== "") {
+        if (data.diagnosisID !== "") {
             setFormSubmitted(true);
             setInstruction(infoTexts[STEP4]);
             setFormData(data);
@@ -141,7 +141,6 @@ export default function Antibiotics() {
             }
             else {
                 setNoAntibioticTreatment(null);
-                setFormSubmitted(false);
             }
         }
     }, [chosenDiagnosis, diagnoses, infoTexts])
