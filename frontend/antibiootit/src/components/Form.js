@@ -106,14 +106,14 @@ export default function Form(props) {
         
         setFormatWeight(true);
         const selected = e.target.textContent;
+        
         const selectedInfo = fullInfo.filter(d => d.name === selected)[0]
         setDiagnosis(selectedInfo);
         props.setChosenDiagnosis(selected);
-        console.log(selectedInfo)
-        if(!props.formSubmitted) {
+        if(!props.formSubmitted || props.formData === null) {
             props.changeInstruction(STEP2);
         }
-        else if (props.formSubmitted && selectedInfo.id !== "J20.9" && selectedInfo.id !== "J21.9") {
+        else if (props.hasFormData && selectedInfo.id !== "J20.9" && selectedInfo.id !== "J21.9") {
             const checkBoxes = [
                 {
                     id: 'EBV-001',
@@ -128,12 +128,17 @@ export default function Form(props) {
                 return selectedInfo.checkBoxes.some(c => c.id === cb.id);
             });
 
-            const newData = {
-                ...props.formData,
-               diagnosisID: selectedInfo.id,
-               checkBoxes: matchingCheckBoxes
+            let newData = null;
+            
+            if (props.formData === null) {
+                console.log("no data")
             }
-
+            newData = {
+                    ...props.formData,
+                diagnosisID: selectedInfo.id,
+                checkBoxes: matchingCheckBoxes
+            }
+            
             props.handleSubmit(newData);
         }
 
@@ -180,7 +185,7 @@ export default function Form(props) {
             if (weightForCalculations >= MIN_WEIGHT && weightForCalculations <= MAX_WEIGHT) {
                 setIsWeightOk(true);
                 setFormatWeight(true);
-                if (props.formSubmitted) {
+                if (props.hasFormData) {
                     const newData = {
                         ...props.formData,
                         weight: weightForCalculations
@@ -276,14 +281,14 @@ export default function Form(props) {
             ...props.formData,
             penicillinAllergic: !penicillinAllergy
         }
-        if (props.formSubmitted) {
+        if (props.hasFormData) {
             props.handleSubmit(newData);
         }
         setPenicillinAllergy(!penicillinAllergy)
     }
 
     const handleEBV = () => {
-        if (props.formSubmitted) {
+        if (props.hasFormData) {
             const checkBoxes = [
                 {
                     id: 'EBV-001',
@@ -300,7 +305,7 @@ export default function Form(props) {
     }
 
     const handleMycoplasma = () => {
-        if (props.formSubmitted) {
+        if (props.hasFormData) {
             const checkBoxes = [
                 {
                     id: 'MYK-001',
