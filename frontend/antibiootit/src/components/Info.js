@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import GetInfoTexts from "./GetInfoTexts";
 import getReferences from "./GetReferences";
 
@@ -7,7 +8,21 @@ export default function Info() {
     const [content, setContent] = useState("background");
     const [activeButton, setActiveButton] = useState("background");
     const [infoTexts, setInfoTexts] = useState(null);
-    const [references, setReferences] = useState(null)
+    const [references, setReferences] = useState(null);
+
+    const location = useLocation();
+    let from = location.state ? location.state : "";
+
+    useEffect(() => {
+        if (from === "footer-disclaimer") {
+            setContent("disclaimer");
+            setActiveButton("disclaimer")
+        }
+        else if (from === "footer-makers") {
+            setContent("makers");
+            setActiveButton("makers")
+        }
+    }, [from])
 
     async function fetchData() {
         const infoTextsList = await GetInfoTexts();
