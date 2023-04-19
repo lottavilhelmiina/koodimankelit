@@ -21,6 +21,7 @@ export default function Antibiotics() {
     const [chosenWeight, setChosenWeight] = useState(null);
     const [noAntibioticTreatment, setNoAntibioticTreatment] = useState(null);
     const [formData, setFormData] = useState(null);
+    const [hasFormData, setHasFormData] = useState(false)
     
     const [diagnoses, setDiagnoses] = useState(null);
     const [infoTexts, setInfoTexts] = useState(null);
@@ -63,6 +64,7 @@ export default function Antibiotics() {
 
         if (selected.needsAntibiotics) {
             setLoading(true);
+            setHasFormData(true);
             GetRecommendedTreatment(data)
             .then(response => {
                 setTreatments(response.treatments);
@@ -134,10 +136,12 @@ export default function Antibiotics() {
             if (chosenDiagnosis === 'Bronkiitti') {
                 setNoAntibioticTreatment({id: 'J21.9', text: infoTexts[14].text})
                 setFormSubmitted(true);
+                setLoading(false)
             }
             else if (chosenDiagnosis === 'Obstruktiivinen bronkiitti') {
                 setNoAntibioticTreatment({id: 'J20.9', text: infoTexts[15].text})
                 setFormSubmitted(true);
+                setLoading(false)
             }
             else {
                 setNoAntibioticTreatment(null);
@@ -164,6 +168,7 @@ export default function Antibiotics() {
                 setChosenWeight={setChosenWeight}
                 formSubmitted={formSubmitted} 
                 formData={formData}
+                hasFormData={hasFormData}
             />
             {formSubmitted && !!noAntibioticTreatment && <NoTreatment />}
             {formSubmitted && (treatments && diagnosisData.needsAntibiotics)  && <Treatment 
