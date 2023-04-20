@@ -1,5 +1,6 @@
 package fi.tuni.koodimankelit.antibiootit.builder;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -20,6 +21,7 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
+import fi.tuni.koodimankelit.antibiootit.exceptions.TreatmentNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.models.AccurateDosageResult;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
@@ -139,9 +141,7 @@ public class DiagnosisResponseBuilderTest {
         noAntibioticDiagnosis.getTreatments().clear();
         DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(noAntibioticDiagnosis, 10, false);
 
-        assertThrows(NoAntibioticTreatmentException.class, () -> {
-            DiagnosisResponse response = builder.build();
-        });
+        assertThrows(NoAntibioticTreatmentException.class, () -> builder.build());
     }
 
     @Test
@@ -278,12 +278,50 @@ public class DiagnosisResponseBuilderTest {
 
     @Test
     public void testNegativeWeight() {
-        // TODO implement exception handling first
+
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(diagnosis, -1, false);
+        assertThrows(TreatmentNotFoundException.class, () -> builder.build());
     }
 
     @Test
     public void testZeroWeight() {
-        // TODO implement exception handling first
+
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(diagnosis, 0, false);
+        assertDoesNotThrow(() -> builder.build());
+    }
+
+    @Test
+    public void testNoSuitableAntibiotic() {
+        // This test represents configuration error.
+        // There should always be some strength within treatment that is applicable when weight > 0.
+
+        treatments.clear();
+        List<Antibiotic> antibiotics = new ArrayList<>(
+            Arrays.asList(
+                generateMixture(
+                    "antibiotic-1", new ArrayList<Strength>(
+                        Arrays.asList(
+                            new Strength(100, 10, null, null),
+                            new Strength(200, 20, null, null)
+                        )
+                    )
+                ),
+                generateTablet(
+                    "antibiotic-2", new ArrayList<Strength>(
+                        Arrays.asList(
+                            new Strength(1000000, 40, null, null),
+                            new Strength(1500000, 50, null, null),
+                            new Strength(2000000, 60, null, null)
+                        )
+                    )
+                )
+            )
+        );
+        treatments.add(new Treatment(1, antibiotics));
+
+        DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(diagnosis, 5, false);
+        assertThrows(TreatmentNotFoundException.class, () -> builder.build());
+
     }
 
     private Antibiotic generateMixture(String id, List<Strength> strengths) {

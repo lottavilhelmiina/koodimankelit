@@ -11,6 +11,7 @@ import fi.tuni.koodimankelit.antibiootit.database.data.Strength;
 import fi.tuni.koodimankelit.antibiootit.database.data.Tablet;
 import fi.tuni.koodimankelit.antibiootit.database.data.Treatment;
 import fi.tuni.koodimankelit.antibiootit.exceptions.NoAntibioticTreatmentException;
+import fi.tuni.koodimankelit.antibiootit.exceptions.TreatmentNotFoundException;
 import fi.tuni.koodimankelit.antibiootit.models.AntibioticTreatment;
 import fi.tuni.koodimankelit.antibiootit.models.DiagnosisResponse;
 
@@ -164,9 +165,8 @@ public class DiagnosisResponseBuilder {
                 }
             }
         }
-        // TODO throw exception
-
-        return null;
+        
+        throw new TreatmentNotFoundException();
         
     }
 
