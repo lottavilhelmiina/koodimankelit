@@ -141,9 +141,7 @@ public class DiagnosisResponseBuilderTest {
         noAntibioticDiagnosis.getTreatments().clear();
         DiagnosisResponseBuilder builder = new DiagnosisResponseBuilder(noAntibioticDiagnosis, 10, false);
 
-        assertThrows(NoAntibioticTreatmentException.class, () -> {
-            DiagnosisResponse response = builder.build();
-        });
+        assertThrows(NoAntibioticTreatmentException.class, () -> builder.build());
     }
 
     @Test
