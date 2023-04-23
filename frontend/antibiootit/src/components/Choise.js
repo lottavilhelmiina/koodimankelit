@@ -3,7 +3,7 @@ import React from "react";
 export default function Choise(props) {
     
         const styles = {
-            backgroundColor: props.choise ? "white" : (props.index === 0 ? "#D7E2F2" : "#CACACA"),
+            backgroundColor: props.choise ? "white" : "#D7E2F2",
             cursor: props.choise ? "auto" : "pointer"
           };
 
